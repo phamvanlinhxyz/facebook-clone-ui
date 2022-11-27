@@ -1,0 +1,17 @@
+export const color = {
+  inputOutline: '#e5e5e6',
+  inputOutlineActive: '#e5e5e6',
+  inputBg: '#f5f6f7',
+  inputPlaceholder: '#ccc',
+  bluePrim: '#2d7cf6',
+  blueSecond: '#216fdb',
+  greenPrim: '#3ba300',
+  whitePrim: '#fff',
+  loginTextGrey: '#4b4f56',
+  loginSeparator: '#ccd0d5',
+  textPrim: '#1c1b1f',
+  buttonSecondBg: '#3478e226',
+  errorColor: 'rgb(179, 38, 30)',
+  iconButtonBg: '#c9c6cf',
+  bgOpacity: '#00000033',
+};
