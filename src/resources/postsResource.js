@@ -6,4 +6,8 @@ export default {
   image: 'Ảnh',
   video: 'Video',
   emo: 'Cảm xúc/Hoạt động',
+  like: 'Thích',
+  comment: 'Bình luận',
+  comments: ' bình luận',
+  postOf: 'Bài viết của ',
 };

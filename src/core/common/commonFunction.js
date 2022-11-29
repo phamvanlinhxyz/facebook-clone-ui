@@ -2,6 +2,7 @@ import * as FileSystem from 'expo-file-system';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { storage } from '../../helpers';
 import { authResource } from '../../resources';
+import commonResource from '../../resources/commonResource';
 import { enumFileType } from './enum';
 
 /**
@@ -86,4 +87,25 @@ export const uploadFileToFirebase = async (base64, fileType) => {
   } catch (error) {
     console.log(error);
   }
+};
+
+export const convertTimeToAgo = (time) => {
+  var secondAgo = Math.round(parseInt(Date.now() - Date.parse(time)) / 1000);
+
+  if (secondAgo < 5) return commonResource.now;
+  if (secondAgo < 60) return secondAgo.toString() + commonResource.secondAgo;
+  if (Math.round(secondAgo / 60) < 60)
+    return Math.round(secondAgo / 60).toString() + commonResource.minuteAgo;
+  if (Math.round(secondAgo / (60 * 60)) < 24)
+    return (
+      Math.round(secondAgo / (60 * 60)).toString() + commonResource.hourAgo
+    );
+  if (Math.round(secondAgo / (60 * 60 * 24)) < 30)
+    return (
+      Math.round(secondAgo / (60 * 60 * 24)).toString() + commonResource.dayAgo
+    );
+  return (
+    Math.round(secondAgo / (60 * 60 * 24 * 30)).toString() +
+    commonResource.monthAgo
+  );
 };

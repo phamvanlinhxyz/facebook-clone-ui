@@ -15,7 +15,7 @@ import {
   TextInput,
 } from 'react-native-paper';
 import { Video } from 'expo-av';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { color } from '../../core/common/styleVariables';
 import { postsResource } from '../../resources';
 import { authSelector } from '../../store/reducers/auth.reducer';
@@ -25,6 +25,7 @@ import { uploadFileToFirebase } from '../../core/common/commonFunction';
 import { enumFileType } from '../../core/common/enum';
 import postsService from '../../services/posts.service';
 import loadingImg from '../../../assets/images/loading.gif';
+import { insertNewPost } from '../../store/reducers/posts.reducer';
 
 const PostDetailScreen = ({ navigation }) => {
   // Hooks
@@ -49,6 +50,9 @@ const PostDetailScreen = ({ navigation }) => {
   // Trạng thái loading
   const [loading, setLoading] = useState(false);
 
+  // Dispatch
+  const dispatch = useDispatch();
+
   /**
    * Xử lý chọn video
    */
@@ -58,7 +62,6 @@ const PostDetailScreen = ({ navigation }) => {
     });
 
     if (!result.canceled) {
-      console.log();
       setVideo(result.assets[0].uri);
     }
   };
@@ -104,7 +107,7 @@ const PostDetailScreen = ({ navigation }) => {
   const handleCreatePost = async () => {
     setLoading(true);
     let postBody = {
-      described: described,
+      described: described.trim(),
       images: [],
       video: null,
     };
@@ -133,7 +136,7 @@ const PostDetailScreen = ({ navigation }) => {
     setLoading(false);
     // Nếu thành công thì thêm vào list
     if (res.success) {
-      console.log(res.data);
+      dispatch(insertNewPost(res.data.data));
     }
     // Về trang chủ
     navigation.navigate('HomeScreen');
@@ -165,7 +168,7 @@ const PostDetailScreen = ({ navigation }) => {
       </Appbar>
       {/* Người đăng */}
       <View style={styles.postAuthor}>
-        <Avatar.Text size={60} label='L' />
+        <Avatar.Image size={60} source={user.avatar.fileLink} />
         <View style={styles.authorName}>
           <Text variant='titleLarge' style={styles.username}>
             {user.username}
@@ -253,6 +256,7 @@ const PostDetailScreen = ({ navigation }) => {
           style={styles.postFooterButton}
           textColor={color.textPrim}
           contentStyle={{ justifyContent: 'flex-start' }}
+          labelStyle={{ fontSize: 16 }}
           onPress={pickImage}
           disabled={totalImage >= limitImage || video}
           icon='image'
@@ -263,6 +267,7 @@ const PostDetailScreen = ({ navigation }) => {
           style={styles.postFooterButton}
           textColor={color.textPrim}
           contentStyle={{ justifyContent: 'flex-start' }}
+          labelStyle={{ fontSize: 16 }}
           onPress={pickVideo}
           disabled={totalImage > 0}
           icon='video'
@@ -273,6 +278,7 @@ const PostDetailScreen = ({ navigation }) => {
           style={styles.postFooterButton}
           textColor={color.textPrim}
           contentStyle={{ justifyContent: 'flex-start' }}
+          labelStyle={{ fontSize: 16 }}
           icon='emoticon'
         >
           {postsResource.emo}
