@@ -1,6 +1,9 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import postsService from '../../services/posts.service';
 
+/**
+ * Lấy danh sách bài đăng
+ */
 export const getListPost = createAsyncThunk(
   'posts/list',
   async (userToken, { rejectWithValue }) => {
@@ -17,9 +20,22 @@ const postsSlice = createSlice({
   name: 'posts',
   initialState: {
     lstPost: [],
-    selectedPost: null,
+    selectedPost: [],
   },
   reducers: {
+    /**
+     * Cập nhật thông tin bài đăng tại trang chủ
+     * @param {*} state
+     * @param {*} action
+     */
+    updatePost(state, action) {
+      state.lstPost = state.lstPost.map((post) => {
+        if (post._id === action.payload._id) {
+          return action.payload;
+        }
+        return post;
+      });
+    },
     /**
      * Chọn một bài đăng
      * @param {*} state
@@ -50,7 +66,8 @@ const postsReducer = postsSlice.reducer;
 export const postsSelector = (state) => state.postsReducer;
 
 // Actions
-export const { insertNewPost, setSelectedPost } = postsSlice.actions;
+export const { insertNewPost, setSelectedPost, updatePost } =
+  postsSlice.actions;
 
 // Reducer
 export default postsReducer;
