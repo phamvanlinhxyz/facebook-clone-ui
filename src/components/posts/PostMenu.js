@@ -50,7 +50,7 @@ const PostMenu = ({ toggleMenu, editPost, deletePost }) => {
           contentStyle={{ justifyContent: 'flex-start' }}
           labelStyle={{ fontSize: 16 }}
           icon='delete'
-          onPress={{}}
+          onPress={deletePost}
         >
           {postsResource.deletePost}
         </Button>

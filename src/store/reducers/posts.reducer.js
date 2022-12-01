@@ -24,6 +24,16 @@ const postsSlice = createSlice({
   },
   reducers: {
     /**
+     * Xóa bà viết
+     * @param {*} state
+     * @param {*} action
+     */
+    deletePost(state, action) {
+      state.lstPost = state.lstPost.filter(
+        (post) => post._id !== action.payload
+      );
+    },
+    /**
      * Cập nhật thông tin bài đăng tại trang chủ
      * @param {*} state
      * @param {*} action
@@ -66,7 +76,7 @@ const postsReducer = postsSlice.reducer;
 export const postsSelector = (state) => state.postsReducer;
 
 // Actions
-export const { insertNewPost, setSelectedPost, updatePost } =
+export const { insertNewPost, setSelectedPost, updatePost, deletePost } =
   postsSlice.actions;
 
 // Reducer

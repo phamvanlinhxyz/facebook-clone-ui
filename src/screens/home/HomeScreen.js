@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { authSelector } from '../../store/reducers/auth.reducer';
 import { postsResource } from '../../resources';
 import {
+  deletePost,
   getListPost,
   postsSelector,
   setSelectedPost,
@@ -21,11 +22,12 @@ import {
 import { PostMenu, SinglePost } from '../../components';
 import { setEditmode } from '../../store/reducers/app.reducer';
 import { enumEditMode } from '../../core/common/enum';
+import postsService from '../../services/posts.service';
 
 const HomeScreen = ({ navigation }) => {
   // Lấy dữ liệu từ store
   const { user, userToken } = useSelector(authSelector);
-  const { lstPost } = useSelector(postsSelector);
+  const { lstPost, selectedPost } = useSelector(postsSelector);
 
   // Usestate
   const [isShowMenu, setIsShowMenu] = useState(false);
@@ -44,6 +46,10 @@ const HomeScreen = ({ navigation }) => {
     setScreenWidth(Dimensions.get('window').width - 24);
   }, []);
 
+  /**
+   * Sự kiện click vào ảnh
+   * @param {*} post
+   */
   const imageClick = (post) => {
     dispatch(setSelectedPost(post));
     navigation.navigate('SinglePostScreen');
@@ -66,9 +72,20 @@ const HomeScreen = ({ navigation }) => {
   /**
    * Chọn sửa bài viết từ menu
    */
-  const editPost = () => {
+  const editPostClick = () => {
     setIsShowMenu(false);
     navigation.navigate('EditPostScreen');
+  };
+
+  /**
+   * Chọn chuyển bài viết vào thùng rác
+   */
+  const deletePostClick = async () => {
+    setIsShowMenu(false);
+    const res = await postsService.deletePost(selectedPost._id);
+    if (res.success) {
+      dispatch(deletePost(res.data.data));
+    }
   };
 
   return (
@@ -131,7 +148,13 @@ const HomeScreen = ({ navigation }) => {
           </View>
         </ScrollView>
       </View>
-      {isShowMenu && <PostMenu toggleMenu={toggleMenu} editPost={editPost} />}
+      {isShowMenu && (
+        <PostMenu
+          toggleMenu={toggleMenu}
+          editPost={editPostClick}
+          deletePost={deletePostClick}
+        />
+      )}
     </SafeAreaView>
   );
 };

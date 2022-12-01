@@ -67,8 +67,29 @@ const edit = async (body) => {
   }
 };
 
+/**
+ * Xóa bài viết
+ * @param {*} id
+ * @returns
+ */
+const deletePost = async (id) => {
+  try {
+    const res = await axios.get(
+      `${constant.API_URL}/api/${constant.API_VER}/posts/delete/${id}`
+    );
+
+    return {
+      success: true,
+      data: res.data,
+    };
+  } catch (error) {
+    return handleError(error);
+  }
+};
+
 export default {
   create,
   getList,
   edit,
+  deletePost,
 };
