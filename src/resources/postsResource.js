@@ -10,4 +10,7 @@ export default {
   comment: 'Bình luận',
   comments: ' bình luận',
   postOf: 'Bài viết của ',
+  editPost: 'Chỉnh sửa bài viết',
+  deletePost: 'Chuyển vào thùng rác',
+  save: 'LƯU',
 };

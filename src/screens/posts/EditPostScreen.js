@@ -22,14 +22,15 @@ import { authSelector } from '../../store/reducers/auth.reducer';
 import * as ImagePicker from 'expo-image-picker';
 import { MaterialIcons } from '@expo/vector-icons';
 import { uploadFileToFirebase } from '../../core/common/commonFunction';
-import { enumFileType } from '../../core/common/enum';
+import { enumFileType, enumMediaStatus } from '../../core/common/enum';
 import postsService from '../../services/posts.service';
 import loadingImg from '../../../assets/images/loading.gif';
-import { insertNewPost } from '../../store/reducers/posts.reducer';
+import { postsSelector, updatePost } from '../../store/reducers/posts.reducer';
 
-const PostDetailScreen = ({ navigation }) => {
+const EditPostScreen = ({ navigation }) => {
   // Hooks
   const { user } = useSelector(authSelector);
+  const { selectedPost } = useSelector(postsSelector);
   const videoRef = useRef(null);
 
   // Lấy độ rộng mà hình
@@ -38,14 +39,21 @@ const PostDetailScreen = ({ navigation }) => {
     setScreenWidth(Dimensions.get('window').width - 24);
   }, []);
 
-  // Set số lượng, list ảnh, video
+  // Set số lượng, list ảnh
   const limitImage = 4;
-  const [totalImage, setTotalImage] = useState(0);
-  const [lstImage, setLstImage] = useState([]);
-  const [video, setVideo] = useState(null);
+  const [totalImage, setTotalImage] = useState(selectedPost.images.length);
+  const [lstOldImage, setLstOldImage] = useState(selectedPost.images);
+  const [lstNewImage, setLstNewImage] = useState([]);
+
+  // Video
+  const [oldVideo, setOldVideo] = useState(selectedPost.videos);
+  const [newVideo, setNewVideo] = useState(null);
+
+  // Ảnh, video bị xóa
+  const [deletedDocument, setDeletedDocument] = useState([]);
 
   // Nội dung bài viết
-  const [described, setDescribed] = useState('');
+  const [described, setDescribed] = useState(selectedPost.described);
 
   // Trạng thái loading
   const [loading, setLoading] = useState(false);
@@ -62,7 +70,13 @@ const PostDetailScreen = ({ navigation }) => {
     });
 
     if (!result.canceled) {
-      setVideo(result.assets[0].uri);
+      // Cho video cũ vào deleted
+      if (oldVideo) {
+        setDeletedDocument((prev) => [...prev, oldVideo]);
+        setOldVideo(null);
+      }
+      // Gán video mới
+      setNewVideo(result.assets[0].uri);
     }
   };
 
@@ -86,7 +100,7 @@ const PostDetailScreen = ({ navigation }) => {
       } else {
         // Set lại số lượng tổng ảnh
         setTotalImage((prev) => prev + result.assets.length);
-        setLstImage((prev) => [...prev, ...result.assets.map((i) => i.uri)]);
+        setLstNewImage((prev) => [...prev, ...result.assets.map((i) => i.uri)]);
       }
     }
   };
@@ -94,52 +108,77 @@ const PostDetailScreen = ({ navigation }) => {
   /**
    * Xử lý gỡ ảnh đã chọn
    */
-  const removeImage = (index) => {
-    setLstImage((prev) => {
-      return prev.filter((img, i) => i !== index);
-    });
+  const removeImage = (index, imageStatus, image) => {
+    // Check xem ảnh cũ hay ảnh mới
+    if (imageStatus === enumMediaStatus.old) {
+      setDeletedDocument((prev) => [...prev, image]);
+      setLstOldImage((prev) => {
+        return prev.filter((img, i) => i !== index);
+      });
+    } else {
+      setLstNewImage((prev) => {
+        return prev.filter((img, i) => i !== index);
+      });
+    }
+    // Trừ số ảnh đi 1
     setTotalImage((prev) => prev - 1);
   };
 
+  const removeVideo = () => {
+    if (oldVideo) {
+      setDeletedDocument((prev) => [...prev, oldVideo]);
+      setOldVideo(null);
+    } else {
+      setNewVideo(null);
+    }
+  };
+
   /**
-   * Xử lý thêm bài đăng
+   * Xử lý lưu
    */
-  const handleCreatePost = async () => {
+  const handleSavePost = async () => {
     setLoading(true);
     let postBody = {
       described: described.trim(),
-      images: [],
-      video: null,
+      oldImages: lstOldImage,
+      newImages: [],
+      oldVideo: oldVideo,
+      newVideo: null,
+      deletedDocument: deletedDocument,
+      postId: selectedPost._id,
     };
     // Upload ảnh lên firebase
-    if (lstImage.length > 0) {
-      for (let image of lstImage) {
+    if (lstNewImage.length > 0) {
+      for (let image of lstNewImage) {
         const uploadImage = await uploadFileToFirebase(
           image,
           enumFileType.image
         );
         if (uploadImage) {
-          postBody.images.push(uploadImage);
+          postBody.newImages.push(uploadImage);
         }
       }
     }
     // Upload video lên firebase
-    if (video) {
-      const uploadVideo = await uploadFileToFirebase(video, enumFileType.video);
+    if (newVideo) {
+      const uploadVideo = await uploadFileToFirebase(
+        newVideo,
+        enumFileType.video
+      );
       if (uploadVideo) {
-        postBody.video = uploadVideo;
+        postBody.newVideo = uploadVideo;
       }
     }
 
     // Đăng bài
-    const res = await postsService.create(postBody);
-    setLoading(false);
+    const res = await postsService.edit(postBody);
     // Nếu thành công thì thêm vào list
     if (res.success) {
-      dispatch(insertNewPost(res.data.data));
+      dispatch(updatePost(res.data.data));
     }
+    setLoading(false);
     // Về trang chủ
-    navigation.navigate('HomeScreen');
+    navigation.goBack();
   };
 
   return (
@@ -154,16 +193,16 @@ const PostDetailScreen = ({ navigation }) => {
       <Appbar>
         <Appbar.BackAction
           onPress={() => {
-            navigation.navigate('HomeScreen');
+            navigation.goBack();
           }}
         />
-        <Appbar.Content style={{ flex: 1 }} title={postsResource.createPost} />
+        <Appbar.Content style={{ flex: 1 }} title={postsResource.editPost} />
         <Button
           style={styles.postButton}
           textColor={color.textPrim}
-          onPress={handleCreatePost}
+          onPress={handleSavePost}
         >
-          {postsResource.post}
+          {postsResource.save}
         </Button>
       </Appbar>
       {/* Người đăng */}
@@ -194,9 +233,9 @@ const PostDetailScreen = ({ navigation }) => {
           onChangeText={setDescribed}
         />
         {/* Ảnh nếu có */}
-        {lstImage.length > 0 && (
+        {(lstOldImage.length > 0 || lstNewImage.length > 0) && (
           <View style={{ flexDirection: 'row', marginTop: 12 }}>
-            {lstImage.map((img, index) => {
+            {lstOldImage.map((img, index) => {
               return (
                 <View
                   style={{
@@ -212,7 +251,32 @@ const PostDetailScreen = ({ navigation }) => {
                     icon='close'
                     style={styles.iconRemove}
                     size={18}
-                    onPress={() => removeImage(index)}
+                    onPress={() => removeImage(index, enumMediaStatus.old, img)}
+                  />
+                  <Image
+                    source={{ uri: img.fileLink }}
+                    style={{ height: '100%', borderRadius: 6 }}
+                  />
+                </View>
+              );
+            })}
+            {lstNewImage.map((img, index) => {
+              return (
+                <View
+                  style={{
+                    width: screenWidth / 4,
+                    height: screenWidth / 4,
+                    padding: 6,
+                    position: 'relative',
+                  }}
+                  key={index}
+                >
+                  {/* Icon gỡ ảnh */}
+                  <IconButton
+                    icon='close'
+                    style={styles.iconRemove}
+                    size={18}
+                    onPress={() => removeImage(index, enumMediaStatus, null)}
                   />
                   <Image
                     source={{ uri: img }}
@@ -224,19 +288,19 @@ const PostDetailScreen = ({ navigation }) => {
           </View>
         )}
         {/* Video nếu có */}
-        {video && (
+        {(oldVideo || newVideo) && (
           <View style={{ position: 'relative', marginTop: 12 }}>
             {/* Icon gỡ video */}
             <IconButton
               icon='close'
               style={[styles.iconRemove, { top: -8, right: -8 }]}
               size={18}
-              onPress={() => setVideo(null)}
+              onPress={() => removeVideo()}
             />
             <Video
               ref={videoRef}
               source={{
-                uri: video,
+                uri: oldVideo ? oldVideo.fileLink : newVideo,
               }}
               style={{ borderRadius: 8 }}
               videoStyle={{
@@ -258,7 +322,7 @@ const PostDetailScreen = ({ navigation }) => {
           contentStyle={{ justifyContent: 'flex-start' }}
           labelStyle={{ fontSize: 16 }}
           onPress={pickImage}
-          disabled={totalImage >= limitImage || video}
+          disabled={totalImage >= limitImage || oldVideo || newVideo}
           icon='image'
         >
           {postsResource.image}
@@ -357,4 +421,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default PostDetailScreen;
+export default EditPostScreen;

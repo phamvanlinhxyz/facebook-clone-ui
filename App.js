@@ -1,5 +1,5 @@
 import { StatusBar, StyleSheet } from 'react-native';
-import { Provider, useSelector } from 'react-redux';
+import { Provider } from 'react-redux';
 import RootNavigation from './src/navigation';
 import store from './src/store';
 import { PersistGate } from 'redux-persist/integration/react';

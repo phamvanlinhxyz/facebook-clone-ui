@@ -18,14 +18,22 @@ import {
   postsSelector,
   setSelectedPost,
 } from '../../store/reducers/posts.reducer';
-import { SinglePost } from '../../components';
+import { PostMenu, SinglePost } from '../../components';
+import { setEditmode } from '../../store/reducers/app.reducer';
+import { enumEditMode } from '../../core/common/enum';
 
 const HomeScreen = ({ navigation }) => {
+  // Lấy dữ liệu từ store
   const { user, userToken } = useSelector(authSelector);
   const { lstPost } = useSelector(postsSelector);
 
+  // Usestate
+  const [isShowMenu, setIsShowMenu] = useState(false);
+
+  // Dispatch
   const dispatch = useDispatch();
 
+  // Lấy danh sách bài đăng
   useEffect(() => {
     dispatch(getListPost(userToken));
   }, [dispatch]);
@@ -39,6 +47,28 @@ const HomeScreen = ({ navigation }) => {
   const imageClick = (post) => {
     dispatch(setSelectedPost(post));
     navigation.navigate('SinglePostScreen');
+  };
+
+  /**
+   * Mở menu chọn sửa, xóa
+   * @param {*} post
+   */
+  const toggleMenu = (post) => {
+    // Set bài viết được chọn và editMode
+    if (!isShowMenu) {
+      dispatch(setEditmode(enumEditMode.edit));
+      dispatch(setSelectedPost(post));
+    }
+    // Hiển thị menu
+    setIsShowMenu((prev) => !prev);
+  };
+
+  /**
+   * Chọn sửa bài viết từ menu
+   */
+  const editPost = () => {
+    setIsShowMenu(false);
+    navigation.navigate('EditPostScreen');
   };
 
   return (
@@ -80,7 +110,7 @@ const HomeScreen = ({ navigation }) => {
               textColor={color.textPrim}
               contentStyle={{ justifyContent: 'flex-start' }}
               labelStyle={{ fontSize: 16 }}
-              onPress={() => navigation.navigate('PostDetailScreen')}
+              onPress={() => navigation.navigate('AddPostScreen')}
             >
               {postsResource.postPlaceholder}
             </Button>
@@ -94,12 +124,14 @@ const HomeScreen = ({ navigation }) => {
                   key={i}
                   width={screenWidth}
                   imageClick={imageClick}
+                  toggleMenu={toggleMenu}
                 />
               );
             })}
           </View>
         </ScrollView>
       </View>
+      {isShowMenu && <PostMenu toggleMenu={toggleMenu} editPost={editPost} />}
     </SafeAreaView>
   );
 };

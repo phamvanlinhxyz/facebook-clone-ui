@@ -7,9 +7,10 @@ import { setAuthToken } from '../helpers';
 import {
   HomeScreen,
   LoginScreen,
-  PostDetailScreen,
+  AddPostScreen,
   RegisterScreen,
   SinglePostScreen,
+  EditPostScreen,
 } from '../screens';
 import { authSelector } from '../store/reducers/auth.reducer';
 import { Ionicons } from '@expo/vector-icons';
@@ -67,7 +68,7 @@ const BottomBar = () => {
       />
       <Tab.Screen
         name='MeScreen'
-        component={PostDetailScreen}
+        component={AddPostScreen}
         options={{
           tabBarLabel: homeResource.me,
           tabBarLabelStyle: { fontSize: 12 },
@@ -108,8 +109,9 @@ const RootNavigation = () => {
             options={{ headerShown: false }}
           />
           <Stack.Screen name='HomeScreen' component={HomeScreen} />
-          <Stack.Screen name='PostDetailScreen' component={PostDetailScreen} />
+          <Stack.Screen name='AddPostScreen' component={AddPostScreen} />
           <Stack.Screen name='SinglePostScreen' component={SinglePostScreen} />
+          <Stack.Screen name='EditPostScreen' component={EditPostScreen} />
         </Stack.Navigator>
       )}
     </NavigationContainer>

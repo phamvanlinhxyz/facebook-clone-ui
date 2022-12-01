@@ -9,3 +9,13 @@ export const enumFileType = {
   video: 1,
   other: 2,
 };
+
+export const enumEditMode = {
+  add: 0,
+  edit: 1,
+};
+
+export const enumMediaStatus = {
+  old: 0,
+  new: 1,
+};

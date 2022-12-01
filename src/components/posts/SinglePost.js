@@ -1,15 +1,19 @@
 import { Video } from 'expo-av';
-import React, { useRef } from 'react';
-import { Image, TouchableOpacity, View } from 'react-native';
-import { Avatar, Divider, Text } from 'react-native-paper';
+import React, { useRef, useState } from 'react';
+import { View } from 'react-native';
+import { Avatar, Divider, Menu, Text } from 'react-native-paper';
 import { convertTimeToAgo } from '../../core/common/commonFunction';
 import { color } from '../../core/common/styleVariables';
 import PostImages from './PostImages';
-import { AntDesign, Ionicons, MaterialIcons } from '@expo/vector-icons';
+import { AntDesign, Ionicons, MaterialIcons, Entypo } from '@expo/vector-icons';
 import { postsResource } from '../../resources';
+import { useSelector } from 'react-redux';
+import { authSelector } from '../../store/reducers/auth.reducer';
 
-const SinglePost = ({ post, width, imageClick }) => {
+const SinglePost = ({ post, width, imageClick, toggleMenu }) => {
   const videoRef = useRef(null);
+  const { user } = useSelector(authSelector);
+
   return (
     <View>
       <Divider style={{ height: 2, backgroundColor: color.postSeparator }} />
@@ -27,6 +31,15 @@ const SinglePost = ({ post, width, imageClick }) => {
             <MaterialIcons name='public' size={14} color={color.textSecond} />
           </View>
         </View>
+        <View style={{ flex: 1 }}></View>
+        {user.id === post.author._id && (
+          <Entypo
+            name='dots-three-horizontal'
+            size={24}
+            color={color.textSecond}
+            onPress={() => toggleMenu(post)}
+          />
+        )}
       </View>
       {/* Nội dung bài đăng */}
       {post.described.trim() !== '' && (
