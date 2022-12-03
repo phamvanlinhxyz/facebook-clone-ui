@@ -1,7 +1,7 @@
 import { Video } from 'expo-av';
 import React, { useRef, useState } from 'react';
 import { View } from 'react-native';
-import { Avatar, Divider, Menu, Text } from 'react-native-paper';
+import { Avatar, Divider, Text } from 'react-native-paper';
 import { convertTimeToAgo } from '../../core/common/commonFunction';
 import { color } from '../../core/common/styleVariables';
 import PostImages from './PostImages';

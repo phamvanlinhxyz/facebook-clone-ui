@@ -7,7 +7,7 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
-import { Avatar, Button, Divider, IconButton, Text } from 'react-native-paper';
+import { Avatar, Button, IconButton, Text } from 'react-native-paper';
 import logo from '../../../assets/images/facebook-logo.png';
 import { color } from '../../core/common/styleVariables';
 import { useDispatch, useSelector } from 'react-redux';
@@ -104,7 +104,7 @@ const HomeScreen = ({ navigation }) => {
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
             <IconButton
               icon='magnify'
-              onPress={{}}
+              onPress={() => navigation.navigate('SearchScreen')}
               style={{ backgroundColor: color.iconButtonBg }}
               iconColor={color.textPrim}
             />

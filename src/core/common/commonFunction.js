@@ -1,5 +1,6 @@
 import * as FileSystem from 'expo-file-system';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import moment from 'moment';
 import { storage } from '../../helpers';
 import { authResource } from '../../resources';
 import commonResource from '../../resources/commonResource';
@@ -108,4 +109,13 @@ export const convertTimeToAgo = (time) => {
     Math.round(secondAgo / (60 * 60 * 24 * 30)).toString() +
     commonResource.monthAgo
   );
+};
+
+export const convertDateTimeByFormat = (time, format) => {
+  var timeString = new Date(time).toString();
+  console.log(timeString);
+  if (timeString) {
+    return moment(timeString).format(format);
+  }
+  return null;
 };

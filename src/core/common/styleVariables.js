@@ -18,4 +18,5 @@ export const color = {
   bgOpacity: '#00000033',
   transparent: '#00000000',
   bgPrim: '#f2f2f2',
+  searchBg: '#e2eaf6',
 };

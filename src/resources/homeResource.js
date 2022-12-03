@@ -3,4 +3,5 @@ export default {
   friend: 'Bạn bè',
   notification: 'Thông báo',
   me: 'Cá nhân',
+  watch: 'Watch',
 };

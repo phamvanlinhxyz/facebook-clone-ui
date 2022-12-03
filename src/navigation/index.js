@@ -11,6 +11,8 @@ import {
   RegisterScreen,
   SinglePostScreen,
   EditPostScreen,
+  SearchScreen,
+  SearchResultsScreen,
 } from '../screens';
 import { authSelector } from '../store/reducers/auth.reducer';
 import { Ionicons } from '@expo/vector-icons';
@@ -39,7 +41,6 @@ const BottomBar = () => {
           ),
         }}
       />
-
       <Tab.Screen
         name='FriendScreen'
         component={HomeScreen}
@@ -50,6 +51,19 @@ const BottomBar = () => {
           tabBarInactiveTintColor: color.textSecond,
           tabBarIcon: ({ color }) => (
             <Ionicons name='people-sharp' size={24} color={color} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name='WatchScreen'
+        component={HomeScreen}
+        options={{
+          tabBarLabel: homeResource.watch,
+          tabBarLabelStyle: { fontSize: 12 },
+          tabBarActiveTintColor: color.bluePrim,
+          tabBarInactiveTintColor: color.textSecond,
+          tabBarIcon: ({ color }) => (
+            <Ionicons name='tv' size={24} color={color} />
           ),
         }}
       />
@@ -112,6 +126,11 @@ const RootNavigation = () => {
           <Stack.Screen name='AddPostScreen' component={AddPostScreen} />
           <Stack.Screen name='SinglePostScreen' component={SinglePostScreen} />
           <Stack.Screen name='EditPostScreen' component={EditPostScreen} />
+          <Stack.Screen name='SearchScreen' component={SearchScreen} />
+          <Stack.Screen
+            name='SearchResultsScreen'
+            component={SearchResultsScreen}
+          />
         </Stack.Navigator>
       )}
     </NavigationContainer>
