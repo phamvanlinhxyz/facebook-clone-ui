@@ -26,6 +26,7 @@ import { enumFileType, enumMediaStatus } from '../../core/common/enum';
 import postsService from '../../services/posts.service';
 import loadingImg from '../../../assets/images/loading.gif';
 import { postsSelector, updatePost } from '../../store/reducers/posts.reducer';
+import { Popup } from '../../components';
 
 const EditPostScreen = ({ navigation }) => {
   // Hooks
@@ -57,6 +58,9 @@ const EditPostScreen = ({ navigation }) => {
 
   // Trạng thái loading
   const [loading, setLoading] = useState(false);
+
+  // Show modal
+  const [isShowModal, setIsShowModal] = useState(false);
 
   // Dispatch
   const dispatch = useDispatch();
@@ -193,7 +197,7 @@ const EditPostScreen = ({ navigation }) => {
       <Appbar>
         <Appbar.BackAction
           onPress={() => {
-            navigation.goBack();
+            setIsShowModal(true);
           }}
         />
         <Appbar.Content style={{ flex: 1 }} title={postsResource.editPost} />
@@ -348,6 +352,22 @@ const EditPostScreen = ({ navigation }) => {
           {postsResource.emo}
         </Button>
       </View>
+      <Popup
+        show={isShowModal}
+        title={postsResource.confirmCancelEditTitle}
+        content={postsResource.confirmCancelEditContent}
+        cancel={() => {
+          setIsShowModal(false);
+          navigation.goBack();
+        }}
+        continueAction={() => {
+          setIsShowModal(false);
+        }}
+        resource={{
+          cancel: postsResource.confirmCancelEditCancel,
+          continue: postsResource.continueEdit,
+        }}
+      />
     </View>
   );
 };

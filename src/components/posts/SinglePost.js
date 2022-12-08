@@ -2,7 +2,10 @@ import { Video } from 'expo-av';
 import React, { useRef, useState } from 'react';
 import { View } from 'react-native';
 import { Avatar, Divider, Text } from 'react-native-paper';
-import { convertTimeToAgo } from '../../core/common/commonFunction';
+import {
+  convertNumber,
+  convertTimeToAgo,
+} from '../../core/common/commonFunction';
 import { color } from '../../core/common/styleVariables';
 import PostImages from './PostImages';
 import { AntDesign, Ionicons, MaterialIcons, Entypo } from '@expo/vector-icons';
@@ -13,6 +16,7 @@ import { authSelector } from '../../store/reducers/auth.reducer';
 const SinglePost = ({ post, width, imageClick, toggleMenu }) => {
   const videoRef = useRef(null);
   const { user } = useSelector(authSelector);
+  const [readAll, setReadAll] = useState(post.described.length < 150);
 
   return (
     <View>
@@ -50,8 +54,15 @@ const SinglePost = ({ post, width, imageClick, toggleMenu }) => {
             marginBottom: 8,
             fontSize: 16,
           }}
+          onPress={() => {
+            if (post.described.length > 150) {
+              setReadAll((prev) => !prev);
+            }
+          }}
         >
-          {post.described}
+          {readAll
+            ? post.described
+            : post.described.toString().slice(0, 150) + '...'}
         </Text>
       )}
       {/* Hiển thị ảnh */}
@@ -103,13 +114,13 @@ const SinglePost = ({ post, width, imageClick, toggleMenu }) => {
                   marginRight: 4,
                 }}
               />
-              {post.like.length}
+              {convertNumber(post.like.length)}
             </Text>
           )}
         </View>
         <Text style={{ color: color.textSecond, fontSize: 16 }}>
           {post.countComments > 0
-            ? post.countComments + postsResource.comments
+            ? convertNumber(post.countComments) + postsResource.comments
             : ''}
         </Text>
       </View>

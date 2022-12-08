@@ -114,7 +114,6 @@ const BottomBar = () => {
         }}
         listeners={{
           tabPress: async () => {
-            console.log(111);
             await userOptionService.updateOptionByName(
               userOptionDictionary.countUnseenNotification,
               '0'
@@ -201,7 +200,7 @@ const styles = StyleSheet.create({
   iconNumber: {
     position: 'absolute',
     color: '#fff',
-    backgroundColor: '#d8163d',
+    backgroundColor: color.redPrim,
     paddingHorizontal: 6,
     paddingVertical: 2,
     fontSize: 12,

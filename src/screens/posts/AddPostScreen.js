@@ -26,6 +26,7 @@ import { enumFileType } from '../../core/common/enum';
 import postsService from '../../services/posts.service';
 import loadingImg from '../../../assets/images/loading.gif';
 import { insertNewPost } from '../../store/reducers/posts.reducer';
+import { Popup } from '../../components';
 
 const AddPostScreen = ({ navigation }) => {
   // Hooks
@@ -49,6 +50,9 @@ const AddPostScreen = ({ navigation }) => {
 
   // Trạng thái loading
   const [loading, setLoading] = useState(false);
+
+  // Show modal
+  const [showModal, setShowModal] = useState(false);
 
   // Dispatch
   const dispatch = useDispatch();
@@ -142,6 +146,14 @@ const AddPostScreen = ({ navigation }) => {
     navigation.navigate('HomeScreen');
   };
 
+  const handleBack = () => {
+    if (described || totalImage > 0 || video) {
+      setShowModal(true);
+    } else {
+      navigation.goBack();
+    }
+  };
+
   return (
     <View style={styles.container}>
       {/* Loading khi ấn đăng */}
@@ -152,11 +164,7 @@ const AddPostScreen = ({ navigation }) => {
       )}
       {/* Appbar */}
       <Appbar>
-        <Appbar.BackAction
-          onPress={() => {
-            navigation.goBack();
-          }}
-        />
+        <Appbar.BackAction onPress={handleBack} />
         <Appbar.Content style={{ flex: 1 }} title={postsResource.createPost} />
         <Button
           style={styles.postButton}
@@ -284,6 +292,25 @@ const AddPostScreen = ({ navigation }) => {
           {postsResource.emo}
         </Button>
       </View>
+      <Popup
+        show={showModal}
+        title={postsResource.saveDraftTitle}
+        content={postsResource.saveDraftContent}
+        confirm={() => {
+          setShowModal(false);
+          handleCreatePost();
+        }}
+        cancel={() => {
+          setShowModal(false);
+          navigation.goBack();
+        }}
+        continueAction={() => setShowModal(false)}
+        resource={{
+          confirm: postsResource.saveDraftConfirm,
+          continue: postsResource.continueEdit,
+          cancel: postsResource.saveDraftCancel,
+        }}
+      />
     </View>
   );
 };

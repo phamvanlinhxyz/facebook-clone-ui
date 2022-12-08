@@ -154,6 +154,11 @@ export const getSocket = () => {
   return socketClient;
 };
 
+/**
+ * Lấy icon thông báo
+ * @param {*} type
+ * @returns
+ */
 export const getNotificationIcon = (type) => {
   switch (type) {
     case enumNotificationType.requestFriend:
@@ -162,4 +167,19 @@ export const getNotificationIcon = (type) => {
     default:
       break;
   }
+};
+
+/**
+ * Convert số cho dễ nhìn. VD: 1,1K 2,3M
+ * @param {*} number
+ * @returns
+ */
+export const convertNumber = (number) => {
+  let sNumber = number.toString();
+  if (parseInt(number) >= 1000) {
+    sNumber = (number / 1000).toFixed(1).toString() + 'K';
+  } else if (parseInt(number >= 1000000)) {
+    sNumber = (number / 1000000).toFixed(1).toString() + 'M';
+  }
+  return sNumber.replace('.', ',');
 };

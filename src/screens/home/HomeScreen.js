@@ -19,7 +19,7 @@ import {
   postsSelector,
   setSelectedPost,
 } from '../../store/reducers/posts.reducer';
-import { PostMenu, SinglePost } from '../../components';
+import { Popup, PostMenu, SinglePost } from '../../components';
 import { setEditmode } from '../../store/reducers/app.reducer';
 import { enumEditMode } from '../../core/common/enum';
 import postsService from '../../services/posts.service';
@@ -31,6 +31,9 @@ const HomeScreen = ({ navigation }) => {
 
   // Usestate
   const [isShowMenu, setIsShowMenu] = useState(false);
+
+  // Show model confirm xóa
+  const [isShowModal, setIsShowModal] = useState(false);
 
   // Dispatch
   const dispatch = useDispatch();
@@ -152,9 +155,28 @@ const HomeScreen = ({ navigation }) => {
         <PostMenu
           toggleMenu={toggleMenu}
           editPost={editPostClick}
-          deletePost={deletePostClick}
+          deletePost={() => {
+            setIsShowMenu(false);
+            setIsShowModal(true);
+          }}
         />
       )}
+      <Popup
+        show={isShowModal}
+        title={postsResource.confirmDeleteTitle}
+        content={postsResource.confirmDeleteContent}
+        confirm={() => {
+          deletePostClick();
+          setIsShowModal(false);
+        }}
+        cancel={() => {
+          setIsShowModal(false);
+        }}
+        resource={{
+          confirm: postsResource.confirmDeleteConfirm,
+          cancel: postsResource.confirmDeleteCancel,
+        }}
+      />
     </SafeAreaView>
   );
 };
