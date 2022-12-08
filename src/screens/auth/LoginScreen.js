@@ -4,6 +4,7 @@ import { Button, TextInput, Text } from 'react-native-paper';
 import { useDispatch } from 'react-redux';
 import facebookLogo from '../../../assets/images/facebook-logo.png';
 import {
+  connectSocket,
   validatePass,
   validatePhonenumber,
 } from '../../core/common/commonFunction';
@@ -48,6 +49,7 @@ const LoginScreen = ({ navigation }) => {
       } else {
         setAuthToken(res.data.token);
         dispatch(setUserInfo(res.data));
+        connectSocket(res.data.token);
       }
     }
   };

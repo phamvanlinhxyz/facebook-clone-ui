@@ -19,3 +19,7 @@ export const enumMediaStatus = {
   old: 0,
   new: 1,
 };
+
+export const enumNotificationType = {
+  requestFriend: 1,
+};

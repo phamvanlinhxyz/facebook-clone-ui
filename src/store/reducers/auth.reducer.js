@@ -1,3 +1,5 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { persistReducer } from 'redux-persist';
 import { createSlice } from '@reduxjs/toolkit';
 
 const authSlice = createSlice({
@@ -6,8 +8,12 @@ const authSlice = createSlice({
     isAuthenticate: false,
     user: null,
     userToken: null,
+    socket: null,
   },
   reducers: {
+    setSocket(state, action) {
+      state.socket = action.payload;
+    },
     /**
      * Lưu thông tin use sau khi đăng nhập/đăng ký
      * @param {*} state
@@ -29,7 +35,7 @@ const authReducer = authSlice.reducer;
 export const authSelector = (state) => state.authReducer;
 
 // Actions
-export const { setUserInfo } = authSlice.actions;
+export const { setUserInfo, setSocket } = authSlice.actions;
 
 // Reducer
 export default authReducer;

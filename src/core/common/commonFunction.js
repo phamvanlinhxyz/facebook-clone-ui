@@ -4,7 +4,10 @@ import moment from 'moment';
 import { storage } from '../../helpers';
 import { authResource } from '../../resources';
 import commonResource from '../../resources/commonResource';
-import { enumFileType } from './enum';
+import { enumFileType, enumNotificationType } from './enum';
+import { io } from 'socket.io-client';
+import constant from '../../core/common/constant';
+import notiRequest from '../../../assets/images/noti-request.png';
 
 /**
  * Xử lý error trả về
@@ -118,4 +121,45 @@ export const convertDateTimeByFormat = (time, format) => {
     return moment(timeString).format(format);
   }
   return null;
+};
+
+let socketClient = null;
+
+/**
+ * Kết nối socket
+ * @param {*} token
+ */
+export const connectSocket = (token) => {
+  if (!socketClient) {
+    const socket = io(constant.API_SOCKET, {
+      withCredentials: true,
+      transportOptions: {
+        polling: {
+          extraHeaders: {
+            token: token,
+          },
+        },
+      },
+    });
+    socketClient = socket;
+  }
+  return socketClient;
+};
+
+/**
+ * Lấy ra socket
+ * @returns
+ */
+export const getSocket = () => {
+  return socketClient;
+};
+
+export const getNotificationIcon = (type) => {
+  switch (type) {
+    case enumNotificationType.requestFriend:
+      return notiRequest;
+      break;
+    default:
+      break;
+  }
 };

@@ -12,7 +12,7 @@ export const color = {
   postSeparator: '#cecece',
   textPrim: '#1c1b1f',
   textSecond: '#65676b',
-  buttonSecondBg: '#3478e226',
+  buttonSecondBg: '#e8f3ff',
   errorColor: 'rgb(179, 38, 30)',
   iconButtonBg: '#dfdfdf',
   bgOpacity: '#00000033',
