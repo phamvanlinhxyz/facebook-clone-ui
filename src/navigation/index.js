@@ -31,6 +31,11 @@ import {
 } from '../store/reducers/notification.reducer';
 import userOptionService from '../services/userOption.service';
 import { userOptionDictionary } from '../core/common/dictionary';
+import { enumNotificationType } from '../core/common/enum';
+import {
+  getSingleRequest,
+  pushNewRequest,
+} from '../store/reducers/friend.reducer';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -159,6 +164,11 @@ const RootNavigation = () => {
     if (socket) {
       socket.on('pushNotification', (msg) => {
         dispatch(updateNotification(msg.data));
+        if (
+          msg.data.newNotification.type === enumNotificationType.requestFriend
+        ) {
+          dispatch(getSingleRequest(msg.senderId));
+        }
       });
     }
   }, [socket]);

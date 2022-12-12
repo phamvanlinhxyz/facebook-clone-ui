@@ -22,4 +22,11 @@ export const enumMediaStatus = {
 
 export const enumNotificationType = {
   requestFriend: 1,
+  acceptRequest: 2,
+};
+
+export const enumPostType = {
+  draft: 0,
+  posted: 1,
+  deleted: 2,
 };

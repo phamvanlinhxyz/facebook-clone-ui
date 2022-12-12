@@ -63,10 +63,10 @@ const postsSlice = createSlice({
       state.lstPost.unshift(action.payload);
     },
   },
-  extraReducers: {
-    [getListPost.fulfilled]: (state, action) => {
+  extraReducers: (builder) => {
+    builder.addCase(getListPost.fulfilled, (state, action) => {
       state.lstPost = action.payload;
-    },
+    });
   },
 });
 

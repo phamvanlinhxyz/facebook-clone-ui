@@ -22,7 +22,7 @@ import { authSelector } from '../../store/reducers/auth.reducer';
 import * as ImagePicker from 'expo-image-picker';
 import { MaterialIcons } from '@expo/vector-icons';
 import { uploadFileToFirebase } from '../../core/common/commonFunction';
-import { enumFileType } from '../../core/common/enum';
+import { enumFileType, enumPostType } from '../../core/common/enum';
 import postsService from '../../services/posts.service';
 import loadingImg from '../../../assets/images/loading.gif';
 import { insertNewPost } from '../../store/reducers/posts.reducer';
@@ -108,12 +108,13 @@ const AddPostScreen = ({ navigation }) => {
   /**
    * Xử lý thêm bài đăng
    */
-  const handleCreatePost = async () => {
+  const handleCreatePost = async (type) => {
     setLoading(true);
     let postBody = {
       described: described.trim(),
       images: [],
       video: null,
+      type: type,
     };
     // Upload ảnh lên firebase
     if (lstImage.length > 0) {
@@ -139,7 +140,7 @@ const AddPostScreen = ({ navigation }) => {
     const res = await postsService.create(postBody);
     setLoading(false);
     // Nếu thành công thì thêm vào list
-    if (res.success) {
+    if (res.success && type === enumPostType.posted) {
       dispatch(insertNewPost(res.data.data));
     }
     // Về trang chủ
@@ -169,7 +170,7 @@ const AddPostScreen = ({ navigation }) => {
         <Button
           style={styles.postButton}
           textColor={color.textPrim}
-          onPress={handleCreatePost}
+          onPress={() => handleCreatePost(enumPostType.posted)}
         >
           {postsResource.post}
         </Button>
@@ -298,7 +299,7 @@ const AddPostScreen = ({ navigation }) => {
         content={postsResource.saveDraftContent}
         confirm={() => {
           setShowModal(false);
-          handleCreatePost();
+          handleCreatePost(enumPostType.draft);
         }}
         cancel={() => {
           setShowModal(false);

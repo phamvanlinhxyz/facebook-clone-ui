@@ -8,6 +8,8 @@ import { enumFileType, enumNotificationType } from './enum';
 import { io } from 'socket.io-client';
 import constant from '../../core/common/constant';
 import notiRequest from '../../../assets/images/noti-request.png';
+import notiAccept from '../../../assets/images/noti-accept.png';
+import notificationResource from '../../resources/notificationResource';
 
 /**
  * Xử lý error trả về
@@ -164,6 +166,9 @@ export const getNotificationIcon = (type) => {
     case enumNotificationType.requestFriend:
       return notiRequest;
       break;
+    case enumNotificationType.acceptRequest:
+      return notiAccept;
+      return;
     default:
       break;
   }
@@ -182,4 +187,22 @@ export const convertNumber = (number) => {
     sNumber = (number / 1000000).toFixed(1).toString() + 'M';
   }
   return sNumber.replace('.', ',');
+};
+
+/**
+ * Build câu thông báo theo type
+ * @param {*} type
+ * @returns
+ */
+export const buildNotificationContent = (type) => {
+  switch (type) {
+    case enumNotificationType.requestFriend:
+      return notificationResource.requestFriend;
+      break;
+    case enumNotificationType.acceptRequest:
+      return notificationResource.acceptRequest;
+      break;
+    default:
+      break;
+  }
 };

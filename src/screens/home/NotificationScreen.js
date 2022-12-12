@@ -10,6 +10,7 @@ import { color } from '../../core/common/styleVariables';
 import { IconButton, Text } from 'react-native-paper';
 import notificationResource from '../../resources/notificationResource';
 import {
+  buildNotificationContent,
   convertTimeToAgo,
   getNotificationIcon,
 } from '../../core/common/commonFunction';
@@ -90,7 +91,12 @@ const NotificationScreen = ({ navigation }) => {
                 <View
                   style={{ marginLeft: 16, flex: 1, justifyContent: 'center' }}
                 >
-                  <Text style={{ fontSize: 16 }}>{notif.content}</Text>
+                  <Text style={{ fontSize: 16 }}>
+                    <Text style={{ fontWeight: '600' }}>
+                      {notif.sender.username}
+                    </Text>
+                    <Text>{buildNotificationContent(notif.type)}</Text>
+                  </Text>
                   <Text style={{ color: color.textSecond }}>
                     {convertTimeToAgo(notif.createdAt)}
                   </Text>

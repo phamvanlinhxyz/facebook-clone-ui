@@ -54,17 +54,17 @@ const notificationSlice = createSlice({
       state.lstNotification.unshift(action.payload.newNotification);
     },
   },
-  extraReducers: {
-    [getCountUnseenNotification.fulfilled]: (state, action) => {
+  extraReducers: (builder) => {
+    builder.addCase(getCountUnseenNotification.fulfilled, (state, action) => {
       state.unseen = action.payload.optionValue;
-    },
-    [getLstNotification.pending]: (state, action) => {
+    });
+    builder.addCase(getLstNotification.pending, (state) => {
       state.isLoading = true;
-    },
-    [getLstNotification.fulfilled]: (state, action) => {
+    });
+    builder.addCase(getLstNotification.fulfilled, (state, action) => {
       state.lstNotification = action.payload;
       state.isLoading = false;
-    },
+    });
   },
 });
 

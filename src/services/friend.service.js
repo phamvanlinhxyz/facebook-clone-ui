@@ -104,9 +104,30 @@ const sendRequest = async (receiverId) => {
   }
 };
 
+/**
+ * Lấy 1 lời mời kết bạn
+ * @param {*} sender
+ * @returns
+ */
+const singleRequest = async (sender) => {
+  try {
+    const res = await axios.get(
+      `${constant.API_URL}/api/${constant.API_VER}/friends/getRequest/${sender}`
+    );
+
+    return {
+      success: true,
+      data: res.data,
+    };
+  } catch (error) {
+    return handleError(error);
+  }
+};
+
 export default {
   listRequest,
   replyRequest,
   listSuggest,
   sendRequest,
+  singleRequest,
 };

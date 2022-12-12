@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ScrollView, View } from 'react-native';
 import { Button, IconButton, Text } from 'react-native-paper';
 import { useDispatch, useSelector } from 'react-redux';
 import { SingleRequest, SingleSuggest } from '../../components';
 import { getSocket } from '../../core/common/commonFunction';
 import constant from '../../core/common/constant';
+import { enumNotificationType } from '../../core/common/enum';
 import { color } from '../../core/common/styleVariables';
 import { friendResource } from '../../resources';
 import friendService from '../../services/friend.service';
@@ -22,6 +23,14 @@ const FriendScreen = ({ navigation }) => {
   const { lstRequest, totalRequests, lstSuggest, totalSuggests } =
     useSelector(friendSelector);
   const dispatch = useDispatch();
+
+  const [socket, setSocket] = useState(null);
+
+  useEffect(() => {
+    if (!socket) {
+      setSocket(getSocket());
+    }
+  }, []);
 
   /**
    * Lấy danh sách lời mời
@@ -43,6 +52,13 @@ const FriendScreen = ({ navigation }) => {
 
     if (res.success) {
       dispatch(replyRequest(sender));
+      if (isAccept) {
+        socket.emit('pushNotification', {
+          token: userToken,
+          receiverId: sender,
+          type: enumNotificationType.acceptRequest,
+        });
+      }
     }
   };
 
@@ -54,10 +70,10 @@ const FriendScreen = ({ navigation }) => {
     const res = await friendService.sendRequest(receiverId);
     if (res.success) {
       dispatch(sendRequest(receiverId));
-      const socket = getSocket();
       socket.emit('pushNotification', {
         token: userToken,
         receiverId: receiverId,
+        type: enumNotificationType.requestFriend,
       });
     }
   };

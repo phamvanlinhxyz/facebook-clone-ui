@@ -2,6 +2,20 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import friendService from '../../services/friend.service';
 
 /**
+ * Lấy 1 lời mời kết bạn
+ */
+export const getSingleRequest = createAsyncThunk(
+  'friend/getSingleRequest',
+  async (sender) => {
+    const res = await friendService.singleRequest(sender);
+    if (res.success) {
+      return res.data;
+    }
+    return null;
+  }
+);
+
+/**
  * Lấy danh sách lời mời kết bạn
  */
 export const getListRequest = createAsyncThunk(
@@ -42,6 +56,15 @@ const friendSlice = createSlice({
   },
   reducers: {
     /**
+     * Nhận lời mời kết bạn mới
+     * @param {*} state
+     * @param {*} action
+     */
+    pushNewRequest(state, action) {
+      state.lstRequest.unshift(action.payload);
+      state.totalRequests++;
+    },
+    /**
      * Gửi yêu cầu kết bạn
      * @param {*} state
      * @param {*} action
@@ -64,23 +87,28 @@ const friendSlice = createSlice({
       state.totalRequests = state.lstRequest.length;
     },
   },
-  extraReducers: {
-    [getListRequest.pending]: (state, action) => {
+  extraReducers: (builder) => {
+    builder.addCase(getListRequest.pending, (state) => {
       state.loadingRequest = true;
-    },
-    [getListRequest.fulfilled]: (state, action) => {
+    });
+    builder.addCase(getListRequest.fulfilled, (state, action) => {
       state.lstRequest = [...state.lstRequest, ...action.payload.data];
       state.totalRequests = action.payload.totalRequests;
       state.loadingRequest = false;
-    },
-    [getListSuggest.pending]: (state, action) => {
+    });
+    builder.addCase(getListSuggest.pending, (state) => {
       state.loadingSuggest = true;
-    },
-    [getListSuggest.fulfilled]: (state, action) => {
+    });
+    builder.addCase(getListSuggest.fulfilled, (state, action) => {
       state.lstSuggest = [...state.lstSuggest, ...action.payload.data];
       state.totalSuggests = action.payload.totalSuggests;
       state.loadingSuggest = false;
-    },
+    });
+    builder.addCase(getSingleRequest.fulfilled, (state, action) => {
+      if (action.payload.data) {
+        state.lstRequest.unshift(action.payload.data);
+      }
+    });
   },
 });
 
@@ -90,7 +118,8 @@ const friendReducer = friendSlice.reducer;
 export const friendSelector = (state) => state.friendReducer;
 
 // Actions
-export const { replyRequest, sendRequest } = friendSlice.actions;
+export const { replyRequest, sendRequest, pushNewRequest } =
+  friendSlice.actions;
 
 // Reducer
 export default friendReducer;
