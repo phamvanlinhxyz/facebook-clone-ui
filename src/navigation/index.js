@@ -1,4 +1,4 @@
-import { NavigationContainer } from '@react-navigation/native';
+import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useEffect, useState } from 'react';
@@ -173,8 +173,16 @@ const RootNavigation = () => {
     }
   }, [socket]);
 
+  const MyTheme = {
+    ...DefaultTheme,
+    colors: {
+      ...DefaultTheme.colors,
+      background: color.other.whiteBg,
+    },
+  };
+
   return (
-    <NavigationContainer>
+    <NavigationContainer theme={MyTheme}>
       {!isAuthenticate ? (
         <Stack.Navigator screenOptions={{ headerShown: false }}>
           <Stack.Screen name='LoginScreen' component={LoginScreen} />

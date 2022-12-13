@@ -20,7 +20,7 @@ const SinglePost = ({ post, width, imageClick, toggleMenu }) => {
 
   return (
     <View>
-      <Divider style={{ height: 2, backgroundColor: color.postSeparator }} />
+      <Divider style={{ height: 2, backgroundColor: color.other.separator }} />
       {/* Post Author */}
       <View style={{ flexDirection: 'row', alignItems: 'center', margin: 12 }}>
         <Avatar.Image size={40} source={post.author.avatar.fileLink} />
@@ -29,10 +29,10 @@ const SinglePost = ({ post, width, imageClick, toggleMenu }) => {
             {post.author.username}
           </Text>
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <Text style={{ color: color.textSecond, marginRight: 4 }}>
+            <Text style={{ color: color.text.gray, marginRight: 4 }}>
               {convertTimeToAgo(post.createdAt)}
             </Text>
-            <MaterialIcons name='public' size={14} color={color.textSecond} />
+            <MaterialIcons name='public' size={14} color={color.text.gray} />
           </View>
         </View>
         <View style={{ flex: 1 }}></View>
@@ -40,7 +40,7 @@ const SinglePost = ({ post, width, imageClick, toggleMenu }) => {
           <Entypo
             name='dots-three-horizontal'
             size={24}
-            color={color.textSecond}
+            color={color.text.gray}
             onPress={() => toggleMenu(post)}
           />
         )}
@@ -49,7 +49,7 @@ const SinglePost = ({ post, width, imageClick, toggleMenu }) => {
       {post.described.trim() !== '' && (
         <Text
           style={{
-            color: color.textPrim,
+            color: color.text.prim,
             marginHorizontal: 12,
             marginBottom: 8,
             fontSize: 16,
@@ -102,14 +102,14 @@ const SinglePost = ({ post, width, imageClick, toggleMenu }) => {
       >
         <View>
           {post.like.length > 0 && (
-            <Text style={{ fontSize: 16, color: color.textSecond }}>
+            <Text style={{ fontSize: 16, color: color.text.gray }}>
               <AntDesign
                 name='like1'
                 size={14}
-                color={color.whitePrim}
+                color={color.text.white}
                 style={{
                   borderRadius: 50,
-                  backgroundColor: color.bluePrim,
+                  backgroundColor: color.button.primBg,
                   padding: 4,
                   marginRight: 4,
                 }}
@@ -118,7 +118,7 @@ const SinglePost = ({ post, width, imageClick, toggleMenu }) => {
             </Text>
           )}
         </View>
-        <Text style={{ color: color.textSecond, fontSize: 16 }}>
+        <Text style={{ color: color.text.gray, fontSize: 16 }}>
           {post.countComments > 0
             ? convertNumber(post.countComments) + postsResource.comments
             : ''}
@@ -128,7 +128,7 @@ const SinglePost = ({ post, width, imageClick, toggleMenu }) => {
       <View
         style={{
           borderTopWidth: 1,
-          borderTopColor: color.loginSeparator,
+          borderTopColor: color.other.separator,
           marginHorizontal: 12,
           marginTop: 8,
           flexDirection: 'row',
@@ -143,7 +143,7 @@ const SinglePost = ({ post, width, imageClick, toggleMenu }) => {
             paddingVertical: 8,
           }}
         >
-          <AntDesign name='like2' size={24} color={color.textPrim} />
+          <AntDesign name='like2' size={24} color={color.text.prim} />
           <Text style={{ marginLeft: 4, marginTop: 4, fontSize: 16 }}>
             {postsResource.like}
           </Text>
@@ -160,7 +160,7 @@ const SinglePost = ({ post, width, imageClick, toggleMenu }) => {
           <Ionicons
             name='ios-chatbubble-outline'
             size={24}
-            color={color.textPrim}
+            color={color.text.prim}
           />
           <Text style={{ marginLeft: 4, marginTop: 4, fontSize: 16 }}>
             {postsResource.comment}

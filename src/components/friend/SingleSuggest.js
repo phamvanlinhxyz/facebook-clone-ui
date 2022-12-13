@@ -26,14 +26,14 @@ const SingleSuggest = ({ suggest, action }) => {
           </Text>
         </View>
         {suggest.mutualFriends > 0 && (
-          <Text style={{ fontSize: 16, color: color.textSecond, marginTop: 2 }}>
+          <Text style={{ fontSize: 16, color: color.text.gray, marginTop: 2 }}>
             {suggest.mutualFriends + friendResource.mutualFriends}
           </Text>
         )}
         <View style={{ marginTop: 8, width: '50%' }}>
           <Button
             style={styles.postButton}
-            textColor={color.whitePrim}
+            textColor={color.text.white}
             labelStyle={{ fontSize: 16 }}
             onPress={() => action.handleSendRequest(suggest._id)}
           >
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
   postButton: {
     borderRadius: 6,
     flex: 1,
-    backgroundColor: color.bluePrim,
+    backgroundColor: color.button.primBg,
     marginRight: 4,
   },
 });

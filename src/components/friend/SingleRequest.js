@@ -38,10 +38,10 @@ const SingleRequest = ({ req, reply }) => {
           <Button
             style={{
               ...styles.postButton,
-              backgroundColor: color.bluePrim,
+              backgroundColor: color.button.primBg,
               marginRight: 4,
             }}
-            textColor={color.whitePrim}
+            textColor={color.text.white}
             labelStyle={{ fontSize: 16 }}
             onPress={() => reply(req.sender._id, true)}
           >
@@ -50,10 +50,10 @@ const SingleRequest = ({ req, reply }) => {
           <Button
             style={{
               ...styles.postButton,
-              backgroundColor: color.iconButtonBg,
+              backgroundColor: color.button.defaultBg,
               marginLeft: 4,
             }}
-            textColor={color.textPrim}
+            textColor={color.text.prim}
             labelStyle={{ fontSize: 16 }}
             onPress={() => reply(req.sender._id, false)}
           >

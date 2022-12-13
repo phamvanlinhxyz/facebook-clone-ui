@@ -87,14 +87,14 @@ const FriendScreen = ({ navigation }) => {
           alignItems: 'center',
           paddingHorizontal: 12,
           paddingVertical: 8,
-          borderBottomColor: color.postSeparator,
+          borderBottomColor: color.other.separator,
           borderBottomWidth: 1,
         }}
       >
         <IconButton
           icon='arrow-left'
           style={{ margin: 0 }}
-          iconColor={color.textPrim}
+          iconColor={color.text.prim}
           onPress={() => navigation.goBack()}
         />
         <Text style={{ fontSize: 22, flex: 1, textAlign: 'center' }}>
@@ -103,7 +103,7 @@ const FriendScreen = ({ navigation }) => {
         <IconButton
           icon='magnify'
           style={{ margin: 0 }}
-          iconColor={color.textPrim}
+          iconColor={color.text.prim}
           onPress={{}}
         />
       </View>
@@ -112,14 +112,17 @@ const FriendScreen = ({ navigation }) => {
           style={{
             padding: 12,
             flexDirection: 'row',
-            borderBottomColor: color.postSeparator,
+            borderBottomColor: color.other.separator,
             borderBottomWidth: 1,
           }}
         >
           {totalSuggests > constant.LOAD_LIMIT && (
             <Button
-              style={{ backgroundColor: color.iconButtonBg, marginRight: 8 }}
-              labelStyle={{ color: color.textPrim, fontSize: 16 }}
+              style={{
+                backgroundColor: color.button.defaultBg,
+                marginRight: 8,
+              }}
+              labelStyle={{ color: color.text.prim, fontSize: 16 }}
               contentStyle={{ justifyContent: 'flex-start' }}
               onPress={{}}
             >
@@ -128,8 +131,11 @@ const FriendScreen = ({ navigation }) => {
           )}
           {totalRequests > constant.LOAD_LIMIT && (
             <Button
-              style={{ backgroundColor: color.iconButtonBg, marginRight: 8 }}
-              labelStyle={{ color: color.textPrim, fontSize: 16 }}
+              style={{
+                backgroundColor: color.button.defaultBg,
+                marginRight: 8,
+              }}
+              labelStyle={{ color: color.text.prim, fontSize: 16 }}
               contentStyle={{ justifyContent: 'flex-start' }}
               onPress={{}}
             >
@@ -137,8 +143,8 @@ const FriendScreen = ({ navigation }) => {
             </Button>
           )}
           <Button
-            style={{ backgroundColor: color.iconButtonBg }}
-            labelStyle={{ color: color.textPrim, fontSize: 16 }}
+            style={{ backgroundColor: color.button.defaultBg }}
+            labelStyle={{ color: color.text.prim, fontSize: 16 }}
             contentStyle={{ justifyContent: 'flex-start' }}
             onPress={{}}
           >
@@ -158,7 +164,7 @@ const FriendScreen = ({ navigation }) => {
                 {friendResource.friendRequest}
               </Text>
               {totalRequests > constant.LOAD_LIMIT && (
-                <Text style={{ fontSize: 16, color: color.bluePrim }}>
+                <Text style={{ fontSize: 16, color: color.text.second }}>
                   {friendResource.seeAll}
                 </Text>
               )}
@@ -172,10 +178,10 @@ const FriendScreen = ({ navigation }) => {
               <Button
                 style={{
                   borderRadius: 6,
-                  backgroundColor: color.iconButtonBg,
+                  backgroundColor: color.button.defaultBg,
                   marginTop: 12,
                 }}
-                textColor={color.textPrim}
+                textColor={color.text.prim}
                 labelStyle={{ fontSize: 16 }}
                 onPress={{}}
               >
@@ -197,7 +203,7 @@ const FriendScreen = ({ navigation }) => {
                 {friendResource.suggest}
               </Text>
               {totalSuggests > constant.LOAD_LIMIT && (
-                <Text style={{ fontSize: 16, color: color.bluePrim }}>
+                <Text style={{ fontSize: 16, color: color.text.second }}>
                   {friendResource.seeAll}
                 </Text>
               )}
@@ -215,10 +221,10 @@ const FriendScreen = ({ navigation }) => {
               <Button
                 style={{
                   borderRadius: 6,
-                  backgroundColor: color.iconButtonBg,
+                  backgroundColor: color.button.defaultBg,
                   marginTop: 12,
                 }}
-                textColor={color.textPrim}
+                textColor={color.text.prim}
                 labelStyle={{ fontSize: 16 }}
                 onPress={{}}
               >

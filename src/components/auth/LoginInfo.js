@@ -41,9 +41,9 @@ const LoginInfo = (props) => {
         value={phonenumber}
         mode='outlined'
         placeholder={authResource.phonenumber}
-        outlineColor={color.inputOutline}
-        activeOutlineColor={color.inputOutlineActive}
-        placeholderTextColor={color.inputPlaceholder}
+        outlineColor={color.transparent}
+        activeOutlineColor={color.transparent}
+        placeholderTextColor={color.input.placeholder}
         error={error.phonenumber}
       />
       <TextInput
@@ -58,9 +58,9 @@ const LoginInfo = (props) => {
         value={password}
         mode='outlined'
         placeholder={authResource.password}
-        outlineColor={color.inputOutline}
-        activeOutlineColor={color.inputOutlineActive}
-        placeholderTextColor={color.inputPlaceholder}
+        outlineColor={color.transparent}
+        activeOutlineColor={color.transparent}
+        placeholderTextColor={color.input.placeholder}
         secureTextEntry={secure}
         error={error.password}
         right={
@@ -88,7 +88,7 @@ const LoginInfo = (props) => {
         <Button
           style={[styles.loginButton, { marginTop: 12, marginBottom: 0 }]}
           labelStyle={styles.buttonLabel}
-          textColor={color.whitePrim}
+          textColor={color.text.white}
           onPress={() => next({ phonenumber, password })}
         >
           {authResource.register}
@@ -97,7 +97,7 @@ const LoginInfo = (props) => {
       <Button
         style={[styles.returnButton, { marginTop: 12, marginBottom: 0 }]}
         labelStyle={styles.buttonLabel}
-        textColor={color.bluePrim}
+        textColor={color.text.second}
         onPress={() => prev({ phonenumber, password })}
       >
         {authResource.return}

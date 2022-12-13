@@ -58,7 +58,7 @@ const Birthday = (props) => {
         <Button
           style={styles.loginButton}
           labelStyle={styles.buttonLabel}
-          textColor={color.whitePrim}
+          textColor={color.text.white}
           onPress={() => next({ birthday })}
         >
           {authResource.continue}
@@ -67,7 +67,7 @@ const Birthday = (props) => {
       <Button
         style={styles.returnButton}
         labelStyle={styles.buttonLabel}
-        textColor={color.bluePrim}
+        textColor={color.text.second}
         onPress={() => prev({ birthday })}
       >
         {authResource.return}

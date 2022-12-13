@@ -29,7 +29,7 @@ const Skeleton = ({ style }) => {
       style={{
         ...style,
         opacity: animatedValue.current,
-        backgroundColor: color.iconButtonBg,
+        backgroundColor: color.button.defaultBg,
       }}
     />
   );

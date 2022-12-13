@@ -163,34 +163,34 @@ const styles = StyleSheet.create({
     height: 48,
     width: '100%',
     borderTopWidth: 1,
-    borderTopColor: color.loginSeparator,
+    borderTopColor: color.other.separator,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
   },
   footerText: {
-    color: color.blueSecond,
+    color: color.text.second,
   },
   textHeader: {
     fontWeight: '600',
     marginBottom: 24,
   },
   textContent: {
-    color: color.loginTextGrey,
+    color: color.text.gray,
     fontSize: 16,
     textAlign: 'center',
     marginBottom: 12,
   },
   returnButton: {
     borderRadius: 4,
-    backgroundColor: color.buttonSecondBg,
+    backgroundColor: color.button.secondBg,
     width: '100%',
     justifyContent: 'center',
     marginBottom: 12,
   },
   loginButton: {
     borderRadius: 4,
-    backgroundColor: color.bluePrim,
+    backgroundColor: color.button.primBg,
     width: '100%',
     justifyContent: 'center',
     marginBottom: 12,
@@ -205,7 +205,7 @@ const styles = StyleSheet.create({
   },
   registerInput: {
     marginBottom: 4,
-    backgroundColor: color.inputBg,
+    backgroundColor: color.input.background,
     width: '48%',
   },
   nameInput: {
@@ -219,11 +219,11 @@ const styles = StyleSheet.create({
     width: '100%',
     borderRadius: 4,
     marginBottom: 12,
-    backgroundColor: color.inputBg,
-    borderColor: color.inputOutline,
+    backgroundColor: color.input.background,
+    borderColor: color.transparent,
   },
   birthdayLabel: {
-    color: color.textPrim,
+    color: color.text.prim,
     fontSize: 16,
     height: 28,
     width: '100%',
@@ -234,7 +234,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   genderRadioItem: {
-    borderBottomColor: color.loginSeparator,
+    borderBottomColor: color.other.separator,
     borderBottomWidth: 1,
   },
   genderLabel: {
@@ -243,11 +243,11 @@ const styles = StyleSheet.create({
   loginInput: {
     width: '100%',
     marginBottom: 4,
-    backgroundColor: color.inputBg,
+    backgroundColor: color.input.background,
   },
   errorText: {
     fontSize: 16,
-    color: color.errorColor,
+    color: color.main.error,
     marginBottom: 12,
   },
 });

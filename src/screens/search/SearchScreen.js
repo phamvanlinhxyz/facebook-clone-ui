@@ -60,7 +60,7 @@ const SearchScreen = ({ navigation }) => {
         style={{
           height: 64,
           borderBottomWidth: 1,
-          borderColor: color.postSeparator,
+          borderColor: color.other.separator,
           flexDirection: 'row',
           alignItems: 'center',
           paddingHorizontal: 12,
@@ -70,7 +70,7 @@ const SearchScreen = ({ navigation }) => {
         <View
           style={{
             flexDirection: 'row',
-            backgroundColor: color.iconButtonBg,
+            backgroundColor: color.button.defaultBg,
             flex: 1,
             borderRadius: 100,
           }}
@@ -82,7 +82,7 @@ const SearchScreen = ({ navigation }) => {
               margin: 0,
               position: 'absolute',
             }}
-            iconColor={color.textPrim}
+            iconColor={color.text.prim}
           />
           <TextInput
             value={text}
@@ -109,7 +109,7 @@ const SearchScreen = ({ navigation }) => {
           />
         </View>
         <Text
-          style={{ fontSize: 20, color: color.bluePrim, marginLeft: 8 }}
+          style={{ fontSize: 20, color: color.text.second, marginLeft: 8 }}
           onPress={() => navigation.goBack()}
         >
           {searchResource.cancel}
@@ -131,11 +131,7 @@ const SearchScreen = ({ navigation }) => {
               activeOpacity={1}
               onPress={() => handleHistoryClick(item)}
             >
-              <SimpleLineIcons
-                name='clock'
-                size={24}
-                color={color.textSecond}
-              />
+              <SimpleLineIcons name='clock' size={24} color={color.text.gray} />
               <Text style={{ fontSize: 16, marginLeft: 12, flex: 1 }}>
                 {item}
               </Text>
@@ -143,7 +139,7 @@ const SearchScreen = ({ navigation }) => {
                 icon='close'
                 style={{ margin: 0 }}
                 size={24}
-                iconColor={color.textSecond}
+                iconColor={color.text.gray}
                 onPress={() => dispatch(removeSearchHistory(i))}
               />
             </TouchableOpacity>

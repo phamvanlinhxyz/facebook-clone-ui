@@ -13,7 +13,7 @@ const PostMenu = ({ toggleMenu, editPost, deletePost }) => {
         top: 0,
         left: 0,
         right: 0,
-        backgroundColor: color.bgOpacity,
+        backgroundColor: color.other.opacityBg,
         zIndex: 4,
       }}
     >
@@ -24,10 +24,9 @@ const PostMenu = ({ toggleMenu, editPost, deletePost }) => {
       <View
         style={{
           zIndex: 6,
-          backgroundColor: color.inputBg,
+          backgroundColor: color.other.whiteBg,
           position: 'absolute',
           padding: 12,
-          backgroundColor: color.inputBg,
           width: '100%',
           borderTopStartRadius: 8,
           borderTopEndRadius: 8,
@@ -36,7 +35,7 @@ const PostMenu = ({ toggleMenu, editPost, deletePost }) => {
       >
         <Button
           style={{ borderRadius: 6 }}
-          textColor={color.textPrim}
+          textColor={color.text.prim}
           contentStyle={{ justifyContent: 'flex-start' }}
           labelStyle={{ fontSize: 16 }}
           icon='pencil'
@@ -46,7 +45,7 @@ const PostMenu = ({ toggleMenu, editPost, deletePost }) => {
         </Button>
         <Button
           style={{ borderRadius: 6 }}
-          textColor={color.textPrim}
+          textColor={color.text.prim}
           contentStyle={{ justifyContent: 'flex-start' }}
           labelStyle={{ fontSize: 16 }}
           icon='delete'

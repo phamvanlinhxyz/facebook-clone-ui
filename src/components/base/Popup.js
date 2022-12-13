@@ -25,11 +25,11 @@ const Popup = ({
           flex: 1,
           alignItems: 'center',
           justifyContent: 'center',
-          backgroundColor: color.bgOpacity,
+          backgroundColor: color.other.opacityBg,
           paddingHorizontal: 48,
         }}
       >
-        <View style={{ backgroundColor: color.whitePrim, borderRadius: 12 }}>
+        <View style={{ backgroundColor: color.text.white, borderRadius: 12 }}>
           <View style={{ padding: 20 }}>
             <Text
               style={{
@@ -48,7 +48,7 @@ const Popup = ({
               <TouchableOpacity
                 style={{
                   borderTopWidth: 1,
-                  borderTopColor: color.postSeparator,
+                  borderTopColor: color.other.separator,
                   paddingVertical: 12,
                 }}
                 activeOpacity={1}
@@ -57,7 +57,7 @@ const Popup = ({
                 <Text
                   style={{
                     fontSize: 16,
-                    color: color.bluePrim,
+                    color: color.text.prim,
                     textAlign: 'center',
                   }}
                 >
@@ -69,7 +69,7 @@ const Popup = ({
               <TouchableOpacity
                 style={{
                   borderTopWidth: 1,
-                  borderTopColor: color.postSeparator,
+                  borderTopColor: color.other.separator,
                   paddingVertical: 12,
                 }}
                 activeOpacity={1}
@@ -78,7 +78,7 @@ const Popup = ({
                 <Text
                   style={{
                     fontSize: 16,
-                    color: color.redPrim,
+                    color: color.text.red,
                     textAlign: 'center',
                   }}
                 >
@@ -90,7 +90,7 @@ const Popup = ({
               <TouchableOpacity
                 style={{
                   borderTopWidth: 1,
-                  borderTopColor: color.postSeparator,
+                  borderTopColor: color.other.separator,
                   paddingVertical: 12,
                 }}
                 activeOpacity={1}
@@ -99,7 +99,7 @@ const Popup = ({
                 <Text
                   style={{
                     fontSize: 16,
-                    color: color.bluePrim,
+                    color: color.text.prim,
                     textAlign: 'center',
                     fontWeight: '600',
                   }}

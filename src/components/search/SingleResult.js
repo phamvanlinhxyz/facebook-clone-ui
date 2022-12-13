@@ -9,7 +9,7 @@ import { postsResource } from '../../resources';
 const SingleResult = ({ post, onPress }) => {
   return (
     <TouchableOpacity activeOpacity={1} onPress={onPress}>
-      <Divider style={{ height: 4, backgroundColor: color.postSeparator }} />
+      <Divider style={{ height: 4, backgroundColor: color.other.separator }} />
       <View
         style={{
           flexDirection: 'row',
@@ -33,7 +33,7 @@ const SingleResult = ({ post, onPress }) => {
           >
             <Text
               style={{
-                color: color.textSecond,
+                color: color.text.gray,
                 marginRight: 4,
               }}
             >
@@ -50,7 +50,7 @@ const SingleResult = ({ post, onPress }) => {
             <MaterialIcons
               name='public'
               size={14}
-              color={color.textSecond}
+              color={color.text.gray}
               style={{ marginRight: 4, paddingTop: 2 }}
             />
             {post.described}
@@ -73,14 +73,14 @@ const SingleResult = ({ post, onPress }) => {
       >
         <View style={{ marginBottom: 12 }}>
           {post.like.length > 0 && (
-            <Text style={{ fontSize: 16, color: color.textSecond }}>
+            <Text style={{ fontSize: 16, color: color.text.gray }}>
               <AntDesign
                 name='like1'
                 size={14}
-                color={color.whitePrim}
+                color={color.text.white}
                 style={{
                   borderRadius: 50,
-                  backgroundColor: color.bluePrim,
+                  backgroundColor: color.button.primBg,
                   padding: 4,
                   marginRight: 4,
                 }}
@@ -90,7 +90,7 @@ const SingleResult = ({ post, onPress }) => {
           )}
         </View>
         <Text
-          style={{ color: color.textSecond, fontSize: 16, marginBottom: 12 }}
+          style={{ color: color.text.gray, fontSize: 16, marginBottom: 12 }}
         >
           {post.countComments > 0
             ? post.countComments + postsResource.comments

@@ -25,19 +25,19 @@ const Gender = (props) => {
         >
           <RadioButton.Item
             value={enumGender.male}
-            color={color.bluePrim}
+            color={color.button.primBg}
             label={authResource.male}
             style={styles.genderRadioItem}
           />
           <RadioButton.Item
             value={enumGender.female}
-            color={color.bluePrim}
+            color={color.button.primBg}
             label={authResource.female}
             style={styles.genderRadioItem}
           />
           <RadioButton.Item
             value={enumGender.other}
-            color={color.bluePrim}
+            color={color.button.primBg}
             label={authResource.other}
             style={styles.genderRadioItem}
           />
@@ -47,7 +47,7 @@ const Gender = (props) => {
         <Button
           style={styles.loginButton}
           labelStyle={styles.buttonLabel}
-          textColor={color.whitePrim}
+          textColor={color.text.white}
           onPress={() => next({ gender })}
         >
           {authResource.continue}
@@ -56,7 +56,7 @@ const Gender = (props) => {
       <Button
         style={styles.returnButton}
         labelStyle={styles.buttonLabel}
-        textColor={color.bluePrim}
+        textColor={color.text.second}
         onPress={() => prev({ gender })}
       >
         {authResource.return}

@@ -72,9 +72,9 @@ const LoginScreen = ({ navigation }) => {
         value={phonenumber}
         mode='outlined'
         placeholder={authResource.phonenumber}
-        outlineColor={color.inputOutline}
-        activeOutlineColor={color.inputOutlineActive}
-        placeholderTextColor={color.inputPlaceholder}
+        outlineColor={color.transparent}
+        activeOutlineColor={color.transparent}
+        placeholderTextColor={color.input.placeholder}
         error={error.phonenumber}
       />
       <TextInput
@@ -90,9 +90,9 @@ const LoginScreen = ({ navigation }) => {
         value={password}
         mode='outlined'
         placeholder={authResource.password}
-        outlineColor={color.inputOutline}
-        activeOutlineColor={color.inputOutlineActive}
-        placeholderTextColor={color.inputPlaceholder}
+        outlineColor={color.transparent}
+        activeOutlineColor={color.transparent}
+        placeholderTextColor={color.input.placeholder}
         secureTextEntry={secure}
         error={error.password}
         right={
@@ -115,7 +115,8 @@ const LoginScreen = ({ navigation }) => {
       <Button
         style={styles.loginButton}
         labelStyle={styles.buttonLabel}
-        textColor={color.whitePrim}
+        textColor={color.text.white}
+        contentStyle={{ height: 44 }}
         onPress={handleLogin}
       >
         {authResource.login}
@@ -132,7 +133,10 @@ const LoginScreen = ({ navigation }) => {
       <Button
         style={styles.createNewAcc}
         labelStyle={styles.createNewAccLabel}
-        textColor={color.whitePrim}
+        textColor={color.text.white}
+        contentStyle={{
+          paddingHorizontal: 16,
+        }}
         onPress={() => navigation.navigate('RegisterScreen')}
       >
         {authResource.createNewAcc}
@@ -144,13 +148,14 @@ const LoginScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   errorText: {
     fontSize: 16,
-    color: color.errorColor,
+    color: color.main.error,
     marginBottom: 12,
   },
   container: {
     display: 'flex',
     flex: 1,
     width: '100%',
+    paddingHorizontal: 16,
     alignItems: 'center',
   },
   loginLogo: {
@@ -159,16 +164,15 @@ const styles = StyleSheet.create({
     height: 60,
   },
   loginInput: {
-    width: '92%',
+    width: '100%',
     marginBottom: 4,
-    backgroundColor: color.inputBg,
+    backgroundColor: color.input.background,
   },
   loginButton: {
     borderRadius: 4,
-    backgroundColor: color.bluePrim,
+    backgroundColor: color.button.primBg,
     marginTop: 8,
-    width: '92%',
-    height: 44,
+    width: '100%',
     justifyContent: 'center',
   },
   buttonLabel: {
@@ -176,7 +180,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   forgotPassword: {
-    color: color.blueSecond,
+    color: color.text.second,
     marginTop: 12,
     fontWeight: '600',
     fontSize: 16,
@@ -184,33 +188,32 @@ const styles = StyleSheet.create({
   orWrap: {
     display: 'flex',
     flexDirection: 'row',
-    width: '92%',
+    width: '100%',
     alignItems: 'center',
     marginVertical: 20,
   },
   orLeft: {
-    backgroundColor: color.loginSeparator,
+    backgroundColor: color.other.separator,
     height: 1,
     marginRight: 15,
     flex: 1,
   },
   orRight: {
-    backgroundColor: color.loginSeparator,
+    backgroundColor: color.other.separator,
     height: 1,
     marginLeft: 15,
     flex: 1,
   },
   orLabel: {
-    color: color.loginTextGrey,
+    color: color.text.gray,
     position: 'relative',
   },
   createNewAcc: {
-    backgroundColor: color.greenPrim,
+    backgroundColor: color.button.successBg,
     fontWeight: '600',
     height: 40,
     justifyContent: 'center',
     borderRadius: 4,
-    paddingHorizontal: 16,
   },
   createNewAccLabel: {
     fontWeight: '600',

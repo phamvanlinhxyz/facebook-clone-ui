@@ -31,17 +31,17 @@ const SearchResultsScreen = ({ navigation }) => {
         <IconButton
           icon='arrow-left'
           style={{ margin: 0 }}
-          iconColor={color.textPrim}
+          iconColor={color.text.prim}
           onPress={backToSearchScreen}
         />
         <Button
           style={{
             flex: 1,
-            backgroundColor: color.iconButtonBg,
+            backgroundColor: color.button.defaultBg,
             marginLeft: 12,
           }}
           icon='magnify'
-          labelStyle={{ color: color.textPrim, fontSize: 16 }}
+          labelStyle={{ color: color.text.prim, fontSize: 16 }}
           contentStyle={{ justifyContent: 'flex-start' }}
           onPress={backToSearchScreen}
         >
@@ -63,7 +63,7 @@ const SearchResultsScreen = ({ navigation }) => {
             );
           })}
           <Divider
-            style={{ height: 4, backgroundColor: color.postSeparator }}
+            style={{ height: 4, backgroundColor: color.other.separator }}
           />
         </ScrollView>
       ) : (
@@ -80,7 +80,7 @@ const SearchResultsScreen = ({ navigation }) => {
               fontSize: 16,
               fontWeight: '600',
               marginTop: 8,
-              color: color.textSecond,
+              color: color.text.gray,
             }}
           >
             {searchResource.noResult}

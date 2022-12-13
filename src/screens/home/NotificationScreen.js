@@ -36,14 +36,14 @@ const NotificationScreen = ({ navigation }) => {
           alignItems: 'center',
           paddingHorizontal: 12,
           paddingVertical: 8,
-          borderBottomColor: color.postSeparator,
+          borderBottomColor: color.other.separator,
           borderBottomWidth: 1,
         }}
       >
         <IconButton
           icon='arrow-left'
           style={{ margin: 0 }}
-          iconColor={color.textPrim}
+          iconColor={color.text.prim}
           onPress={() => navigation.goBack()}
         />
         <Text style={{ fontSize: 22, flex: 1, textAlign: 'center' }}>
@@ -52,7 +52,7 @@ const NotificationScreen = ({ navigation }) => {
         <IconButton
           icon='magnify'
           style={{ margin: 0 }}
-          iconColor={color.textPrim}
+          iconColor={color.text.prim}
           onPress={{}}
         />
       </View>
@@ -67,7 +67,7 @@ const NotificationScreen = ({ navigation }) => {
                   padding: 12,
                   backgroundColor: notif.read
                     ? color.transparent
-                    : color.buttonSecondBg,
+                    : color.button.secondBg,
                 }}
               >
                 <View style={{ position: 'relative' }}>
@@ -97,7 +97,11 @@ const NotificationScreen = ({ navigation }) => {
                     </Text>
                     <Text>{buildNotificationContent(notif.type)}</Text>
                   </Text>
-                  <Text style={{ color: color.textSecond }}>
+                  <Text
+                    style={{
+                      color: notif.read ? color.text.gray : color.text.second,
+                    }}
+                  >
                     {convertTimeToAgo(notif.createdAt)}
                   </Text>
                 </View>

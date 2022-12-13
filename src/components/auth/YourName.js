@@ -29,9 +29,9 @@ const YourName = (props) => {
           value={firstName}
           mode='outlined'
           placeholder={authResource.firstName}
-          outlineColor={color.inputOutline}
-          activeOutlineColor={color.inputOutlineActive}
-          placeholderTextColor={color.inputPlaceholder}
+          outlineColor={color.transparent}
+          activeOutlineColor={color.transparent}
+          placeholderTextColor={color.input.placeholder}
           right={
             firstName && (
               <TextInput.Icon
@@ -54,9 +54,9 @@ const YourName = (props) => {
           value={lastName}
           mode='outlined'
           placeholder={authResource.lastName}
-          outlineColor={color.inputOutline}
-          activeOutlineColor={color.inputOutlineActive}
-          placeholderTextColor={color.inputPlaceholder}
+          outlineColor={color.transparent}
+          activeOutlineColor={color.transparent}
+          placeholderTextColor={color.input.placeholder}
           right={
             lastName && (
               <TextInput.Icon
@@ -79,7 +79,7 @@ const YourName = (props) => {
         <Button
           style={styles.loginButton}
           labelStyle={styles.buttonLabel}
-          textColor={color.whitePrim}
+          textColor={color.text.white}
           onPress={() => next({ firstName, lastName })}
         >
           {authResource.continue}
@@ -88,7 +88,7 @@ const YourName = (props) => {
       <Button
         style={styles.returnButton}
         labelStyle={styles.buttonLabel}
-        textColor={color.bluePrim}
+        textColor={color.text.second}
         onPress={() => prev({ firstName, lastName })}
       >
         {authResource.return}

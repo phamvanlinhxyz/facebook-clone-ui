@@ -15,7 +15,7 @@ const StartRegiter = (props) => {
       <Button
         style={styles.loginButton}
         labelStyle={styles.buttonLabel}
-        textColor={color.whitePrim}
+        textColor={color.text.white}
         onPress={start}
       >
         {authResource.start}

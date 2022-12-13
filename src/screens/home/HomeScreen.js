@@ -108,14 +108,14 @@ const HomeScreen = ({ navigation }) => {
             <IconButton
               icon='magnify'
               onPress={() => navigation.navigate('SearchScreen')}
-              style={{ backgroundColor: color.iconButtonBg }}
-              iconColor={color.textPrim}
+              style={{ backgroundColor: color.button.defaultBg }}
+              iconColor={color.text.prim}
             />
             <IconButton
               icon='facebook-messenger'
               onPress={{}}
-              style={{ backgroundColor: color.iconButtonBg }}
-              iconColor={color.textPrim}
+              style={{ backgroundColor: color.button.defaultBg }}
+              iconColor={color.text.prim}
             />
           </View>
         </View>
@@ -127,7 +127,7 @@ const HomeScreen = ({ navigation }) => {
             <Avatar.Image size={40} source={user.avatar.fileLink} />
             <Button
               style={styles.postButton}
-              textColor={color.textPrim}
+              textColor={color.text.prim}
               contentStyle={{ justifyContent: 'flex-start' }}
               labelStyle={{ fontSize: 16 }}
               onPress={() => navigation.navigate('AddPostScreen')}

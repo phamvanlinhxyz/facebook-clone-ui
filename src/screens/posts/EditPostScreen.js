@@ -203,7 +203,7 @@ const EditPostScreen = ({ navigation }) => {
         <Appbar.Content style={{ flex: 1 }} title={postsResource.editPost} />
         <Button
           style={styles.postButton}
-          textColor={color.textPrim}
+          textColor={color.text.prim}
           onPress={handleSavePost}
         >
           {postsResource.save}
@@ -217,7 +217,7 @@ const EditPostScreen = ({ navigation }) => {
             {user.username}
           </Text>
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <MaterialIcons name='public' size={16} color={color.textPrim} />
+            <MaterialIcons name='public' size={16} color={color.text.gray} />
             <Text style={styles.postSettingItem}>{postsResource.public}</Text>
           </View>
         </View>
@@ -231,8 +231,8 @@ const EditPostScreen = ({ navigation }) => {
           numberOfLines={10}
           placeholder={postsResource.postPlaceholder}
           style={styles.postContent}
-          outlineColor={color.inputBg}
-          activeOutlineColor={color.inputBg}
+          outlineColor={color.transparent}
+          activeOutlineColor={color.transparent}
           value={described}
           onChangeText={setDescribed}
         />
@@ -322,7 +322,7 @@ const EditPostScreen = ({ navigation }) => {
       <View style={styles.postButtonGroup}>
         <Button
           style={styles.postFooterButton}
-          textColor={color.textPrim}
+          textColor={color.text.prim}
           contentStyle={{ justifyContent: 'flex-start' }}
           labelStyle={{ fontSize: 16 }}
           onPress={pickImage}
@@ -333,7 +333,7 @@ const EditPostScreen = ({ navigation }) => {
         </Button>
         <Button
           style={styles.postFooterButton}
-          textColor={color.textPrim}
+          textColor={color.text.prim}
           contentStyle={{ justifyContent: 'flex-start' }}
           labelStyle={{ fontSize: 16 }}
           onPress={pickVideo}
@@ -344,7 +344,7 @@ const EditPostScreen = ({ navigation }) => {
         </Button>
         <Button
           style={styles.postFooterButton}
-          textColor={color.textPrim}
+          textColor={color.text.prim}
           contentStyle={{ justifyContent: 'flex-start' }}
           labelStyle={{ fontSize: 16 }}
           icon='emoticon'
@@ -396,18 +396,19 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   postSettingItem: {
+    backgroundColor: color.text.gray,
     display: 'flex',
     marginLeft: 4,
   },
   postContent: {
-    backgroundColor: color.inputBg,
+    backgroundColor: color.transparent,
     borderWidth: 0,
     borderRadius: 8,
   },
   postButtonGroup: {
     position: 'absolute',
     padding: 12,
-    backgroundColor: color.inputBg,
+    backgroundColor: color.transparent,
     width: '100%',
     borderTopStartRadius: 8,
     borderTopEndRadius: 8,
@@ -423,7 +424,7 @@ const styles = StyleSheet.create({
     top: -4,
     right: -4,
     zIndex: 2,
-    backgroundColor: color.iconButtonBg,
+    backgroundColor: color.button.defaultBg,
     width: 28,
     height: 28,
     margin: 0,
@@ -437,7 +438,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     zIndex: 3,
-    backgroundColor: color.bgOpacity,
+    backgroundColor: color.other.opacityBg,
   },
 });
 
