@@ -25,6 +25,7 @@ export const color = {
     error: 'rgb(179, 38, 30)',
     opacityBg: '#00000033',
     whiteBg: '#fff',
+    redBg: '#d8163d',
   },
   transparent: '#00000000',
 };

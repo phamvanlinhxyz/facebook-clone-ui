@@ -43,18 +43,63 @@ export const getListSuggest = createAsyncThunk(
   }
 );
 
+/**
+ * Lấy danh sách bạn bè
+ */
+export const getListFriend = createAsyncThunk(
+  'friend/listFriend',
+  async ({ userToken, offset, search }) => {
+    if (!search) {
+      search = '';
+    }
+    const res = await friendService.listFriend(userToken, offset, search);
+    if (res.success) {
+      return res.data;
+    }
+    return [];
+  }
+);
+
+/**
+ * Lấy danh sách bạn bè theo tìm kiếm
+ */
+export const getListFriendBySearch = createAsyncThunk(
+  'friend/listFriendBySearch',
+  async ({ userToken, search }) => {
+    console.log(search);
+    if (!search) {
+      search = '';
+    }
+    const res = await friendService.listFriend(userToken, 0, search);
+    if (res.success) {
+      return res.data;
+    }
+    return [];
+  }
+);
+
 const friendSlice = createSlice({
   name: 'friend',
   initialState: {
     lstRequest: [],
-    friends: [],
     totalRequests: 0,
     loadingRequest: true,
     lstSuggest: [],
     totalSuggests: 0,
     loadingSuggest: true,
+    lstFriend: [],
+    totalFriends: 0,
+    loadingFriend: true,
   },
   reducers: {
+    /**
+     * Xét trạng thái load bạn bè
+     * @param {*} state
+     * @param {*} action
+     */
+    setLoadingFriend(state, action) {
+      state.loadingFriend = action.payload;
+    },
     /**
      * Nhận lời mời kết bạn mới
      * @param {*} state
@@ -109,6 +154,25 @@ const friendSlice = createSlice({
         state.lstRequest.unshift(action.payload.data);
       }
     });
+    builder.addCase(getListFriend.pending, (state) => {
+      state.loadingFriend = true;
+    });
+    builder.addCase(getListFriend.fulfilled, (state, action) => {
+      if (action.payload) {
+        state.lstFriend = [...state.lstFriend, ...action.payload.data];
+        state.totalFriends = action.payload.totalFriends;
+        state.loadingFriend = false;
+      }
+    });
+    builder.addCase(getListFriendBySearch.pending, (state) => {
+      state.lstFriend = [];
+      state.loadingFriend = true;
+    });
+    builder.addCase(getListFriendBySearch.fulfilled, (state, action) => {
+      state.lstFriend = action.payload.data;
+      state.totalFriends = action.payload.totalFriends;
+      state.loadingFriend = false;
+    });
   },
 });
 
@@ -118,7 +182,7 @@ const friendReducer = friendSlice.reducer;
 export const friendSelector = (state) => state.friendReducer;
 
 // Actions
-export const { replyRequest, sendRequest, pushNewRequest } =
+export const { replyRequest, sendRequest, pushNewRequest, setLoadingFriend } =
   friendSlice.actions;
 
 // Reducer

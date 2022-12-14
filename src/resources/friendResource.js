@@ -8,4 +8,6 @@ export default {
   addFriend: 'Thêm bạn bè',
   remove: 'Xóa, gỡ bỏ',
   mutualFriends: ' bạn chung',
+  totalFriend: ' người bạn',
+  searchFriend: 'Tìm kiếm bạn bè',
 };

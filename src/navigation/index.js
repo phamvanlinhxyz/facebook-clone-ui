@@ -15,6 +15,7 @@ import {
   SearchResultsScreen,
   FriendScreen,
   NotificationScreen,
+  ListFriendScreen,
 } from '../screens';
 import { authSelector } from '../store/reducers/auth.reducer';
 import { Ionicons } from '@expo/vector-icons';
@@ -48,6 +49,7 @@ const FriendTabScreen = () => {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name='FriendScreen' component={FriendScreen} />
+      <Stack.Screen name='ListFriendScreen' component={ListFriendScreen} />
     </Stack.Navigator>
   );
 };
@@ -218,7 +220,7 @@ const styles = StyleSheet.create({
   iconNumber: {
     position: 'absolute',
     color: '#fff',
-    backgroundColor: color.redPrim,
+    backgroundColor: color.other.redBg,
     paddingHorizontal: 6,
     paddingVertical: 2,
     fontSize: 12,

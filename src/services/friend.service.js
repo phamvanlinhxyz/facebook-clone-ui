@@ -124,10 +124,39 @@ const singleRequest = async (sender) => {
   }
 };
 
+/**
+ * Lấy danh sách bạn bè
+ * @param {*} userToken
+ * @param {*} offset
+ * @returns
+ */
+const listFriend = async (userToken, offset, search) => {
+  try {
+    let config;
+    if (userToken) {
+      config = {
+        headers: { Authorization: `Bearer ${userToken}` },
+      };
+    }
+    const res = await axios.get(
+      `${constant.API_URL}/api/${constant.API_VER}/friends/list?limit=20&offset=${offset}&search=${search}`,
+      config ? config : null
+    );
+
+    return {
+      success: true,
+      data: res.data,
+    };
+  } catch (error) {
+    return handleError(error);
+  }
+};
+
 export default {
   listRequest,
   replyRequest,
   listSuggest,
   sendRequest,
   singleRequest,
+  listFriend,
 };

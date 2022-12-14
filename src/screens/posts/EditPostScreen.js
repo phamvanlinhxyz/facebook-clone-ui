@@ -396,7 +396,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   postSettingItem: {
-    backgroundColor: color.text.gray,
+    color: color.text.gray,
     display: 'flex',
     marginLeft: 4,
   },

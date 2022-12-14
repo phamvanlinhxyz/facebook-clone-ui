@@ -37,7 +37,7 @@ const FriendScreen = ({ navigation }) => {
    */
   useEffect(() => {
     setTimeout(() => {
-      dispatch(getListRequest({ userToken, offset: 0 }));
+      dispatch(getListRequest({ userToken, offset: lstRequest.length }));
       dispatch(getListSuggest({ userToken, offset: 0 }));
     }, 200);
   }, []);
@@ -146,7 +146,7 @@ const FriendScreen = ({ navigation }) => {
             style={{ backgroundColor: color.button.defaultBg }}
             labelStyle={{ color: color.text.prim, fontSize: 16 }}
             contentStyle={{ justifyContent: 'flex-start' }}
-            onPress={{}}
+            onPress={() => navigation.navigate('ListFriendScreen')}
           >
             {friendResource.friend}
           </Button>
