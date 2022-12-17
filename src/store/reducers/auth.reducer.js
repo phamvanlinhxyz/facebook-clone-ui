@@ -8,12 +8,8 @@ const authSlice = createSlice({
     isAuthenticate: false,
     user: null,
     userToken: null,
-    socket: null,
   },
   reducers: {
-    setSocket(state, action) {
-      state.socket = action.payload;
-    },
     /**
      * Lưu thông tin use sau khi đăng nhập/đăng ký
      * @param {*} state
@@ -25,6 +21,14 @@ const authSlice = createSlice({
       state.user = action.payload.data;
       state.userToken = action.payload.token;
     },
+    /**
+     * Đăng xuất
+     * @param {*} state
+     * @param {*} action
+     */
+    logout(state, action) {
+      state.isAuthenticate = false;
+    },
   },
   extraReducers: {},
 });
@@ -35,7 +39,7 @@ const authReducer = authSlice.reducer;
 export const authSelector = (state) => state.authReducer;
 
 // Actions
-export const { setUserInfo, setSocket } = authSlice.actions;
+export const { setUserInfo, logout } = authSlice.actions;
 
 // Reducer
 export default authReducer;

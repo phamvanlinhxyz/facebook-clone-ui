@@ -46,6 +46,15 @@ const searchSlice = createSlice({
         state.searchHistory.pop();
       }
     },
+    /**
+     * Clear danh sách tìm kiếm khi đăng xuất
+     * @param {*} state
+     */
+    clearSearch(state) {
+      state.searchHistory = [];
+      state.currentSearch = null;
+      state.searchResults = [];
+    },
   },
 });
 
@@ -60,6 +69,7 @@ export const {
   addSearhHistory,
   setSearchResults,
   setCurrentSearch,
+  clearSearch,
 } = searchSlice.actions;
 
 // Reducer

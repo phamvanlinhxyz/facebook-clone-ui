@@ -3,3 +3,4 @@ export * from './home';
 export * from './posts';
 export * from './search';
 export * from './friends';
+export * from './menu';

@@ -20,7 +20,7 @@ const postsSlice = createSlice({
   name: 'posts',
   initialState: {
     lstPost: [],
-    selectedPost: [],
+    selectedPost: {},
   },
   reducers: {
     /**
@@ -62,6 +62,14 @@ const postsSlice = createSlice({
     insertNewPost(state, action) {
       state.lstPost.unshift(action.payload);
     },
+    /**
+     * Clear danh sách bài đăng khi đăng xuất
+     * @param {*} state
+     */
+    clearPost(state) {
+      state.lstPost = [];
+      state.selectedPost = {};
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getListPost.fulfilled, (state, action) => {
@@ -76,8 +84,13 @@ const postsReducer = postsSlice.reducer;
 export const postsSelector = (state) => state.postsReducer;
 
 // Actions
-export const { insertNewPost, setSelectedPost, updatePost, deletePost } =
-  postsSlice.actions;
+export const {
+  insertNewPost,
+  setSelectedPost,
+  updatePost,
+  deletePost,
+  clearPost,
+} = postsSlice.actions;
 
 // Reducer
 export default postsReducer;

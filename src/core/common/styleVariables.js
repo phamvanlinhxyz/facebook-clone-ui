@@ -24,8 +24,15 @@ export const color = {
     separator: '#ccd0d5',
     error: 'rgb(179, 38, 30)',
     opacityBg: '#00000033',
-    whiteBg: '#fff',
+    primBg: '#fff',
+    secondBg: '#f7f8fa',
     redBg: '#d8163d',
+  },
+  shadow: {
+    shadow1: '#0000001a',
+    shadow2: '#00000033',
+    shadow5: '#00000080',
+    shadow8: '#000000cc',
   },
   transparent: '#00000000',
 };
