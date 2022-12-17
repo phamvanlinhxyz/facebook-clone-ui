@@ -53,6 +53,14 @@ const notificationSlice = createSlice({
       state.unseen = action.payload.unseenNotification;
       state.lstNotification.unshift(action.payload.newNotification);
     },
+    /**
+     * Clear danh sách thông báo khi đăng xuất
+     * @param {*} state
+     */
+    clearNotification(state) {
+      state.unseen = '0';
+      state.lstNotification = [];
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getCountUnseenNotification.fulfilled, (state, action) => {
@@ -74,7 +82,8 @@ const notificationReducer = notificationSlice.reducer;
 export const notificationSelector = (state) => state.notificationReducer;
 
 // Actions
-export const { updateNotification, updateUnseeen } = notificationSlice.actions;
+export const { updateNotification, updateUnseeen, clearNotification } =
+  notificationSlice.actions;
 
 // Reducer
 export default notificationReducer;

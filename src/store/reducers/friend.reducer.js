@@ -131,6 +131,21 @@ const friendSlice = createSlice({
       );
       state.totalRequests = state.lstRequest.length;
     },
+    /**
+     * Clear các danh sách khi đăng xuất
+     * @param {*} state
+     */
+    clearFriend(state) {
+      state.lstRequest = [];
+      state.totalRequests = 0;
+      state.loadingRequest = true;
+      state.lstSuggest = [];
+      state.totalSuggests = 0;
+      state.loadingSuggest = true;
+      state.lstFriend = [];
+      state.totalFriends = 0;
+      state.loadingFriend = true;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getListRequest.pending, (state) => {
@@ -182,8 +197,13 @@ const friendReducer = friendSlice.reducer;
 export const friendSelector = (state) => state.friendReducer;
 
 // Actions
-export const { replyRequest, sendRequest, pushNewRequest, setLoadingFriend } =
-  friendSlice.actions;
+export const {
+  replyRequest,
+  sendRequest,
+  pushNewRequest,
+  setLoadingFriend,
+  clearFriend,
+} = friendSlice.actions;
 
 // Reducer
 export default friendReducer;

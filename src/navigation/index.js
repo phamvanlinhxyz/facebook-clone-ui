@@ -16,6 +16,8 @@ import {
   FriendScreen,
   NotificationScreen,
   ListFriendScreen,
+  MenuScreen,
+  PolicyScreen,
 } from '../screens';
 import { authSelector } from '../store/reducers/auth.reducer';
 import { Ionicons } from '@expo/vector-icons';
@@ -50,6 +52,19 @@ const FriendTabScreen = () => {
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name='FriendScreen' component={FriendScreen} />
       <Stack.Screen name='ListFriendScreen' component={ListFriendScreen} />
+    </Stack.Navigator>
+  );
+};
+
+/**
+ * Tab cài đặt
+ * @returns
+ */
+const MenuTabScreen = () => {
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name='MenuScreen' component={MenuScreen} />
+      <Stack.Screen name='PolicyScreen' component={PolicyScreen} />
     </Stack.Navigator>
   );
 };
@@ -130,8 +145,8 @@ const BottomBar = () => {
         }}
       />
       <Tab.Screen
-        name='MeScreen'
-        component={AddPostScreen}
+        name='MenuTabScreen'
+        component={MenuTabScreen}
         options={{
           tabBarLabel: homeResource.me,
           tabBarLabelStyle: { fontSize: 12 },

@@ -24,7 +24,7 @@ const PostMenu = ({ toggleMenu, editPost, deletePost }) => {
       <View
         style={{
           zIndex: 6,
-          backgroundColor: color.other.whiteBg,
+          backgroundColor: color.other.primBg,
           position: 'absolute',
           padding: 12,
           width: '100%',
