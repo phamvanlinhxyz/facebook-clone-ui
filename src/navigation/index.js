@@ -104,7 +104,7 @@ const BottomBar = () => {
           ),
         }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name='WatchScreen'
         component={HomeScreen}
         options={{
@@ -116,7 +116,7 @@ const BottomBar = () => {
             <Ionicons name='tv' size={24} color={color} />
           ),
         }}
-      />
+      /> */}
       <Tab.Screen
         name='NotificationScreen'
         component={NotificationScreen}

@@ -1,5 +1,3 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { persistReducer } from 'redux-persist';
 import { createSlice } from '@reduxjs/toolkit';
 
 const authSlice = createSlice({
@@ -30,7 +28,6 @@ const authSlice = createSlice({
       state.isAuthenticate = false;
     },
   },
-  extraReducers: {},
 });
 
 const authReducer = authSlice.reducer;

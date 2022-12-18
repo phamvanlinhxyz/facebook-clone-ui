@@ -12,7 +12,7 @@ const SingleRequest = ({ req, reply }) => {
       activeOpacity={1}
     >
       <Image
-        source={req.sender.avatar.fileLink}
+        source={{ uri: req.sender.avatar.fileLink }}
         style={{ width: 100, height: 100, borderRadius: 100 }}
       />
       <View style={{ marginLeft: 12, flex: 1, justifyContent: 'center' }}>

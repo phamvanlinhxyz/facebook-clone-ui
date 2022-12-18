@@ -23,7 +23,7 @@ const SinglePost = ({ post, width, imageClick, toggleMenu }) => {
       <Divider style={{ height: 2, backgroundColor: color.other.separator }} />
       {/* Post Author */}
       <View style={{ flexDirection: 'row', alignItems: 'center', margin: 12 }}>
-        <Avatar.Image size={40} source={post.author.avatar.fileLink} />
+        <Avatar.Image size={40} source={{ uri: post.author.avatar.fileLink }} />
         <View style={{ marginLeft: 12 }}>
           <Text style={{ fontWeight: '600', fontSize: 16 }}>
             {post.author.username}

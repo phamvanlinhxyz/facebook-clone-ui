@@ -14,17 +14,17 @@ const SingleResult = ({ post, onPress }) => {
         style={{
           flexDirection: 'row',
           alignItems: 'center',
-          margin: 12,
+          margin: 16,
         }}
       >
-        <Avatar.Image size={40} source={post.author.avatar.fileLink} />
+        <Avatar.Image size={40} source={{ uri: post.author.avatar.fileLink }} />
         <View style={{ marginLeft: 12 }}>
           <Text style={{ fontWeight: '600', fontSize: 16 }}>
             {post.author.username}
           </Text>
         </View>
       </View>
-      <View style={{ flexDirection: 'row', marginHorizontal: 12 }}>
+      <View style={{ flexDirection: 'row', marginHorizontal: 16 }}>
         <View style={{ flex: 1, flexDirection: 'row' }}>
           <Text
             style={{ fontSize: 16, marginRight: 12 }}

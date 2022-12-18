@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Image, ImageBackground, View } from 'react-native';
+import { FlatList, Image, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   getLstNotification,
   notificationSelector,
 } from '../../store/reducers/notification.reducer';
-import constant from '../../core/common/constant';
 import { color } from '../../core/common/styleVariables';
 import { IconButton, Text } from 'react-native-paper';
 import notificationResource from '../../resources/notificationResource';
@@ -14,18 +13,122 @@ import {
   convertTimeToAgo,
   getNotificationIcon,
 } from '../../core/common/commonFunction';
-import listIcon from '../../../assets/images/list-icon.png';
+import { Skeleton } from '../../components';
+import constant from '../../core/common/constant';
 
 const NotificationScreen = ({ navigation }) => {
   const dispatch = useDispatch();
-  const { lstNotification } = useSelector(notificationSelector);
-  const [offset, setOffset] = useState(0);
+  const { lstNotification, isLoading, totalNotification } =
+    useSelector(notificationSelector);
+  const [offset, setOffset] = useState(
+    lstNotification ? lstNotification.length : 0
+  );
 
+  /**
+   * Gọi api load thêm khi offset thay đổi
+   */
   useEffect(() => {
     dispatch(
       getLstNotification({ limit: constant.LOAD_LIMIT, offset: offset })
     );
   }, [offset]);
+
+  /**
+   * Cập nhật offset khi cuộn xuống cuối list
+   */
+  const loadMoreNotif = () => {
+    if (lstNotification.length < totalNotification) {
+      setOffset(lstNotification.length);
+    }
+  };
+
+  /**
+   * Hiển thị các dòng thông báo
+   * @param {*} notif
+   * @returns
+   */
+  const renderNotifData = (notif) => {
+    return (
+      <View
+        style={{
+          flexDirection: 'row',
+          paddingHorizontal: 16,
+          paddingVertical: 12,
+          backgroundColor: notif.read
+            ? color.transparent
+            : color.button.secondBg,
+        }}
+      >
+        <View style={{ position: 'relative' }}>
+          <Image
+            source={{ uri: notif.sender.avatar.fileLink }}
+            style={{ width: 80, height: 80, borderRadius: 100 }}
+          />
+          <Image
+            source={getNotificationIcon(notif.type)}
+            resizeMode='cover'
+            style={{
+              height: 32,
+              width: 32,
+              position: 'absolute',
+              bottom: -4,
+              right: -4,
+            }}
+          />
+        </View>
+        <View style={{ marginLeft: 16, flex: 1, justifyContent: 'center' }}>
+          <Text style={{ fontSize: 16 }}>
+            <Text style={{ fontWeight: '600' }}>{notif.sender.username}</Text>
+            <Text>{buildNotificationContent(notif.type)}</Text>
+          </Text>
+          <Text
+            style={{
+              color: notif.read ? color.text.gray : color.text.second,
+            }}
+          >
+            {convertTimeToAgo(notif.createdAt)}
+          </Text>
+        </View>
+      </View>
+    );
+  };
+
+  /**
+   * Hiển thị skeleton khi load thông báo
+   * @returns
+   */
+  const renderLoader = () => {
+    return isLoading ? (
+      <>
+        <View
+          style={{
+            flexDirection: 'row',
+            paddingHorizontal: 16,
+            paddingVertical: 12,
+          }}
+        >
+          <Skeleton style={{ width: 80, height: 80, borderRadius: 40 }} />
+          <View style={{ marginLeft: 16, flex: 1, justifyContent: 'center' }}>
+            <Skeleton style={{ height: 20, borderRadius: 6 }} />
+            <Skeleton style={{ marginTop: 8, height: 20, borderRadius: 6 }} />
+          </View>
+        </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            paddingHorizontal: 16,
+            paddingVertical: 12,
+          }}
+        >
+          <Skeleton style={{ width: 80, height: 80, borderRadius: 40 }} />
+          <View style={{ marginLeft: 16, flex: 1, justifyContent: 'center' }}>
+            <Skeleton style={{ height: 20, borderRadius: 6 }} />
+            <Skeleton style={{ marginTop: 8, height: 20, borderRadius: 6 }} />
+          </View>
+        </View>
+      </>
+    ) : null;
+  };
 
   return (
     <View style={{ flex: 1 }}>
@@ -34,81 +137,28 @@ const NotificationScreen = ({ navigation }) => {
           height: 64,
           flexDirection: 'row',
           alignItems: 'center',
-          paddingHorizontal: 12,
+          paddingHorizontal: 16,
           paddingVertical: 8,
-          borderBottomColor: color.other.separator,
-          borderBottomWidth: 1,
         }}
       >
-        <IconButton
-          icon='arrow-left'
-          style={{ margin: 0 }}
-          iconColor={color.text.prim}
-          onPress={() => navigation.goBack()}
-        />
-        <Text style={{ fontSize: 22, flex: 1, textAlign: 'center' }}>
+        <Text style={{ fontSize: 28, flex: 1, fontWeight: '600' }}>
           {notificationResource.notification}
         </Text>
         <IconButton
           icon='magnify'
-          style={{ margin: 0 }}
+          style={{ margin: 0, backgroundColor: color.button.defaultBg }}
           iconColor={color.text.prim}
-          onPress={{}}
+          onPress={() => navigation.navigate('SearchScreen')}
         />
       </View>
-      <View style={{ flex: 1 }}>
-        {lstNotification &&
-          lstNotification.map((notif, i) => {
-            return (
-              <View
-                key={i}
-                style={{
-                  flexDirection: 'row',
-                  padding: 12,
-                  backgroundColor: notif.read
-                    ? color.transparent
-                    : color.button.secondBg,
-                }}
-              >
-                <View style={{ position: 'relative' }}>
-                  <Image
-                    source={notif.sender.avatar.fileLink}
-                    style={{ width: 80, height: 80, borderRadius: 100 }}
-                  />
-                  <Image
-                    source={getNotificationIcon(notif.type)}
-                    resizeMode='cover'
-                    style={{
-                      height: 32,
-                      width: 32,
-                      position: 'absolute',
-                      bottom: -4,
-                      right: -4,
-                    }}
-                  />
-                </View>
-
-                <View
-                  style={{ marginLeft: 16, flex: 1, justifyContent: 'center' }}
-                >
-                  <Text style={{ fontSize: 16 }}>
-                    <Text style={{ fontWeight: '600' }}>
-                      {notif.sender.username}
-                    </Text>
-                    <Text>{buildNotificationContent(notif.type)}</Text>
-                  </Text>
-                  <Text
-                    style={{
-                      color: notif.read ? color.text.gray : color.text.second,
-                    }}
-                  >
-                    {convertTimeToAgo(notif.createdAt)}
-                  </Text>
-                </View>
-              </View>
-            );
-          })}
-      </View>
+      <FlatList
+        data={lstNotification}
+        renderItem={({ item }) => renderNotifData(item)}
+        keyExtractor={(item) => item._id}
+        ListFooterComponent={renderLoader}
+        onEndReached={loadMoreNotif}
+        onEndReachedThreshold={0}
+      />
     </View>
   );
 };

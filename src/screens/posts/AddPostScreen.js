@@ -164,20 +164,52 @@ const AddPostScreen = ({ navigation }) => {
         </View>
       )}
       {/* Appbar */}
-      <Appbar>
-        <Appbar.BackAction onPress={handleBack} />
-        <Appbar.Content style={{ flex: 1 }} title={postsResource.createPost} />
+      <View
+        style={{
+          height: 64,
+          flexDirection: 'row',
+          alignItems: 'center',
+          paddingHorizontal: 16,
+          paddingVertical: 8,
+          borderBottomColor: color.other.separator,
+          borderBottomWidth: 1,
+          position: 'relative',
+        }}
+      >
+        <IconButton
+          icon='chevron-left'
+          style={{
+            margin: 0,
+            backgroundColor: color.button.defaultBg,
+            width: 40,
+            height: 40,
+          }}
+          size={32}
+          iconColor={color.text.prim}
+          onPress={handleBack}
+        />
+        <Text
+          style={{
+            fontSize: 20,
+            fontWeight: '600',
+            flex: 1,
+            textAlign: 'left',
+            marginLeft: 12,
+          }}
+        >
+          {postsResource.createPost}
+        </Text>
         <Button
           style={styles.postButton}
-          textColor={color.text.prim}
+          textColor={color.text.white}
           onPress={() => handleCreatePost(enumPostType.posted)}
         >
           {postsResource.post}
         </Button>
-      </Appbar>
+      </View>
       {/* Người đăng */}
       <View style={styles.postAuthor}>
-        <Avatar.Image size={60} source={user.avatar.fileLink} />
+        <Avatar.Image size={60} source={{ uri: user.avatar.fileLink }} />
         <View style={styles.authorName}>
           <Text variant='titleLarge' style={styles.username}>
             {user.username}
@@ -322,11 +354,11 @@ const styles = StyleSheet.create({
   },
   postButton: {
     fontSize: 18,
-    marginRight: 8,
     fontWeight: '500',
     position: 'relative',
     width: 'auto',
     borderRadius: 6,
+    backgroundColor: color.button.primBg,
   },
   postAuthor: {
     margin: 12,

@@ -63,7 +63,7 @@ const SearchScreen = ({ navigation }) => {
           borderColor: color.other.separator,
           flexDirection: 'row',
           alignItems: 'center',
-          paddingHorizontal: 12,
+          paddingHorizontal: 16,
           paddingVertical: 8,
         }}
       >
@@ -115,8 +115,8 @@ const SearchScreen = ({ navigation }) => {
           {searchResource.cancel}
         </Text>
       </View>
-      <ScrollView style={{ flex: 1, padding: 12 }}>
-        <Text style={{ fontSize: 20, fontWeight: '600', marginBottom: 12 }}>
+      <ScrollView style={{ flex: 1, padding: 16 }}>
+        <Text style={{ fontSize: 20, fontWeight: '600', marginBottom: 8 }}>
           {searchResource.recent}
         </Text>
         {searchHistory.map((item, i) => {
