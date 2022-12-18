@@ -11,7 +11,7 @@ const SingleSuggest = ({ suggest, action }) => {
       activeOpacity={1}
     >
       <Image
-        source={suggest.avatar.fileLink}
+        source={{ uri: suggest.avatar.fileLink }}
         style={{ width: 100, height: 100, borderRadius: 100 }}
       />
       <View style={{ marginLeft: 12, flex: 1, justifyContent: 'center' }}>

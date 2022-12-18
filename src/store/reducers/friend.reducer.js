@@ -66,7 +66,6 @@ export const getListFriend = createAsyncThunk(
 export const getListFriendBySearch = createAsyncThunk(
   'friend/listFriendBySearch',
   async ({ userToken, search }) => {
-    console.log(search);
     if (!search) {
       search = '';
     }

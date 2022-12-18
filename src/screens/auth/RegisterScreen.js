@@ -52,6 +52,7 @@ const RegisterScreen = ({ navigation }) => {
     } else {
       setAuthToken(res.data.token);
       dispatch(setUserInfo(res.data));
+      connectSocket(res.data.token);
     }
     setUser(newUser);
   };

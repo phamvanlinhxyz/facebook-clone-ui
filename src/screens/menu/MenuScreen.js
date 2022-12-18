@@ -59,7 +59,7 @@ const MenuScreen = ({ navigation }) => {
           }}
         >
           <Image
-            source={user.avatar.fileLink}
+            source={{ uri: user.avatar.fileLink }}
             style={{ width: 40, height: 40, borderRadius: 20 }}
           />
           <Text style={{ fontSize: 18, marginLeft: 12 }}>{user.username}</Text>

@@ -9,7 +9,7 @@ export const getLstNotification = createAsyncThunk(
   async ({ limit, offset }) => {
     const res = await notificationService.listNotification(limit, offset);
     if (res.success) {
-      return res.data.data;
+      return res.data;
     }
   }
 );
@@ -33,6 +33,7 @@ const notificationSlice = createSlice({
   initialState: {
     unseen: '0',
     lstNotification: [],
+    totalNotification: 0,
     isLoading: true,
   },
   reducers: {
@@ -60,6 +61,7 @@ const notificationSlice = createSlice({
     clearNotification(state) {
       state.unseen = '0';
       state.lstNotification = [];
+      state.totalNotification = 0;
     },
   },
   extraReducers: (builder) => {
@@ -70,7 +72,11 @@ const notificationSlice = createSlice({
       state.isLoading = true;
     });
     builder.addCase(getLstNotification.fulfilled, (state, action) => {
-      state.lstNotification = action.payload;
+      state.lstNotification = [
+        ...state.lstNotification,
+        ...action.payload.data,
+      ];
+      state.totalNotification = action.payload.total;
       state.isLoading = false;
     });
   },

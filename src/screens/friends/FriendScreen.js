@@ -85,32 +85,25 @@ const FriendScreen = ({ navigation }) => {
           height: 64,
           flexDirection: 'row',
           alignItems: 'center',
-          paddingHorizontal: 12,
+          paddingHorizontal: 16,
           paddingVertical: 8,
-          borderBottomColor: color.other.separator,
-          borderBottomWidth: 1,
         }}
       >
-        <IconButton
-          icon='arrow-left'
-          style={{ margin: 0 }}
-          iconColor={color.text.prim}
-          onPress={() => navigation.goBack()}
-        />
-        <Text style={{ fontSize: 22, flex: 1, textAlign: 'center' }}>
+        <Text style={{ fontSize: 28, flex: 1, fontWeight: '600' }}>
           {friendResource.friend}
         </Text>
         <IconButton
           icon='magnify'
-          style={{ margin: 0 }}
+          style={{ margin: 0, backgroundColor: color.button.defaultBg }}
           iconColor={color.text.prim}
-          onPress={{}}
+          onPress={() => navigation.navigate('SearchScreen')}
         />
       </View>
       <ScrollView style={{ flex: 1 }}>
         <View
           style={{
-            padding: 12,
+            padding: 16,
+            paddingTop: 8,
             flexDirection: 'row',
             borderBottomColor: color.other.separator,
             borderBottomWidth: 1,

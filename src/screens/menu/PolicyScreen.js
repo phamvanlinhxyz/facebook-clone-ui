@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
-import { Text } from 'react-native-paper';
+import { IconButton, Text } from 'react-native-paper';
 import { color } from '../../core/common/styleVariables';
 import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
 import menuResource from '../../resources/menuResource';
@@ -13,7 +13,7 @@ const PolicyScreen = ({ navigation }) => {
           height: 64,
           flexDirection: 'row',
           alignItems: 'center',
-          paddingHorizontal: 8,
+          paddingHorizontal: 16,
           paddingVertical: 8,
           position: 'relative',
         }}
@@ -28,16 +28,18 @@ const PolicyScreen = ({ navigation }) => {
         >
           {menuResource.facebookPolicy}
         </Text>
-        <MaterialIcons
-          name='keyboard-arrow-left'
-          size={32}
-          color='black'
+        <IconButton
+          icon='chevron-left'
           style={{
+            margin: 0,
+            backgroundColor: color.button.defaultBg,
+            position: 'absolute',
+            left: 16,
             width: 40,
             height: 40,
-            padding: 4,
-            position: 'absolute',
           }}
+          size={32}
+          iconColor={color.text.prim}
           onPress={() => navigation.goBack()}
         />
       </View>

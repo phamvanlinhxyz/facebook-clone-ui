@@ -24,13 +24,19 @@ const SearchResultsScreen = ({ navigation }) => {
           height: 64,
           flexDirection: 'row',
           alignItems: 'center',
-          paddingHorizontal: 12,
+          paddingHorizontal: 16,
           paddingVertical: 8,
         }}
       >
         <IconButton
-          icon='arrow-left'
-          style={{ margin: 0 }}
+          icon='chevron-left'
+          style={{
+            margin: 0,
+            backgroundColor: color.button.defaultBg,
+            width: 40,
+            height: 40,
+          }}
+          size={32}
           iconColor={color.text.prim}
           onPress={backToSearchScreen}
         />

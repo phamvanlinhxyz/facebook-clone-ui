@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   FlatList,
   Image,
@@ -9,26 +9,26 @@ import {
 import { IconButton, Text, TextInput } from 'react-native-paper';
 import { useDispatch, useSelector } from 'react-redux';
 import { color } from '../../core/common/styleVariables';
-import { friendResource, searchResource } from '../../resources';
+import { friendResource } from '../../resources';
 import { authSelector } from '../../store/reducers/auth.reducer';
 import {
   friendSelector,
   getListFriend,
   getListFriendBySearch,
-  setLoadingFriend,
 } from '../../store/reducers/friend.reducer';
-import { Entypo } from '@expo/vector-icons';
+import { Entypo, MaterialIcons } from '@expo/vector-icons';
 import { Skeleton } from '../../components';
 
 const ListFriendScreen = ({ navigation }) => {
   const [searchTxt, setSearchTxt] = useState('');
+  const [inputTxt, setInputTxt] = useState('');
   const { userToken } = useSelector(authSelector);
   const { lstFriend, totalFriends, loadingFriend } =
     useSelector(friendSelector);
   const dispatch = useDispatch();
 
   /**
-   * Hàm tìm kiếm
+   * Lấy dữ liệu search
    */
   useEffect(() => {
     dispatch(
@@ -37,19 +37,31 @@ const ListFriendScreen = ({ navigation }) => {
   }, [searchTxt]);
 
   /**
+   * Lấy dữ liệu search
+   */
+  const timerId = useRef();
+  useEffect(() => {
+    timerId.current = setTimeout(() => {
+      setSearchTxt(inputTxt);
+    }, 1000);
+
+    return () => {
+      if (timerId.current) clearTimeout(timerId.current);
+    };
+  }, [inputTxt]);
+
+  /**
    * Lấy danh sách bạn bè paging
    */
   const loadListFriend = () => {
     if (lstFriend.length < totalFriends) {
-      setTimeout(() => {
-        dispatch(
-          getListFriend({
-            userToken: userToken,
-            offset: lstFriend.length,
-            searchTxt,
-          })
-        );
-      }, 200);
+      dispatch(
+        getListFriend({
+          userToken: userToken,
+          offset: lstFriend.length,
+          searchTxt,
+        })
+      );
     }
   };
 
@@ -65,6 +77,7 @@ const ListFriendScreen = ({ navigation }) => {
           paddingVertical: 8,
           flexDirection: 'row',
           alignItems: 'center',
+          paddingHorizontal: 16,
         }}
         activeOpacity={1}
       >
@@ -106,7 +119,7 @@ const ListFriendScreen = ({ navigation }) => {
    */
   const renderLoader = () => {
     return loadingFriend ? (
-      <>
+      <View style={{ paddingHorizontal: 16 }}>
         <View style={{ paddingVertical: 8, flexDirection: 'row' }}>
           <Skeleton style={{ height: 60, width: 60, borderRadius: 100 }} />
           <View style={{ marginLeft: 12, flex: 1, justifyContent: 'center' }}>
@@ -121,8 +134,20 @@ const ListFriendScreen = ({ navigation }) => {
             <Skeleton style={{ marginTop: 8, height: 20, borderRadius: 6 }} />
           </View>
         </View>
-      </>
+      </View>
     ) : null;
+  };
+
+  const headerFlatList = () => {
+    return (
+      <View style={{ paddingHorizontal: 16, paddingVertical: 8 }}>
+        {totalFriends > 0 && (
+          <Text style={{ fontSize: 22, fontWeight: '600' }}>
+            {totalFriends + friendResource.totalFriend}
+          </Text>
+        )}
+      </View>
+    );
   };
 
   return (
@@ -132,84 +157,100 @@ const ListFriendScreen = ({ navigation }) => {
           height: 64,
           flexDirection: 'row',
           alignItems: 'center',
-          paddingHorizontal: 12,
+          paddingHorizontal: 16,
           paddingVertical: 8,
           borderBottomColor: color.other.separator,
           borderBottomWidth: 1,
+          position: 'relative',
         }}
       >
         <IconButton
-          icon='arrow-left'
-          style={{ margin: 0 }}
+          icon='chevron-left'
+          style={{
+            margin: 0,
+            backgroundColor: color.button.defaultBg,
+            position: 'absolute',
+            left: 16,
+            width: 40,
+            height: 40,
+          }}
+          size={32}
           iconColor={color.text.prim}
           onPress={() => navigation.goBack()}
         />
-        <Text style={{ fontSize: 22, flex: 1, textAlign: 'center' }}>
+        <Text
+          style={{
+            fontSize: 20,
+            fontWeight: '600',
+            flex: 1,
+            textAlign: 'center',
+          }}
+        >
           {friendResource.friend}
         </Text>
         <IconButton
           icon='magnify'
-          style={{ margin: 0 }}
+          style={{
+            margin: 0,
+            backgroundColor: color.button.defaultBg,
+            position: 'absolute',
+            right: 16,
+          }}
           iconColor={color.text.prim}
-          onPress={{}}
+          onPress={() => navigation.navigate('SearchScreen')}
         />
       </View>
-      <ScrollView style={{ flex: 1, padding: 12 }}>
-        {/* Ô search */}
-        <View
+      <View
+        style={{
+          flexDirection: 'row',
+          backgroundColor: color.button.defaultBg,
+          borderRadius: 100,
+          marginHorizontal: 16,
+          marginVertical: 8,
+        }}
+      >
+        <IconButton
+          icon='magnify'
           style={{
-            flexDirection: 'row',
-            backgroundColor: color.button.defaultBg,
-            borderRadius: 100,
+            backgroundColor: color.transparent,
+            margin: 0,
+            position: 'absolute',
           }}
-        >
-          <IconButton
-            icon='magnify'
-            style={{
-              backgroundColor: color.transparent,
-              margin: 0,
-              position: 'absolute',
-            }}
-            iconColor={color.text.prim}
-          />
-          <TextInput
-            value={searchTxt}
-            onChangeText={setSearchTxt}
-            placeholder={friendResource.searchFriend}
-            underlineColorAndroid={color.transparent}
-            activeUnderlineColor={color.transparent}
-            underlineColor={color.transparent}
-            style={{
-              backgroundColor: color.transparent,
-              height: 40,
-              flex: 1,
-              marginLeft: 20,
-            }}
-            onSubmitEditing={{}}
-            right={
-              searchTxt ? (
-                <TextInput.Icon
-                  icon='close-circle'
-                  onPress={() => setSearchTxt('')}
-                />
-              ) : null
-            }
-          />
-        </View>
-        {totalFriends > 0 && (
-          <Text style={{ fontSize: 22, fontWeight: '600', paddingTop: 12 }}>
-            {totalFriends + friendResource.totalFriend}
-          </Text>
-        )}
-        <FlatList
-          data={lstFriend}
-          renderItem={({ item }) => renderFriendData(item)}
-          keyExtractor={(item) => item._id}
-          ListFooterComponent={renderLoader}
-          onEndReached={loadListFriend}
-          onEndReachedThreshold={0}
+          iconColor={color.text.prim}
         />
-      </ScrollView>
+        <TextInput
+          value={inputTxt}
+          onChangeText={setInputTxt}
+          placeholder={friendResource.searchFriend}
+          underlineColorAndroid={color.transparent}
+          activeUnderlineColor={color.transparent}
+          underlineColor={color.transparent}
+          style={{
+            backgroundColor: color.transparent,
+            height: 40,
+            flex: 1,
+            marginLeft: 20,
+          }}
+          onSubmitEditing={{}}
+          right={
+            searchTxt ? (
+              <TextInput.Icon
+                icon='close-circle'
+                onPress={() => setSearchTxt('')}
+              />
+            ) : null
+          }
+        />
+      </View>
+      <FlatList
+        data={lstFriend}
+        renderItem={({ item }) => renderFriendData(item)}
+        keyExtractor={(item) => item._id}
+        ListHeaderComponent={headerFlatList}
+        ListFooterComponent={renderLoader}
+        onEndReached={loadListFriend}
+        onEndReachedThreshold={0}
+      />
     </View>
   );
 };

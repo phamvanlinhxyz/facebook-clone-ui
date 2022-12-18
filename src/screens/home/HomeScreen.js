@@ -124,7 +124,7 @@ const HomeScreen = ({ navigation }) => {
           <View
             style={{ marginHorizontal: 12, marginTop: 8, flexDirection: 'row' }}
           >
-            <Avatar.Image size={40} source={user.avatar.fileLink} />
+            <Avatar.Image size={40} source={{ uri: user.avatar.fileLink }} />
             <Button
               style={styles.postButton}
               textColor={color.text.prim}
