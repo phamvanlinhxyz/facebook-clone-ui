@@ -4,8 +4,18 @@ import { IconButton, Text } from 'react-native-paper';
 import { color } from '../../core/common/styleVariables';
 import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
 import menuResource from '../../resources/menuResource';
+import { useDispatch } from 'react-redux';
+import { setPolicyType } from '../../store/reducers/menu.reducer';
+import { enumPolicyType } from '../../core/common/enum';
 
 const PolicyScreen = ({ navigation }) => {
+  const dispatch = useDispatch();
+
+  const openDetailPolicy = (type) => {
+    dispatch(setPolicyType(type));
+    navigation.navigate('DetailPolicyScreen');
+  };
+
   return (
     <View style={{ flex: 1 }}>
       <View
@@ -51,7 +61,11 @@ const PolicyScreen = ({ navigation }) => {
           paddingVertical: 8,
         }}
       >
-        <TouchableOpacity style={styles.touchable} activeOpacity={1}>
+        <TouchableOpacity
+          style={styles.touchable}
+          activeOpacity={1}
+          onPress={() => openDetailPolicy(enumPolicyType.term)}
+        >
           <View style={styles.iconBg}>
             <MaterialCommunityIcons
               name='book-open-variant'
@@ -73,7 +87,11 @@ const PolicyScreen = ({ navigation }) => {
             color={color.text.gray}
           />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.touchable} activeOpacity={1}>
+        <TouchableOpacity
+          style={styles.touchable}
+          activeOpacity={1}
+          onPress={() => openDetailPolicy(enumPolicyType.privacy)}
+        >
           <View style={styles.iconBg}>
             <MaterialCommunityIcons
               name='book-lock-outline'
@@ -95,7 +113,11 @@ const PolicyScreen = ({ navigation }) => {
             color={color.text.gray}
           />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.touchable} activeOpacity={1}>
+        <TouchableOpacity
+          style={styles.touchable}
+          activeOpacity={1}
+          onPress={() => openDetailPolicy(enumPolicyType.standard)}
+        >
           <View style={styles.iconBg}>
             <MaterialCommunityIcons
               name='police-badge-outline'

@@ -6,6 +6,7 @@ import {
   searchReducer,
   friendReducer,
   notificationReducer,
+  menuReducer,
 } from './reducers';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { persistReducer } from 'redux-persist';
@@ -17,12 +18,14 @@ const reducers = combineReducers({
   searchReducer,
   friendReducer,
   notificationReducer,
+  menuReducer,
 });
 
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
-  blacklist: 'postsReducer appReducer friendReducer notificationReducer',
+  blacklist:
+    'postsReducer appReducer friendReducer notificationReducer menuReducer',
 };
 
 const persistedReducer = persistReducer(persistConfig, reducers);
