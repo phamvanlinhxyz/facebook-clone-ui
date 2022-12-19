@@ -18,6 +18,7 @@ import {
   ListFriendScreen,
   MenuScreen,
   PolicyScreen,
+  DetailPolicyScreen,
 } from '../screens';
 import { authSelector } from '../store/reducers/auth.reducer';
 import { Ionicons } from '@expo/vector-icons';
@@ -35,10 +36,7 @@ import {
 import userOptionService from '../services/userOption.service';
 import { userOptionDictionary } from '../core/common/dictionary';
 import { enumNotificationType } from '../core/common/enum';
-import {
-  getSingleRequest,
-  pushNewRequest,
-} from '../store/reducers/friend.reducer';
+import { getSingleRequest } from '../store/reducers/friend.reducer';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -65,6 +63,7 @@ const MenuTabScreen = () => {
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name='MenuScreen' component={MenuScreen} />
       <Stack.Screen name='PolicyScreen' component={PolicyScreen} />
+      <Stack.Screen name='DetailPolicyScreen' component={DetailPolicyScreen} />
     </Stack.Navigator>
   );
 };
