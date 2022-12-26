@@ -13,6 +13,7 @@ import {
 } from '../../store/reducers/search.reducer';
 import { SimpleLineIcons } from '@expo/vector-icons';
 import searchService from '../../services/search.service';
+import { InputIcon } from '../../components';
 
 const SearchScreen = ({ navigation }) => {
   // Danh sách lịch sử tìm kiếm
@@ -67,47 +68,16 @@ const SearchScreen = ({ navigation }) => {
           paddingVertical: 8,
         }}
       >
-        <View
-          style={{
-            flexDirection: 'row',
-            backgroundColor: color.button.defaultBg,
-            flex: 1,
-            borderRadius: 100,
-          }}
-        >
-          <IconButton
-            icon='magnify'
-            style={{
-              backgroundColor: color.transparent,
-              margin: 0,
-              position: 'absolute',
-            }}
-            iconColor={color.text.prim}
-          />
-          <TextInput
-            value={text}
-            onChangeText={setText}
-            placeholder={searchResource.searchPlaceholder}
-            underlineColorAndroid={color.transparent}
-            activeUnderlineColor={color.transparent}
-            underlineColor={color.transparent}
-            style={{
-              backgroundColor: color.transparent,
-              height: 40,
-              flex: 1,
-              marginLeft: 20,
-            }}
-            onSubmitEditing={() => handleSearchPost()}
-            right={
-              text ? (
-                <TextInput.Icon
-                  icon='close-circle'
-                  onPress={() => setText('')}
-                />
-              ) : null
-            }
-          />
-        </View>
+        <InputIcon
+          icon='magnify'
+          value={text}
+          onChange={setText}
+          placeholder={searchResource.searchPlaceholder}
+          style={{ height: 40 }}
+          rounded={true}
+          onSubmit={() => handleSearchPost()}
+          wrapStyle={{ flex: 1 }}
+        />
         <Text
           style={{ fontSize: 20, color: color.text.second, marginLeft: 8 }}
           onPress={() => navigation.goBack()}
