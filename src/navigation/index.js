@@ -19,6 +19,12 @@ import {
   MenuScreen,
   PolicyScreen,
   DetailPolicyScreen,
+  SettingScreen,
+  ListBlockScreen,
+  UserInfoScreen,
+  SecurityScreen,
+  NameSettingScreen,
+  NamePreviewScreen,
 } from '../screens';
 import { authSelector } from '../store/reducers/auth.reducer';
 import { Ionicons } from '@expo/vector-icons';
@@ -64,6 +70,12 @@ const MenuTabScreen = () => {
       <Stack.Screen name='MenuScreen' component={MenuScreen} />
       <Stack.Screen name='PolicyScreen' component={PolicyScreen} />
       <Stack.Screen name='DetailPolicyScreen' component={DetailPolicyScreen} />
+      <Stack.Screen name='SettingScreen' component={SettingScreen} />
+      <Stack.Screen name='ListBlockScreen' component={ListBlockScreen} />
+      <Stack.Screen name='UserInfoScreen' component={UserInfoScreen} />
+      <Stack.Screen name='NameSettingScreen' component={NameSettingScreen} />
+      <Stack.Screen name='NamePreviewScreen' component={NamePreviewScreen} />
+      <Stack.Screen name='SecurityScreen' component={SecurityScreen} />
     </Stack.Navigator>
   );
 };
@@ -103,7 +115,7 @@ const BottomBar = () => {
           ),
         }}
       />
-      {/* <Tab.Screen
+      <Tab.Screen
         name='WatchScreen'
         component={HomeScreen}
         options={{
@@ -115,7 +127,7 @@ const BottomBar = () => {
             <Ionicons name='tv' size={24} color={color} />
           ),
         }}
-      /> */}
+      />
       <Tab.Screen
         name='NotificationScreen'
         component={NotificationScreen}

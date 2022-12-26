@@ -1,3 +1,9 @@
 export { default as MenuScreen } from './MenuScreen';
 export { default as PolicyScreen } from './PolicyScreen';
 export { default as DetailPolicyScreen } from './DetailPolicyScreen';
+export { default as SettingScreen } from './SettingScreen';
+export { default as ListBlockScreen } from './ListBlockScreen';
+export { default as UserInfoScreen } from './UserInfoScreen';
+export { default as SecurityScreen } from './SecurityScreen';
+export { default as NameSettingScreen } from './NameSettingScreen';
+export { default as NamePreviewScreen } from './NamePreviewScreen';

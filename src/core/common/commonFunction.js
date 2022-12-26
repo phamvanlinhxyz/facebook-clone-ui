@@ -1,4 +1,3 @@
-import * as FileSystem from 'expo-file-system';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import moment from 'moment';
 import { storage } from '../../helpers';
@@ -198,10 +197,8 @@ export const buildNotificationContent = (type) => {
   switch (type) {
     case enumNotificationType.requestFriend:
       return notificationResource.requestFriend;
-      break;
     case enumNotificationType.acceptRequest:
       return notificationResource.acceptRequest;
-      break;
     default:
       break;
   }

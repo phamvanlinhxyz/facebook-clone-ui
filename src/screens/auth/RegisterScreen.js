@@ -14,6 +14,7 @@ import { authResource } from '../../resources';
 import authService from '../../services/auth.service';
 import { useDispatch } from 'react-redux';
 import { setUserInfo } from '../../store/reducers/auth.reducer';
+import { connectSocket } from '../../core/common/commonFunction';
 
 const RegisterScreen = ({ navigation }) => {
   const enumRegisterCpn = {

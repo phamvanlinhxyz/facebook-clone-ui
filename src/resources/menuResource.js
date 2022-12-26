@@ -23,4 +23,26 @@ export default {
   standardsContent: `Hàng ngày, mọi người sử dụng Facebook để chia sẻ trải nghiệm, kết nối với người thân và bạn bè, cũng như xây dựng cộng đồng. Đây là dịch vụ để hơn 2 tỷ người tự do thể hiện bản thân ở các quốc gia, nền văn hóa và bằng nhiều ngôn ngữ.
   \nMeta nhận thức rõ tầm quan trọng của Facebook trong việc trở thành nơi mà mọi người cảm thấy được tạo điều kiện để giao tiếp với nhau. Đồng thời, chúng tôi nghiêm túc về vai trò của mình trong việc ngăn chặn hành vi lăng mạ/lạm dụng/ngược đãi trên dịch vụ này. Đó là lý do chúng tôi đưa ra các tiêu chuẩn nêu rõ những nội dung được phép và không được phép xuất hiện trên Facebook.
   \nCác tiêu chuẩn này dựa trên ý kiến đóng góp của mọi người, cũng như ý kiến tư vấn của chuyên gia trong những lĩnh vực như công nghệ, an toàn cộng đồng và nhân quyền. Để đảm bảo ý kiến của mọi người đều được xem trọng, chúng tôi đã cố gắng xây dựng tiêu chuẩn bao hàm nhiều quan điểm và niềm tin khác nhau, nhất là quan điểm và niềm tin của những người, những cộng đồng yếu thế hoặc bị xem nhẹ.`,
+  privacy: 'Quyền riêng tư',
+  privacyDesc:
+    'Kiểm soát người nhìn thấy hoạt động của bạn trên Facebook và cách chúng tôi dùng dữ liệu để cá nhân hóa trải nghiệm.',
+  block: 'Chặn',
+  blockDesc: 'Xem lại những người mà bạn đã chặn trước đó.',
+  account: 'Tài khoản',
+  accountDesc:
+    'Quản lý phần cài đặt liên quan đến quyền, quảng cáo, hoạt động bên ngoài Facebook và thông tin khác về tài khoản.',
+  accountInfo: 'Thông tin tài khoản',
+  accountInfoDesc:
+    'Cập nhật tên và thông tin liên hệ mà bạn kết nối với tài khoản Facebook của mình.',
+  security: 'Bảo mật',
+  securityDesc:
+    'Cập nhật cài đặt đăng nhập và quản lý game/ứng dụng kết nối với tài khoản của bạn.',
+  securityNLogin: 'Bảo mật và đăng nhập',
+  general: 'Chung',
+  name: 'Tên',
+  firstName: 'Họ',
+  middleName: 'Tên đệm',
+  seeChange: 'Xem lại thay đổi',
+  cancel: 'Hủy',
+  save: 'Lưu thay đổi',
 };

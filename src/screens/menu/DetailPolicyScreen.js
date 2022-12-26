@@ -1,11 +1,11 @@
 import React from 'react';
 import { ScrollView, View } from 'react-native';
-import { Text } from 'react-native-paper';
+import { IconButton, Text } from 'react-native-paper';
 import { useSelector } from 'react-redux';
 import menuResource from '../../resources/menuResource';
 import { menuSelector } from '../../store/reducers/menu.reducer';
-import { MaterialIcons } from '@expo/vector-icons';
 import { enumPolicyType } from '../../core/common/enum';
+import { color } from '../../core/common/styleVariables';
 
 const DetailPolicyScreen = ({ navigation }) => {
   const { policyType } = useSelector(menuSelector);
@@ -36,16 +36,18 @@ const DetailPolicyScreen = ({ navigation }) => {
             ? menuResource.privacyTitle
             : menuResource.standardsTitle}
         </Text>
-        <MaterialIcons
-          name='keyboard-arrow-left'
-          size={32}
-          color='black'
+        <IconButton
+          icon='chevron-left'
           style={{
+            margin: 0,
+            backgroundColor: color.button.defaultBg,
+            position: 'absolute',
+            left: 16,
             width: 40,
             height: 40,
-            padding: 4,
-            position: 'absolute',
           }}
+          size={32}
+          iconColor={color.text.prim}
           onPress={() => navigation.goBack()}
         />
       </View>
