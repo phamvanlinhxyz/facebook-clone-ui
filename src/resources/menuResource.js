@@ -45,4 +45,14 @@ export default {
   seeChange: 'Xem lại thay đổi',
   cancel: 'Hủy',
   save: 'Lưu thay đổi',
+  login: 'Đăng nhập',
+  changePass: 'Đổi mật khẩu',
+  changePassDesc:
+    'Bạn nên sử dụng mật khẩu mạnh mà mình chưa sử dụng ở đâu khác',
+  currentPass: 'Mật khẩu hiện tại',
+  newPass: 'Mật khẩu mới',
+  cNewPass: 'Nhập lại mật khẩu mới',
+  savePass: 'Lưu mật khẩu',
+  eNotPassword: 'Bạn chưa nhập mật khẩu.',
+  ePasswordNotMatch: 'Xác nhận mật khẩu không trùng khớp.',
 };

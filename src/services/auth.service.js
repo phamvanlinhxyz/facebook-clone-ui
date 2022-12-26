@@ -3,6 +3,27 @@ import axios from 'axios';
 import { handleError } from '../core/common/commonFunction';
 
 /**
+ * Đổi mật khẩu
+ * @param {*} data
+ * @returns
+ */
+const changePassword = async (data) => {
+  try {
+    const res = await axios.post(
+      `${constant.API_URL}/api/${constant.API_VER}/users/password`,
+      data
+    );
+
+    return {
+      success: true,
+      data: res.data,
+    };
+  } catch (error) {
+    return handleError(error);
+  }
+};
+
+/**
  * Cập nhật thông tin
  * @param {*} data
  * @returns
@@ -70,4 +91,5 @@ export default {
   register,
   login,
   edit,
+  changePassword,
 };

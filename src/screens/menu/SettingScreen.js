@@ -110,7 +110,7 @@ const SettingScreen = ({ navigation }) => {
             marginBottom: 12,
           }}
         />
-        {/* <View style={{ paddingHorizontal: 16 }}>
+        <View style={{ paddingHorizontal: 16 }}>
           <Text style={{ fontSize: 20, fontWeight: '600' }}>
             {menuResource.security}
           </Text>
@@ -132,7 +132,7 @@ const SettingScreen = ({ navigation }) => {
               </Text>
             </View>
           </TouchableOpacity>
-        </View> */}
+        </View>
       </View>
     </View>
   );

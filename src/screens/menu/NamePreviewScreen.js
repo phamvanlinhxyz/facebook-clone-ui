@@ -67,87 +67,67 @@ const NamePreviewScreen = ({ navigation }) => {
         ]}
         title={menuResource.name}
       />
-      <View
+
+      <Text
         style={{
-          flex: 1,
-          backgroundColor: color.other.secondBg,
+          fontSize: 20,
+          fontWeight: '600',
+          borderBottomColor: color.other.separator,
+          borderBottomWidth: 1,
+          paddingVertical: 12,
           paddingHorizontal: 16,
-          paddingVertical: 8,
         }}
       >
-        <View
-          style={{
-            backgroundColor: color.other.primBg,
-            borderRadius: 8,
-            shadowColor: color.shadow.shadow1,
-            shadowOffset: {
-              width: 0,
-              height: 2,
-            },
-            shadowRadius: 12,
-            marginVertical: 8,
-          }}
+        {menuResource.name}
+      </Text>
+      <View style={{ paddingVertical: 12, paddingHorizontal: 16 }}>
+        <RadioButton.Group
+          onValueChange={(newVal) => setUsername(newVal)}
+          value={username}
         >
-          <Text
-            style={{
-              fontSize: 20,
-              fontWeight: '600',
-              borderBottomColor: color.other.separator,
-              borderBottomWidth: 1,
-              padding: 12,
-            }}
-          >
-            {menuResource.name}
-          </Text>
-          <View style={{ padding: 12 }}>
-            <RadioButton.Group
-              onValueChange={(newVal) => setUsername(newVal)}
-              value={username}
-            >
-              {middleName.trim() !== '' ? (
-                <RadioButton.Item
-                  value={firstName + ' ' + middleName + ' ' + lastName}
-                  color={color.button.primBg}
-                  label={firstName + ' ' + middleName + ' ' + lastName}
-                />
-              ) : null}
-              <RadioButton.Item
-                value={firstName + ' ' + lastName}
-                color={color.button.primBg}
-                label={firstName + ' ' + lastName}
-              />
-              <RadioButton.Item
-                value={lastName + ' ' + firstName}
-                color={color.button.primBg}
-                label={lastName + ' ' + firstName}
-              />
-              {middleName.trim() !== '' ? (
-                <RadioButton.Item
-                  value={lastName + ' ' + middleName + ' ' + firstName}
-                  color={color.button.primBg}
-                  label={lastName + ' ' + middleName + ' ' + firstName}
-                />
-              ) : null}
-            </RadioButton.Group>
-            <Button
-              style={styles.previewBtn}
-              labelStyle={styles.buttonLabel}
-              textColor={color.text.white}
-              contentStyle={{ height: 44 }}
-              onPress={handleSave}
-            >
-              {menuResource.save}
-            </Button>
-            <Button
-              style={styles.returnButton}
-              labelStyle={styles.buttonLabel}
-              textColor={color.text.second}
-              onPress={handleClose}
-            >
-              {menuResource.cancel}
-            </Button>
-          </View>
-        </View>
+          {middleName.trim() !== '' ? (
+            <RadioButton.Item
+              value={firstName + ' ' + middleName + ' ' + lastName}
+              color={color.button.primBg}
+              label={firstName + ' ' + middleName + ' ' + lastName}
+            />
+          ) : null}
+          <RadioButton.Item
+            value={firstName + ' ' + lastName}
+            color={color.button.primBg}
+            label={firstName + ' ' + lastName}
+          />
+          <RadioButton.Item
+            value={lastName + ' ' + firstName}
+            color={color.button.primBg}
+            label={lastName + ' ' + firstName}
+          />
+          {middleName.trim() !== '' ? (
+            <RadioButton.Item
+              value={lastName + ' ' + middleName + ' ' + firstName}
+              color={color.button.primBg}
+              label={lastName + ' ' + middleName + ' ' + firstName}
+            />
+          ) : null}
+        </RadioButton.Group>
+        <Button
+          style={styles.previewBtn}
+          labelStyle={styles.buttonLabel}
+          textColor={color.text.white}
+          contentStyle={{ height: 44 }}
+          onPress={handleSave}
+        >
+          {menuResource.save}
+        </Button>
+        <Button
+          style={styles.returnButton}
+          labelStyle={styles.buttonLabel}
+          textColor={color.text.prim}
+          contentStyle={{ height: 44 }}
+          onPress={handleClose}
+        >
+          {menuResource.cancel}
+        </Button>
       </View>
     </View>
   );
@@ -174,7 +154,7 @@ const styles = StyleSheet.create({
   returnButton: {
     borderRadius: 4,
     marginTop: 8,
-    backgroundColor: color.button.secondBg,
+    backgroundColor: color.button.defaultBg,
     width: '100%',
     justifyContent: 'center',
   },

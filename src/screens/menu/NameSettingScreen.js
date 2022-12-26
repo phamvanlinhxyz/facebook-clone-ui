@@ -56,100 +56,72 @@ const NameSettingScreen = ({ navigation }) => {
         leftBtn={[{ icon: 'chevron-left', onPress: () => navigation.goBack() }]}
         title={menuResource.name}
       />
-      <View
+      <Text
         style={{
-          flex: 1,
-          backgroundColor: color.other.secondBg,
+          fontSize: 20,
+          fontWeight: '600',
+          borderBottomColor: color.other.separator,
+          borderBottomWidth: 1,
+          paddingVertical: 12,
           paddingHorizontal: 16,
-          paddingVertical: 8,
         }}
       >
-        <View
-          style={{
-            backgroundColor: color.other.primBg,
-            borderRadius: 8,
-            shadowColor: color.shadow.shadow1,
-            shadowOffset: {
-              width: 0,
-              height: 2,
-            },
-            shadowRadius: 12,
-            marginVertical: 8,
-          }}
-        >
-          <Text
-            style={{
-              fontSize: 20,
-              fontWeight: '600',
-              borderBottomColor: color.other.separator,
-              borderBottomWidth: 1,
-              padding: 12,
-            }}
+        {menuResource.name}
+      </Text>
+      <View style={{ paddingVertical: 12, paddingHorizontal: 16 }}>
+        <Text style={{ fontSize: 16 }}>{menuResource.firstName}</Text>
+        <TextInput
+          style={styles.nameInput}
+          value={tempName.firstName}
+          onChangeText={(val) => setTempName({ ...tempName, firstName: val })}
+          mode='outlined'
+          placeholder={menuResource.firstName}
+          outlineColor={color.transparent}
+          activeOutlineColor={color.transparent}
+          placeholderTextColor={color.input.placeholder}
+        />
+        <Text style={{ fontSize: 16 }}>{menuResource.middleName}</Text>
+        <TextInput
+          style={styles.nameInput}
+          value={tempName.middleName}
+          onChangeText={(val) => setTempName({ ...tempName, middleName: val })}
+          mode='outlined'
+          placeholder={menuResource.middleName}
+          outlineColor={color.transparent}
+          activeOutlineColor={color.transparent}
+          placeholderTextColor={color.input.placeholder}
+        />
+        <Text style={{ fontSize: 16 }}>{menuResource.name}</Text>
+        <TextInput
+          style={styles.nameInput}
+          value={tempName.lastName}
+          onChangeText={(val) => setTempName({ ...tempName, lastName: val })}
+          mode='outlined'
+          placeholder={menuResource.name}
+          outlineColor={color.transparent}
+          activeOutlineColor={color.transparent}
+          placeholderTextColor={color.input.placeholder}
+        />
+        {tempName.firstName.trim() !== '' && tempName.lastName.trim() !== '' ? (
+          <Button
+            style={styles.previewBtn}
+            labelStyle={styles.buttonLabel}
+            textColor={color.text.white}
+            contentStyle={{ height: 44 }}
+            onPress={showPreviewScreen}
           >
-            {menuResource.name}
-          </Text>
-          <View style={{ padding: 12 }}>
-            <Text style={{ fontSize: 16 }}>{menuResource.firstName}</Text>
-            <TextInput
-              style={styles.nameInput}
-              value={tempName.firstName}
-              onChangeText={(val) =>
-                setTempName({ ...tempName, firstName: val })
-              }
-              mode='outlined'
-              placeholder={menuResource.firstName}
-              outlineColor={color.transparent}
-              activeOutlineColor={color.transparent}
-              placeholderTextColor={color.input.placeholder}
-            />
-            <Text style={{ fontSize: 16 }}>{menuResource.middleName}</Text>
-            <TextInput
-              style={styles.nameInput}
-              value={tempName.middleName}
-              onChangeText={(val) =>
-                setTempName({ ...tempName, middleName: val })
-              }
-              mode='outlined'
-              placeholder={menuResource.middleName}
-              outlineColor={color.transparent}
-              activeOutlineColor={color.transparent}
-              placeholderTextColor={color.input.placeholder}
-            />
-            <Text style={{ fontSize: 16 }}>{menuResource.name}</Text>
-            <TextInput
-              style={styles.nameInput}
-              value={tempName.lastName}
-              onChangeText={(val) =>
-                setTempName({ ...tempName, lastName: val })
-              }
-              mode='outlined'
-              placeholder={menuResource.name}
-              outlineColor={color.transparent}
-              activeOutlineColor={color.transparent}
-              placeholderTextColor={color.input.placeholder}
-            />
-            {tempName.firstName.trim() !== '' &&
-            tempName.lastName.trim() !== '' ? (
-              <Button
-                style={styles.previewBtn}
-                labelStyle={styles.buttonLabel}
-                textColor={color.text.white}
-                contentStyle={{ height: 44 }}
-                onPress={showPreviewScreen}
-              >
-                {menuResource.seeChange}
-              </Button>
-            ) : null}
-            <Button
-              style={styles.returnButton}
-              labelStyle={styles.buttonLabel}
-              textColor={color.text.second}
-              onPress={handleClose}
-            >
-              {menuResource.cancel}
-            </Button>
-          </View>
-        </View>
+            {menuResource.seeChange}
+          </Button>
+        ) : null}
+        <Button
+          style={styles.returnButton}
+          labelStyle={styles.buttonLabel}
+          textColor={color.text.prim}
+          contentStyle={{ height: 44 }}
+          onPress={handleClose}
+        >
+          {menuResource.cancel}
+        </Button>
       </View>
     </View>
   );
@@ -176,7 +148,7 @@ const styles = StyleSheet.create({
   returnButton: {
     borderRadius: 4,
     marginTop: 8,
-    backgroundColor: color.button.secondBg,
+    backgroundColor: color.button.defaultBg,
     width: '100%',
     justifyContent: 'center',
   },
