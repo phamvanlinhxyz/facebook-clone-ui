@@ -4,7 +4,7 @@ import { Text } from 'react-native-paper';
 import menuResource from '../../resources/menuResource';
 import { Header } from '../../components';
 import { color } from '../../core/common/styleVariables';
-import { Octicons } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const SecurityScreen = ({ navigation }) => {
   return (
@@ -32,7 +32,11 @@ const SecurityScreen = ({ navigation }) => {
           }}
           onPress={() => navigation.navigate('ChangePasswordScreen')}
         >
-          <Octicons name='key' size={32} color={color.text.gray} />
+          <MaterialCommunityIcons
+            name='key-outline'
+            size={32}
+            color={color.text.gray}
+          />
           <View style={{ marginLeft: 12, flex: 1 }}>
             <Text style={{ fontSize: 16, fontWeight: '600' }}>
               {menuResource.changePass}
