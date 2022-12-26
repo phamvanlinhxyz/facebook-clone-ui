@@ -7,6 +7,7 @@ import menuResource from '../../resources/menuResource';
 import { useDispatch } from 'react-redux';
 import { setPolicyType } from '../../store/reducers/menu.reducer';
 import { enumPolicyType } from '../../core/common/enum';
+import { Header } from '../../components';
 
 const PolicyScreen = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -18,41 +19,10 @@ const PolicyScreen = ({ navigation }) => {
 
   return (
     <View style={{ flex: 1 }}>
-      <View
-        style={{
-          height: 64,
-          flexDirection: 'row',
-          alignItems: 'center',
-          paddingHorizontal: 16,
-          paddingVertical: 8,
-          position: 'relative',
-        }}
-      >
-        <Text
-          style={{
-            fontSize: 20,
-            flex: 1,
-            fontWeight: '600',
-            textAlign: 'center',
-          }}
-        >
-          {menuResource.facebookPolicy}
-        </Text>
-        <IconButton
-          icon='chevron-left'
-          style={{
-            margin: 0,
-            backgroundColor: color.button.defaultBg,
-            position: 'absolute',
-            left: 16,
-            width: 40,
-            height: 40,
-          }}
-          size={32}
-          iconColor={color.text.prim}
-          onPress={() => navigation.goBack()}
-        />
-      </View>
+      <Header
+        leftBtn={[{ icon: 'chevron-left', onPress: () => navigation.goBack() }]}
+        title={menuResource.facebookPolicy}
+      />
       <View
         style={{
           flex: 1,

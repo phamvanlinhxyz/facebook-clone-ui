@@ -4,6 +4,7 @@ import RootNavigation from './src/navigation';
 import store from './src/store';
 import { PersistGate } from 'redux-persist/integration/react';
 import { persistStore } from 'redux-persist';
+import './src/core/extensions';
 
 export default function App() {
   let persistor = persistStore(store);

@@ -2,6 +2,17 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import friendService from '../../services/friend.service';
 
 /**
+ * Lấy danh sách block
+ */
+export const getListBlock = createAsyncThunk('friend/listBlock', async () => {
+  const res = await friendService.listBlock();
+  if (res.success) {
+    return res.data;
+  }
+  return [];
+});
+
+/**
  * Lấy 1 lời mời kết bạn
  */
 export const getSingleRequest = createAsyncThunk(
@@ -89,6 +100,7 @@ const friendSlice = createSlice({
     lstFriend: [],
     totalFriends: 0,
     loadingFriend: true,
+    listBlock: [],
   },
   reducers: {
     /**
@@ -186,6 +198,9 @@ const friendSlice = createSlice({
       state.lstFriend = action.payload.data;
       state.totalFriends = action.payload.totalFriends;
       state.loadingFriend = false;
+    });
+    builder.addCase(getListBlock.fulfilled, (state, action) => {
+      state.listBlock = action.payload.data;
     });
   },
 });

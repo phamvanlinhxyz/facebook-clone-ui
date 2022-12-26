@@ -140,7 +140,11 @@ const MenuScreen = ({ navigation }) => {
               />
             </TouchableOpacity>
             {isShowPrivateSetting && (
-              <TouchableOpacity activeOpacity={1} style={styles.touchable}>
+              <TouchableOpacity
+                activeOpacity={1}
+                style={styles.touchable}
+                onPress={() => navigation.navigate('SettingScreen')}
+              >
                 <View style={styles.iconBg}>
                   <AntDesign name='user' size={24} color='black' />
                 </View>

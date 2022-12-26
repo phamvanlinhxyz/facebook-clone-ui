@@ -3,6 +3,25 @@ import axios from 'axios';
 import { handleError } from '../core/common/commonFunction';
 
 /**
+ * Lấy danh sách block
+ * @returns
+ */
+const listBlock = async () => {
+  try {
+    const res = await axios.get(
+      `${constant.API_URL}/api/${constant.API_VER}/friends/block`
+    );
+
+    return {
+      success: true,
+      data: res.data,
+    };
+  } catch (error) {
+    return handleError(error);
+  }
+};
+
+/**
  * Lấy danh sách yêu cầu kết bạn
  * @returns
  */
@@ -159,4 +178,5 @@ export default {
   sendRequest,
   singleRequest,
   listFriend,
+  listBlock,
 };
