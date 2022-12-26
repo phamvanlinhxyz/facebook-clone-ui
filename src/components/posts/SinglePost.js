@@ -36,7 +36,7 @@ const SinglePost = ({ post, width, imageClick, toggleMenu }) => {
           </View>
         </View>
         <View style={{ flex: 1 }}></View>
-        {user.id === post.author._id && (
+        {user._id === post.author._id && (
           <Entypo
             name='dots-three-horizontal'
             size={24}

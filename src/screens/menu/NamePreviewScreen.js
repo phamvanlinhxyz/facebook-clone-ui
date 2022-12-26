@@ -65,7 +65,7 @@ const NamePreviewScreen = ({ navigation }) => {
             onPress: handleClose,
           },
         ]}
-        title={menuResource.name}
+        title={menuResource.previewName}
       />
 
       <Text
@@ -78,7 +78,7 @@ const NamePreviewScreen = ({ navigation }) => {
           paddingHorizontal: 16,
         }}
       >
-        {menuResource.name}
+        {menuResource.previewName}
       </Text>
       <View style={{ paddingVertical: 12, paddingHorizontal: 16 }}>
         <RadioButton.Group

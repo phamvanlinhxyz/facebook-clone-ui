@@ -43,6 +43,7 @@ export default {
   firstName: 'Họ',
   middleName: 'Tên đệm',
   seeChange: 'Xem lại thay đổi',
+  previewName: 'Xem trước tên mới của bạn',
   cancel: 'Hủy',
   save: 'Lưu thay đổi',
   login: 'Đăng nhập',

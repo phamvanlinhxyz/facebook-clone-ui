@@ -82,7 +82,7 @@ const ListFriendScreen = ({ navigation }) => {
         activeOpacity={1}
       >
         <Image
-          source={friend.avatar.fileLink}
+          source={{ uri: friend.avatar.fileLink }}
           style={{ width: 60, height: 60, borderRadius: 100 }}
         />
         <View style={{ marginLeft: 12, flex: 1, justifyContent: 'center' }}>
