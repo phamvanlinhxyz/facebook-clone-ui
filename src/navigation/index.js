@@ -26,9 +26,10 @@ import {
   NameSettingScreen,
   NamePreviewScreen,
   ChangePasswordScreen,
+  PostImageDetailScreen,
 } from '../screens';
 import { authSelector } from '../store/reducers/auth.reducer';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, AntDesign } from '@expo/vector-icons';
 import { homeResource } from '../resources';
 import { color } from '../core/common/styleVariables';
 import { connectSocket, getSocket } from '../core/common/commonFunction';
@@ -98,12 +99,14 @@ const BottomBar = () => {
         name='HomeScreen'
         component={HomeScreen}
         options={{
-          tabBarLabel: homeResource.home,
+          tabBarShowLabel: false,
+          // tabBarLabel: homeResource.home,
           tabBarLabelStyle: { fontSize: 12 },
           tabBarActiveTintColor: color.bluePrim,
           tabBarInactiveTintColor: color.textSecond,
           tabBarIcon: ({ color }) => (
-            <Ionicons name='home' size={24} color={color} />
+            // <AntDesign name='home' size={24} color={color} />
+            <Ionicons name='home-outline' size={28} color={color} />
           ),
         }}
       />
@@ -111,12 +114,13 @@ const BottomBar = () => {
         name='FriendTabScreen'
         component={FriendTabScreen}
         options={{
-          tabBarLabel: homeResource.friend,
+          // tabBarLabel: homeResource.friend,
+          tabBarShowLabel: false,
           tabBarLabelStyle: { fontSize: 12 },
           tabBarActiveTintColor: color.bluePrim,
           tabBarInactiveTintColor: color.textSecond,
           tabBarIcon: ({ color }) => (
-            <Ionicons name='people-sharp' size={24} color={color} />
+            <Ionicons name='people-outline' size={28} color={color} />
           ),
         }}
       />
@@ -137,13 +141,14 @@ const BottomBar = () => {
         name='NotificationScreen'
         component={NotificationScreen}
         options={{
-          tabBarLabel: homeResource.notification,
+          // tabBarLabel: homeResource.notification,
+          tabBarShowLabel: false,
           tabBarLabelStyle: { fontSize: 12 },
           tabBarActiveTintColor: color.bluePrim,
           tabBarInactiveTintColor: color.textSecond,
           tabBarIcon: ({ color }) => (
             <View style={{ position: 'relative' }}>
-              <Ionicons name='notifications' size={24} color={color} />
+              <Ionicons name='notifications-outline' size={28} color={color} />
               {unseen !== '' && unseen !== '0' && (
                 <Text style={styles.iconNumber}>{unseen}</Text>
               )}
@@ -152,11 +157,13 @@ const BottomBar = () => {
         }}
         listeners={{
           tabPress: async () => {
-            await userOptionService.updateOptionByName(
-              userOptionDictionary.countUnseenNotification,
-              '0'
-            );
-            dispatch(updateUnseeen('0'));
+            if (unseen !== '0') {
+              await userOptionService.updateOptionByName(
+                userOptionDictionary.countUnseenNotification,
+                '0'
+              );
+              dispatch(updateUnseeen('0'));
+            }
           },
         }}
       />
@@ -164,12 +171,13 @@ const BottomBar = () => {
         name='MenuTabScreen'
         component={MenuTabScreen}
         options={{
-          tabBarLabel: homeResource.me,
+          // tabBarLabel: homeResource.me,
+          tabBarShowLabel: false,
           tabBarLabelStyle: { fontSize: 12 },
           tabBarActiveTintColor: color.bluePrim,
           tabBarInactiveTintColor: color.textSecond,
           tabBarIcon: ({ color }) => (
-            <Ionicons name='person-circle' size={24} color={color} />
+            <Ionicons name='person-circle-outline' size={28} color={color} />
           ),
         }}
       />
@@ -235,6 +243,10 @@ const RootNavigation = () => {
           {/* <Stack.Screen name='HomeScreen' component={HomeScreen} /> */}
           <Stack.Screen name='AddPostScreen' component={AddPostScreen} />
           <Stack.Screen name='SinglePostScreen' component={SinglePostScreen} />
+          <Stack.Screen
+            name='PostImageDetailScreen'
+            component={PostImageDetailScreen}
+          />
           <Stack.Screen name='EditPostScreen' component={EditPostScreen} />
           <Stack.Screen name='SearchScreen' component={SearchScreen} />
           <Stack.Screen

@@ -21,8 +21,17 @@ const postsSlice = createSlice({
   initialState: {
     lstPost: [],
     selectedPost: {},
+    imageSortOrder: 0,
   },
   reducers: {
+    /**
+     * Cập nhật thứ tự của ảnh đang chọn
+     * @param {*} state
+     * @param {*} action
+     */
+    setImageSortOrder(state, action) {
+      state.imageSortOrder = action.payload;
+    },
     /**
      * Xóa bà viết
      * @param {*} state
@@ -90,6 +99,7 @@ export const {
   updatePost,
   deletePost,
   clearPost,
+  setImageSortOrder,
 } = postsSlice.actions;
 
 // Reducer

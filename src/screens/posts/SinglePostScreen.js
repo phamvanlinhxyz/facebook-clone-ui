@@ -1,9 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { Dimensions, Image, ScrollView, View } from 'react-native';
+import {
+  Dimensions,
+  Image,
+  ScrollView,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import { Avatar, Divider, IconButton, Text } from 'react-native-paper';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { postsResource } from '../../resources';
-import { postsSelector } from '../../store/reducers/posts.reducer';
+import {
+  postsSelector,
+  setImageSortOrder,
+} from '../../store/reducers/posts.reducer';
 import { MaterialIcons, Ionicons, AntDesign } from '@expo/vector-icons';
 import { color } from '../../core/common/styleVariables';
 import { convertTimeToAgo } from '../../core/common/commonFunction';
@@ -16,6 +25,8 @@ const SinglePostScreen = ({ navigation }) => {
   useEffect(() => {
     setWidth(Dimensions.get('window').width);
   }, []);
+
+  const dispatch = useDispatch();
 
   return (
     <View style={{ flex: 1 }}>
@@ -180,14 +191,25 @@ const SinglePostScreen = ({ navigation }) => {
           });
 
           return (
-            <Image
-              source={{ uri: image.fileLink }}
-              style={{
-                width: width,
-                height: (width * h) / w,
-              }}
+            <TouchableOpacity
+              activeOpacity={1}
               key={i}
-            />
+              onPress={() => {
+                dispatch(setImageSortOrder(i));
+                navigation.navigate('PostImageDetailScreen');
+              }}
+              style={{
+                marginBottom: 16,
+              }}
+            >
+              <Image
+                source={{ uri: image.fileLink }}
+                style={{
+                  width: width,
+                  height: (width * h) / w,
+                }}
+              />
+            </TouchableOpacity>
           );
         })}
       </ScrollView>
