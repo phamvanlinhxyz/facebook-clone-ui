@@ -17,6 +17,7 @@ import {
   deletePost,
   getListPost,
   postsSelector,
+  setImageSortOrder,
   setSelectedPost,
 } from '../../store/reducers/posts.reducer';
 import { Popup, PostMenu, SinglePost } from '../../components';
@@ -55,7 +56,12 @@ const HomeScreen = ({ navigation }) => {
    */
   const imageClick = (post) => {
     dispatch(setSelectedPost(post));
-    navigation.navigate('SinglePostScreen');
+    if (post.images.length === 1) {
+      dispatch(setImageSortOrder(0));
+      navigation.navigate('PostImageDetailScreen');
+    } else {
+      navigation.navigate('SinglePostScreen');
+    }
   };
 
   /**

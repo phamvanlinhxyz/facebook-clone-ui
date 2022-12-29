@@ -27,6 +27,7 @@ export const color = {
     primBg: '#fff',
     secondBg: '#f7f8fa',
     redBg: '#d8163d',
+    imageBg: '#202023',
   },
   shadow: {
     shadow1: '#0000001a',
