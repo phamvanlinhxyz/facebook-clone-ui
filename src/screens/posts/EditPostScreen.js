@@ -26,7 +26,7 @@ import { enumFileType, enumMediaStatus } from '../../core/common/enum';
 import postsService from '../../services/posts.service';
 import loadingImg from '../../../assets/images/loading.gif';
 import { postsSelector, updatePost } from '../../store/reducers/posts.reducer';
-import { Popup } from '../../components';
+import { BPopup } from '../../components';
 
 const EditPostScreen = ({ navigation }) => {
   // Hooks
@@ -382,7 +382,7 @@ const EditPostScreen = ({ navigation }) => {
           {postsResource.emo}
         </Button>
       </View>
-      <Popup
+      <BPopup
         show={isShowModal}
         title={postsResource.confirmCancelEditTitle}
         content={postsResource.confirmCancelEditContent}

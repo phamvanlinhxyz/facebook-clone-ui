@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Button, RadioButton, Text } from 'react-native-paper';
 import { useDispatch, useSelector } from 'react-redux';
-import { Header } from '../../components';
+import { BHeader } from '../../components';
 import { color } from '../../core/common/styleVariables';
 import menuResource from '../../resources/menuResource';
 import authService from '../../services/auth.service';
@@ -58,7 +58,7 @@ const NamePreviewScreen = ({ navigation }) => {
 
   return (
     <View style={{ flex: 1 }}>
-      <Header
+      <BHeader
         leftBtn={[
           {
             icon: 'chevron-left',

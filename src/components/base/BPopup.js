@@ -3,7 +3,7 @@ import { Modal, TouchableOpacity, View } from 'react-native';
 import { Text } from 'react-native-paper';
 import { color } from '../../core/common/styleVariables';
 
-const Popup = ({
+const BPopup = ({
   title,
   content,
   show,
@@ -115,4 +115,4 @@ const Popup = ({
   );
 };
 
-export default Popup;
+export default BPopup;

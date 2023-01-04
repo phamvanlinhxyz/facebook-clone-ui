@@ -1,7 +1,7 @@
 import React from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import { Text } from 'react-native-paper';
-import { Header } from '../../components';
+import { BHeader } from '../../components';
 import menuResource from '../../resources/menuResource';
 import { AntDesign } from '@expo/vector-icons';
 import { color } from '../../core/common/styleVariables';
@@ -13,7 +13,7 @@ const UserInfoScreen = ({ navigation }) => {
 
   return (
     <View style={{ flex: 1 }}>
-      <Header
+      <BHeader
         leftBtn={[{ icon: 'chevron-left', onPress: () => navigation.goBack() }]}
         title={menuResource.accountInfo}
       />

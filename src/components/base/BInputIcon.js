@@ -3,7 +3,7 @@ import { View } from 'react-native';
 import { IconButton, TextInput } from 'react-native-paper';
 import { color } from '../../core/common/styleVariables';
 
-const InputIcon = ({
+const BInputIcon = ({
   icon,
   value,
   onChange,
@@ -59,4 +59,4 @@ const InputIcon = ({
   );
 };
 
-export default InputIcon;
+export default BInputIcon;

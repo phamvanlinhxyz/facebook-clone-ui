@@ -1,13 +1,13 @@
 import React from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
-import { IconButton, Text } from 'react-native-paper';
+import { Text } from 'react-native-paper';
 import { color } from '../../core/common/styleVariables';
 import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
 import menuResource from '../../resources/menuResource';
 import { useDispatch } from 'react-redux';
 import { setPolicyType } from '../../store/reducers/menu.reducer';
 import { enumPolicyType } from '../../core/common/enum';
-import { Header } from '../../components';
+import { BHeader } from '../../components';
 
 const PolicyScreen = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -19,7 +19,7 @@ const PolicyScreen = ({ navigation }) => {
 
   return (
     <View style={{ flex: 1 }}>
-      <Header
+      <BHeader
         leftBtn={[{ icon: 'chevron-left', onPress: () => navigation.goBack() }]}
         title={menuResource.facebookPolicy}
       />

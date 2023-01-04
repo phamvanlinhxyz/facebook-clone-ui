@@ -17,7 +17,7 @@ import {
   getListFriendBySearch,
 } from '../../store/reducers/friend.reducer';
 import { Entypo, MaterialIcons } from '@expo/vector-icons';
-import { Skeleton } from '../../components';
+import { BSkeleton } from '../../components';
 
 const ListFriendScreen = ({ navigation }) => {
   const [searchTxt, setSearchTxt] = useState('');
@@ -121,17 +121,17 @@ const ListFriendScreen = ({ navigation }) => {
     return loadingFriend ? (
       <View style={{ paddingHorizontal: 16 }}>
         <View style={{ paddingVertical: 8, flexDirection: 'row' }}>
-          <Skeleton style={{ height: 60, width: 60, borderRadius: 100 }} />
+          <BSkeleton style={{ height: 60, width: 60, borderRadius: 100 }} />
           <View style={{ marginLeft: 12, flex: 1, justifyContent: 'center' }}>
-            <Skeleton style={{ height: 20, borderRadius: 6 }} />
-            <Skeleton style={{ marginTop: 8, height: 20, borderRadius: 6 }} />
+            <BSkeleton style={{ height: 20, borderRadius: 6 }} />
+            <BSkeleton style={{ marginTop: 8, height: 20, borderRadius: 6 }} />
           </View>
         </View>
         <View style={{ paddingVertical: 8, flexDirection: 'row' }}>
-          <Skeleton style={{ height: 60, width: 60, borderRadius: 100 }} />
+          <BSkeleton style={{ height: 60, width: 60, borderRadius: 100 }} />
           <View style={{ marginLeft: 12, flex: 1, justifyContent: 'center' }}>
-            <Skeleton style={{ height: 20, borderRadius: 6 }} />
-            <Skeleton style={{ marginTop: 8, height: 20, borderRadius: 6 }} />
+            <BSkeleton style={{ height: 20, borderRadius: 6 }} />
+            <BSkeleton style={{ marginTop: 8, height: 20, borderRadius: 6 }} />
           </View>
         </View>
       </View>

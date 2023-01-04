@@ -13,7 +13,7 @@ import {
   convertTimeToAgo,
   getNotificationIcon,
 } from '../../core/common/commonFunction';
-import { Skeleton } from '../../components';
+import { BSkeleton } from '../../components';
 import constant from '../../core/common/constant';
 
 const NotificationScreen = ({ navigation }) => {
@@ -107,10 +107,10 @@ const NotificationScreen = ({ navigation }) => {
             paddingVertical: 12,
           }}
         >
-          <Skeleton style={{ width: 80, height: 80, borderRadius: 40 }} />
+          <BSkeleton style={{ width: 80, height: 80, borderRadius: 40 }} />
           <View style={{ marginLeft: 16, flex: 1, justifyContent: 'center' }}>
-            <Skeleton style={{ height: 20, borderRadius: 6 }} />
-            <Skeleton style={{ marginTop: 8, height: 20, borderRadius: 6 }} />
+            <BSkeleton style={{ height: 20, borderRadius: 6 }} />
+            <BSkeleton style={{ marginTop: 8, height: 20, borderRadius: 6 }} />
           </View>
         </View>
         <View
@@ -120,10 +120,10 @@ const NotificationScreen = ({ navigation }) => {
             paddingVertical: 12,
           }}
         >
-          <Skeleton style={{ width: 80, height: 80, borderRadius: 40 }} />
+          <BSkeleton style={{ width: 80, height: 80, borderRadius: 40 }} />
           <View style={{ marginLeft: 16, flex: 1, justifyContent: 'center' }}>
-            <Skeleton style={{ height: 20, borderRadius: 6 }} />
-            <Skeleton style={{ marginTop: 8, height: 20, borderRadius: 6 }} />
+            <BSkeleton style={{ height: 20, borderRadius: 6 }} />
+            <BSkeleton style={{ marginTop: 8, height: 20, borderRadius: 6 }} />
           </View>
         </View>
       </>
