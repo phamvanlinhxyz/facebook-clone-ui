@@ -97,6 +97,14 @@ const HomeScreen = ({ navigation }) => {
     }
   };
 
+  /**
+   * Show chi tiết bài viết: mô tả, ảnh, comment...
+   */
+  const showPostDetail = (post) => {
+    dispatch(setSelectedPost(post));
+    navigation.navigate('PostDetailScreen');
+  };
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={{ flex: 1 }}>
@@ -151,6 +159,7 @@ const HomeScreen = ({ navigation }) => {
                   width={screenWidth}
                   imageClick={imageClick}
                   toggleMenu={toggleMenu}
+                  showPostDetail={showPostDetail}
                 />
               );
             })}

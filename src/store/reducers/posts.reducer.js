@@ -25,6 +25,18 @@ const postsSlice = createSlice({
   },
   reducers: {
     /**
+     * Cập nhật bài viết được chọn
+     * @param {*} state
+     * @param {*} action
+     */
+    updateSelectedPost(state, action) {
+      state.selectedPost = action.payload;
+      state.lstPost = state.lstPost.map((post) => {
+        if (post._id === action.payload._id) return action.payload;
+        return post;
+      });
+    },
+    /**
      * Cập nhật thứ tự của ảnh đang chọn
      * @param {*} state
      * @param {*} action
@@ -100,6 +112,7 @@ export const {
   deletePost,
   clearPost,
   setImageSortOrder,
+  updateSelectedPost,
 } = postsSlice.actions;
 
 // Reducer

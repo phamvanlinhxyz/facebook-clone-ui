@@ -27,14 +27,15 @@ import {
   NamePreviewScreen,
   ChangePasswordScreen,
   PostImageDetailScreen,
+  PostDetailScreen,
 } from '../screens';
 import { authSelector } from '../store/reducers/auth.reducer';
 import { Ionicons, AntDesign } from '@expo/vector-icons';
 import { homeResource } from '../resources';
 import { color } from '../core/common/styleVariables';
 import { connectSocket, getSocket } from '../core/common/commonFunction';
-import { StyleSheet, View } from 'react-native';
-import { Text } from 'react-native-paper';
+import { Image, StyleSheet, View } from 'react-native';
+import { Avatar, Text } from 'react-native-paper';
 import {
   getCountUnseenNotification,
   notificationSelector,
@@ -48,6 +49,19 @@ import { getSingleRequest } from '../store/reducers/friend.reducer';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
+
+/**
+ * Tab trang chủ
+ * @returns
+ */
+const HomeTabScreen = () => {
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name='HomeScreen' component={HomeScreen} />
+      <Stack.Screen name='PostDetailScreen' component={PostDetailScreen} />
+    </Stack.Navigator>
+  );
+};
 
 /**
  * Tab bạn bè
@@ -88,16 +102,17 @@ const MenuTabScreen = () => {
 
 const BottomBar = () => {
   const { unseen } = useSelector(notificationSelector);
+  const { user } = useSelector(authSelector);
   const dispatch = useDispatch();
 
   return (
     <Tab.Navigator
-      initialRouteName='HomeScreen'
+      initialRouteName='HomeTabScreen'
       screenOptions={{ headerShown: false }}
     >
       <Tab.Screen
-        name='HomeScreen'
-        component={HomeScreen}
+        name='HomeTabScreen'
+        component={HomeTabScreen}
         options={{
           tabBarShowLabel: false,
           // tabBarLabel: homeResource.home,
@@ -177,7 +192,17 @@ const BottomBar = () => {
           tabBarActiveTintColor: color.bluePrim,
           tabBarInactiveTintColor: color.textSecond,
           tabBarIcon: ({ color }) => (
-            <Ionicons name='person-circle-outline' size={28} color={color} />
+            <Image
+              source={{ uri: user.avatar.fileLink }}
+              style={{
+                width: 28,
+                height: 28,
+                borderRadius: 14,
+                borderWidth: 3,
+                borderColor: color,
+              }}
+            />
+            // <Ionicons name='person-circle-outline' size={28} color={color} />
           ),
         }}
       />
@@ -240,7 +265,6 @@ const RootNavigation = () => {
             component={BottomBar}
             options={{ headerShown: false }}
           />
-          {/* <Stack.Screen name='HomeScreen' component={HomeScreen} /> */}
           <Stack.Screen name='AddPostScreen' component={AddPostScreen} />
           <Stack.Screen name='SinglePostScreen' component={SinglePostScreen} />
           <Stack.Screen

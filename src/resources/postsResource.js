@@ -26,4 +26,8 @@ export default {
   confirmCancelEditTitle: 'Bỏ thay đổi?',
   confirmCancelEditContent: 'Nếu bạn hủy bây giờ, thay đổi của bạn sẽ bị bỏ.',
   confirmCancelEditCancel: 'Bỏ',
+  reply: 'Phản hồi',
+  reply1: ' phản hồi',
+  seeMore: 'Xem thêm bình luận',
+  writeComment: 'Viết bình luận...',
 };

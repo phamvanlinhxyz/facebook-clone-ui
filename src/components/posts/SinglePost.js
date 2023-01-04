@@ -1,6 +1,6 @@
 import { Video } from 'expo-av';
 import React, { useRef, useState } from 'react';
-import { View } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 import { Avatar, Divider, Text } from 'react-native-paper';
 import {
   convertNumber,
@@ -13,7 +13,13 @@ import { postsResource } from '../../resources';
 import { useSelector } from 'react-redux';
 import { authSelector } from '../../store/reducers/auth.reducer';
 
-const SinglePost = ({ post, width, imageClick, toggleMenu }) => {
+const SinglePost = ({
+  post,
+  width,
+  imageClick,
+  toggleMenu,
+  showPostDetail,
+}) => {
   const videoRef = useRef(null);
   const { user } = useSelector(authSelector);
   const [readAll, setReadAll] = useState(post.described.length < 150);
@@ -35,7 +41,11 @@ const SinglePost = ({ post, width, imageClick, toggleMenu }) => {
             <MaterialIcons name='public' size={14} color={color.text.gray} />
           </View>
         </View>
-        <View style={{ flex: 1 }}></View>
+        <TouchableOpacity
+          style={{ flex: 1, height: '100%' }}
+          activeOpacity={1}
+          onPress={() => showPostDetail(post)}
+        ></TouchableOpacity>
         {user._id === post.author._id && (
           <Entypo
             name='dots-three-horizontal'
@@ -118,11 +128,14 @@ const SinglePost = ({ post, width, imageClick, toggleMenu }) => {
             </Text>
           )}
         </View>
-        <Text style={{ color: color.text.gray, fontSize: 16 }}>
-          {post.countComments > 0
-            ? convertNumber(post.countComments) + postsResource.comments
-            : ''}
-        </Text>
+        {post.countComments > 0 ? (
+          <Text
+            style={{ color: color.text.gray, fontSize: 16 }}
+            onPress={() => showPostDetail(post)}
+          >
+            {convertNumber(post.countComments) + postsResource.comments}
+          </Text>
+        ) : null}
       </View>
       {/* Like, Bình luận */}
       <View
@@ -134,7 +147,7 @@ const SinglePost = ({ post, width, imageClick, toggleMenu }) => {
           flexDirection: 'row',
         }}
       >
-        <View
+        <TouchableOpacity
           style={{
             flexDirection: 'row',
             alignItems: 'center',
@@ -142,13 +155,14 @@ const SinglePost = ({ post, width, imageClick, toggleMenu }) => {
             justifyContent: 'center',
             paddingVertical: 8,
           }}
+          activeOpacity={1}
         >
           <AntDesign name='like2' size={24} color={color.text.prim} />
           <Text style={{ marginLeft: 4, marginTop: 4, fontSize: 16 }}>
             {postsResource.like}
           </Text>
-        </View>
-        <View
+        </TouchableOpacity>
+        <TouchableOpacity
           style={{
             flexDirection: 'row',
             alignItems: 'center',
@@ -156,6 +170,8 @@ const SinglePost = ({ post, width, imageClick, toggleMenu }) => {
             justifyContent: 'center',
             paddingVertical: 8,
           }}
+          activeOpacity={1}
+          onPress={() => showPostDetail(post)}
         >
           <Ionicons
             name='ios-chatbubble-outline'
@@ -165,7 +181,7 @@ const SinglePost = ({ post, width, imageClick, toggleMenu }) => {
           <Text style={{ marginLeft: 4, marginTop: 4, fontSize: 16 }}>
             {postsResource.comment}
           </Text>
-        </View>
+        </TouchableOpacity>
       </View>
     </View>
   );
