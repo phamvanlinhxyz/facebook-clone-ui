@@ -5,9 +5,14 @@ import store from './src/store';
 import { PersistGate } from 'redux-persist/integration/react';
 import { persistStore } from 'redux-persist';
 import './src/core/extensions';
+import { useFonts } from 'expo-font';
 
 export default function App() {
   let persistor = persistStore(store);
+
+  let [fontsLoaded, error] = useFonts({
+    'Noto-Sans': require('./assets/fonts/NotoSans-Regular.ttf'),
+  });
 
   return (
     <Provider store={store}>
@@ -25,5 +30,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+    fontFamily: 'Noto-Sans',
   },
 });
