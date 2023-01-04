@@ -2,7 +2,12 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Dimensions, ScrollView, TouchableOpacity, View } from 'react-native';
 import { Avatar, Text, TextInput } from 'react-native-paper';
 import { useDispatch, useSelector } from 'react-redux';
-import { Header, PostImages, SingleComment, Skeleton } from '../../components';
+import {
+  BHeader,
+  PostImages,
+  SingleComment,
+  BSkeleton,
+} from '../../components';
 import { convertTimeToAgo } from '../../core/common/commonFunction';
 import { color } from '../../core/common/styleVariables';
 import { postsResource } from '../../resources';
@@ -91,7 +96,7 @@ const PostDetailScreen = ({ navigation }) => {
 
   return (
     <View style={{ flex: 1, position: 'relative' }}>
-      <Header
+      <BHeader
         leftBtn={[{ icon: 'chevron-left', onPress: () => navigation.goBack() }]}
         title={postsResource.postOf + selectedPost.author.username}
       />
@@ -225,8 +230,8 @@ const PostDetailScreen = ({ navigation }) => {
                 flexDirection: 'row',
               }}
             >
-              <Skeleton style={{ width: 40, height: 40, borderRadius: 20 }} />
-              <Skeleton
+              <BSkeleton style={{ width: 40, height: 40, borderRadius: 20 }} />
+              <BSkeleton
                 style={{
                   height: 52,
                   flex: 1,

@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { Animated, Easing } from 'react-native';
 import { color } from '../../core/common/styleVariables';
 
-const Skeleton = ({ style }) => {
+const BSkeleton = ({ style }) => {
   const animatedValue = useRef(new Animated.Value(0.5));
 
   useEffect(() => {
@@ -35,4 +35,4 @@ const Skeleton = ({ style }) => {
   );
 };
 
-export default Skeleton;
+export default BSkeleton;

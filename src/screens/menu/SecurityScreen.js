@@ -2,14 +2,14 @@ import React from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import { Text } from 'react-native-paper';
 import menuResource from '../../resources/menuResource';
-import { Header } from '../../components';
+import { BHeader } from '../../components';
 import { color } from '../../core/common/styleVariables';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const SecurityScreen = ({ navigation }) => {
   return (
     <View style={{ flex: 1 }}>
-      <Header
+      <BHeader
         leftBtn={[{ icon: 'chevron-left', onPress: () => navigation.goBack() }]}
         title={menuResource.securityNLogin}
       />

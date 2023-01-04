@@ -26,7 +26,7 @@ import { enumFileType, enumPostType } from '../../core/common/enum';
 import postsService from '../../services/posts.service';
 import loadingImg from '../../../assets/images/loading.gif';
 import { insertNewPost } from '../../store/reducers/posts.reducer';
-import { Popup } from '../../components';
+import { BPopup } from '../../components';
 
 const AddPostScreen = ({ navigation }) => {
   // Hooks
@@ -325,7 +325,7 @@ const AddPostScreen = ({ navigation }) => {
           {postsResource.emo}
         </Button>
       </View>
-      <Popup
+      <BPopup
         show={showModal}
         title={postsResource.saveDraftTitle}
         content={postsResource.saveDraftContent}

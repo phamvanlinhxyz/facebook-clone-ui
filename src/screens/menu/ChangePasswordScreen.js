@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Button, Text, TextInput } from 'react-native-paper';
+import { Button, Text } from 'react-native-paper';
 import { useDispatch } from 'react-redux';
-import { Header, InputIcon } from '../../components';
+import { BHeader, BInputIcon } from '../../components';
 import { validatePass } from '../../core/common/commonFunction';
 import { color } from '../../core/common/styleVariables';
 import menuResource from '../../resources/menuResource';
@@ -53,12 +53,12 @@ const ChangePasswordScreen = ({ navigation }) => {
 
   return (
     <View style={{ flex: 1 }}>
-      <Header
+      <BHeader
         leftBtn={[{ icon: 'chevron-left', onPress: () => navigation.goBack() }]}
         title={menuResource.changePass}
       />
       <View style={{ flex: 1, padding: 16 }}>
-        <InputIcon
+        <BInputIcon
           icon='shield-alert-outline'
           value={currentPass}
           onChange={setCurrentPass}
@@ -67,7 +67,7 @@ const ChangePasswordScreen = ({ navigation }) => {
           wrapStyle={{ marginBottom: 12 }}
           secureTextEntry={true}
         />
-        <InputIcon
+        <BInputIcon
           icon='key-outline'
           value={newPass}
           onChange={setNewpass}
@@ -76,7 +76,7 @@ const ChangePasswordScreen = ({ navigation }) => {
           wrapStyle={{ marginBottom: 12 }}
           secureTextEntry={true}
         />
-        <InputIcon
+        <BInputIcon
           icon='key-outline'
           value={cNewPass}
           onChange={setCNewPass}

@@ -13,7 +13,7 @@ import {
 } from '../../store/reducers/search.reducer';
 import { SimpleLineIcons } from '@expo/vector-icons';
 import searchService from '../../services/search.service';
-import { InputIcon } from '../../components';
+import { BInputIcon } from '../../components';
 
 const SearchScreen = ({ navigation }) => {
   // Danh sách lịch sử tìm kiếm
@@ -68,7 +68,7 @@ const SearchScreen = ({ navigation }) => {
           paddingVertical: 8,
         }}
       >
-        <InputIcon
+        <BInputIcon
           icon='magnify'
           value={text}
           onChange={setText}

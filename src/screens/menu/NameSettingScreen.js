@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Button, Text, TextInput } from 'react-native-paper';
 import { useDispatch, useSelector } from 'react-redux';
-import { Header } from '../../components';
+import { BHeader } from '../../components';
 import { color } from '../../core/common/styleVariables';
 import menuResource from '../../resources/menuResource';
 import { authSelector, saveTempName } from '../../store/reducers/auth.reducer';
@@ -52,7 +52,7 @@ const NameSettingScreen = ({ navigation }) => {
 
   return (
     <View style={{ flex: 1 }}>
-      <Header
+      <BHeader
         leftBtn={[{ icon: 'chevron-left', onPress: () => navigation.goBack() }]}
         title={menuResource.name}
       />

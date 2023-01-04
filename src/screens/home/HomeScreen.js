@@ -20,7 +20,7 @@ import {
   setImageSortOrder,
   setSelectedPost,
 } from '../../store/reducers/posts.reducer';
-import { Popup, PostMenu, SinglePost } from '../../components';
+import { BPopup, PostMenu, SinglePost } from '../../components';
 import { setEditmode } from '../../store/reducers/app.reducer';
 import { enumEditMode } from '../../core/common/enum';
 import postsService from '../../services/posts.service';
@@ -176,7 +176,7 @@ const HomeScreen = ({ navigation }) => {
           }}
         />
       )}
-      <Popup
+      <BPopup
         show={isShowModal}
         title={postsResource.confirmDeleteTitle}
         content={postsResource.confirmDeleteContent}
