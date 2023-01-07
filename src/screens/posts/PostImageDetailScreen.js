@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   convertNumber,
   convertTimeToAgo,
+  getSocket,
 } from '../../core/common/commonFunction';
 import { color } from '../../core/common/styleVariables';
 import {
@@ -17,6 +18,8 @@ import { postsResource } from '../../resources';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import GestureRecognizer from 'react-native-swipe-gestures';
 import likeService from '../../services/like.service';
+import { authSelector } from '../../store/reducers/auth.reducer';
+import { enumNotificationType } from '../../core/common/enum';
 
 /**
  * Trang chi tiết từng ảnh của bài post
@@ -24,10 +27,13 @@ import likeService from '../../services/like.service';
  */
 const PostImageDetailScreen = ({ navigation }) => {
   const { selectedPost, imageSortOrder } = useSelector(postsSelector);
+  const { user, userToken } = useSelector(authSelector);
+
   const [screenWidth, setScreenWidth] = useState(0);
   const [screenHeight, setScreenHeight] = useState(0);
   const [readAll, setReadAll] = useState(selectedPost.described.length < 135);
   const [showInfo, setShowInfo] = useState(true);
+  const [socket, setSocket] = useState(null);
 
   // Khi render ra screen thì lấy width và height
   useEffect(() => {
@@ -35,6 +41,10 @@ const PostImageDetailScreen = ({ navigation }) => {
     setScreenWidth(screen.width);
     setScreenHeight(screen.height);
   }, []);
+
+  useEffect(() => {
+    setSocket(getSocket());
+  }, [getSocket()]);
 
   const dispatch = useDispatch();
 
@@ -60,11 +70,20 @@ const PostImageDetailScreen = ({ navigation }) => {
    * Like/unlike bài viết
    * @param {*} postId
    */
-  const actionLikePost = async (postId) => {
-    const res = await likeService.action(postId);
+  const actionLikePost = async (post) => {
+    const res = await likeService.action(post._id);
 
     if (res.success) {
       dispatch(updateSelectedPost(res.data.data));
+
+      if (res.data.data.isLike && post.author._id !== user._id) {
+        socket.emit('pushNotification', {
+          token: userToken,
+          receiverId: post.author._id,
+          type: enumNotificationType.like,
+          refId: post._id,
+        });
+      }
     }
   };
 
@@ -232,7 +251,7 @@ const PostImageDetailScreen = ({ navigation }) => {
                 paddingVertical: 8,
               }}
               activeOpacity={1}
-              onPress={() => actionLikePost(selectedPost._id)}
+              onPress={() => actionLikePost(selectedPost)}
             >
               <AntDesign
                 name={!selectedPost.isLike ? 'like2' : 'like1'}

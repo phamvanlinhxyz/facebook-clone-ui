@@ -129,11 +129,20 @@ const PostDetailScreen = ({ navigation }) => {
    * Like/unlike bài viết
    * @param {*} postId
    */
-  const actionLikePost = async (postId) => {
-    const res = await likeService.action(postId);
+  const actionLikePost = async (post) => {
+    const res = await likeService.action(post._id);
 
     if (res.success) {
       dispatch(updateSelectedPost(res.data.data));
+
+      if (res.data.data.isLike && post.author._id !== user._id) {
+        socket.emit('pushNotification', {
+          token: userToken,
+          receiverId: post.author._id,
+          type: enumNotificationType.like,
+          refId: post._id,
+        });
+      }
     }
   };
 
@@ -232,7 +241,7 @@ const PostDetailScreen = ({ navigation }) => {
               paddingVertical: 8,
             }}
             activeOpacity={1}
-            onPress={() => actionLikePost(selectedPost._id)}
+            onPress={() => actionLikePost(selectedPost)}
           >
             <AntDesign
               name={!selectedPost.isLike ? 'like2' : 'like1'}

@@ -9,6 +9,7 @@ import constant from '../../core/common/constant';
 import notiRequest from '../../../assets/images/noti-request.png';
 import notiAccept from '../../../assets/images/noti-accept.png';
 import notiComment from '../../../assets/images/noti-comment.png';
+import notiLike from '../../../assets/images/noti-like.svg';
 import notificationResource from '../../resources/notificationResource';
 
 /**
@@ -169,6 +170,8 @@ export const getNotificationIcon = (type) => {
       return notiAccept;
     case enumNotificationType.comment:
       return notiComment;
+    case enumNotificationType.like:
+      return notiLike;
     default:
       break;
   }
@@ -202,6 +205,8 @@ export const buildNotificationContent = (type) => {
       return notificationResource.acceptRequest;
     case enumNotificationType.comment:
       return notificationResource.comment;
+    case enumNotificationType.like:
+      return notificationResource.like;
     default:
       break;
   }

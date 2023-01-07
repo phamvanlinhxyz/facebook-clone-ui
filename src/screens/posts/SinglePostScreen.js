@@ -16,17 +16,27 @@ import {
 } from '../../store/reducers/posts.reducer';
 import { MaterialIcons, Ionicons, AntDesign } from '@expo/vector-icons';
 import { color } from '../../core/common/styleVariables';
-import { convertTimeToAgo } from '../../core/common/commonFunction';
+import { convertTimeToAgo, getSocket } from '../../core/common/commonFunction';
 import likeService from '../../services/like.service';
+import { authSelector } from '../../store/reducers/auth.reducer';
+import { enumNotificationType } from '../../core/common/enum';
 
 const SinglePostScreen = ({ navigation }) => {
   const { selectedPost } = useSelector(postsSelector);
+  const { user, userToken } = useSelector(authSelector);
 
   // Lấy độ rộng mà hình
   const [width, setWidth] = useState(0);
+  // Socket
+  const [socket, setSocket] = useState(null);
+
   useEffect(() => {
     setWidth(Dimensions.get('window').width);
   }, []);
+
+  useEffect(() => {
+    setSocket(getSocket());
+  }, [getSocket()]);
 
   const dispatch = useDispatch();
 
@@ -34,11 +44,20 @@ const SinglePostScreen = ({ navigation }) => {
    * Like/unlike bài viết
    * @param {*} postId
    */
-  const actionLikePost = async (postId) => {
-    const res = await likeService.action(postId);
+  const actionLikePost = async (post) => {
+    const res = await likeService.action(post._id);
 
     if (res.success) {
       dispatch(updateSelectedPost(res.data.data));
+
+      if (res.data.data.isLike && post.author._id !== user._id) {
+        socket.emit('pushNotification', {
+          token: userToken,
+          receiverId: post.author._id,
+          type: enumNotificationType.like,
+          refId: post._id,
+        });
+      }
     }
   };
 
@@ -171,7 +190,7 @@ const SinglePostScreen = ({ navigation }) => {
               paddingVertical: 8,
             }}
             activeOpacity={1}
-            onPress={() => actionLikePost(selectedPost._id)}
+            onPress={() => actionLikePost(selectedPost)}
           >
             <AntDesign
               name={!selectedPost.isLike ? 'like2' : 'like1'}
