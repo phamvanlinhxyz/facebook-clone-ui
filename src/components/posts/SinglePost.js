@@ -19,6 +19,7 @@ const SinglePost = ({
   imageClick,
   toggleMenu,
   showPostDetail,
+  actionLikePost,
 }) => {
   const videoRef = useRef(null);
   const { user } = useSelector(authSelector);
@@ -156,9 +157,21 @@ const SinglePost = ({
             paddingVertical: 8,
           }}
           activeOpacity={1}
+          onPress={() => actionLikePost(post._id)}
         >
-          <AntDesign name='like2' size={24} color={color.text.prim} />
-          <Text style={{ marginLeft: 4, marginTop: 4, fontSize: 16 }}>
+          <AntDesign
+            name={!post.isLike ? 'like2' : 'like1'}
+            size={24}
+            color={!post.isLike ? color.text.prim : color.text.second}
+          />
+          <Text
+            style={{
+              marginLeft: 4,
+              marginTop: 4,
+              fontSize: 16,
+              color: !post.isLike ? color.text.prim : color.text.second,
+            }}
+          >
             {postsResource.like}
           </Text>
         </TouchableOpacity>

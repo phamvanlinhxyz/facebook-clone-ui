@@ -10,13 +10,13 @@ import { color } from '../../core/common/styleVariables';
 import {
   postsSelector,
   setImageSortOrder,
+  updateSelectedPost,
 } from '../../store/reducers/posts.reducer';
 import { MaterialIcons, Ionicons, AntDesign } from '@expo/vector-icons';
 import { postsResource } from '../../resources';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import GestureRecognizer, {
-  swipeDirections,
-} from 'react-native-swipe-gestures';
+import GestureRecognizer from 'react-native-swipe-gestures';
+import likeService from '../../services/like.service';
 
 /**
  * Trang chi tiết từng ảnh của bài post
@@ -53,6 +53,18 @@ const PostImageDetailScreen = ({ navigation }) => {
   const handleSwipeLeft = () => {
     if (imageSortOrder < selectedPost.images.length - 1) {
       dispatch(setImageSortOrder(imageSortOrder + 1));
+    }
+  };
+
+  /**
+   * Like/unlike bài viết
+   * @param {*} postId
+   */
+  const actionLikePost = async (postId) => {
+    const res = await likeService.action(postId);
+
+    if (res.success) {
+      dispatch(updateSelectedPost(res.data.data));
     }
   };
 
@@ -211,7 +223,7 @@ const PostImageDetailScreen = ({ navigation }) => {
               flexDirection: 'row',
             }}
           >
-            <View
+            <TouchableOpacity
               style={{
                 flexDirection: 'row',
                 alignItems: 'center',
@@ -219,19 +231,29 @@ const PostImageDetailScreen = ({ navigation }) => {
                 justifyContent: 'center',
                 paddingVertical: 8,
               }}
+              activeOpacity={1}
+              onPress={() => actionLikePost(selectedPost._id)}
             >
-              <AntDesign name='like2' size={24} color={color.text.white} />
+              <AntDesign
+                name={!selectedPost.isLike ? 'like2' : 'like1'}
+                size={24}
+                color={
+                  !selectedPost.isLike ? color.text.white : color.text.second
+                }
+              />
               <Text
                 style={{
                   marginLeft: 4,
                   marginTop: 4,
                   fontSize: 16,
-                  color: color.text.white,
+                  color: !selectedPost.isLike
+                    ? color.text.white
+                    : color.text.second,
                 }}
               >
                 {postsResource.like}
               </Text>
-            </View>
+            </TouchableOpacity>
             <View
               style={{
                 flexDirection: 'row',
