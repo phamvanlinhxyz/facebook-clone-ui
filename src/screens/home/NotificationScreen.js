@@ -67,6 +67,7 @@ const NotificationScreen = ({ navigation }) => {
         // Điều hướng đến trang cá nhân của bạn bè
         break;
       case enumNotificationType.comment:
+      case enumNotificationType.like:
         const postRes = await postsService.getPost(notif.refId);
         if (postRes.success) {
           dispatch(setSelectedPost(postRes.data.data));

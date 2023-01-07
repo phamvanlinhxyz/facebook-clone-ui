@@ -23,9 +23,10 @@ import {
 } from '../../store/reducers/posts.reducer';
 import { BPopup, PostMenu, SinglePost } from '../../components';
 import { setEditmode } from '../../store/reducers/app.reducer';
-import { enumEditMode } from '../../core/common/enum';
+import { enumEditMode, enumNotificationType } from '../../core/common/enum';
 import postsService from '../../services/posts.service';
 import likeService from '../../services/like.service';
+import { getSocket } from '../../core/common/commonFunction';
 
 const HomeScreen = ({ navigation }) => {
   // Lấy dữ liệu từ store
@@ -37,6 +38,9 @@ const HomeScreen = ({ navigation }) => {
 
   // Show model confirm xóa
   const [isShowModal, setIsShowModal] = useState(false);
+
+  // Socket
+  const [socket, setSocket] = useState(null);
 
   // Dispatch
   const dispatch = useDispatch();
@@ -51,6 +55,10 @@ const HomeScreen = ({ navigation }) => {
   useEffect(() => {
     setScreenWidth(Dimensions.get('window').width - 24);
   }, []);
+
+  useEffect(() => {
+    setSocket(getSocket());
+  }, [getSocket()]);
 
   /**
    * Sự kiện click vào ảnh
@@ -111,11 +119,20 @@ const HomeScreen = ({ navigation }) => {
    * Like/unlike bài viết
    * @param {*} postId
    */
-  const actionLikePost = async (postId) => {
-    const res = await likeService.action(postId);
+  const actionLikePost = async (post) => {
+    const res = await likeService.action(post._id);
 
     if (res.success) {
       dispatch(updateSelectedPost(res.data.data));
+
+      if (res.data.data.isLike && post.author._id !== user._id) {
+        socket.emit('pushNotification', {
+          token: userToken,
+          receiverId: post.author._id,
+          type: enumNotificationType.like,
+          refId: post._id,
+        });
+      }
     }
   };
 

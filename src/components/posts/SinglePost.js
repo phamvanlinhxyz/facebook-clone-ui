@@ -157,7 +157,7 @@ const SinglePost = ({
             paddingVertical: 8,
           }}
           activeOpacity={1}
-          onPress={() => actionLikePost(post._id)}
+          onPress={() => actionLikePost(post)}
         >
           <AntDesign
             name={!post.isLike ? 'like2' : 'like1'}
