@@ -20,6 +20,7 @@ import { MaterialIcons, Ionicons, AntDesign } from '@expo/vector-icons';
 import commentService from '../../services/comment.service';
 import { authSelector } from '../../store/reducers/auth.reducer';
 import { enumNotificationType } from '../../core/common/enum';
+import likeService from '../../services/like.service';
 
 /**
  * Màn hình chi tiết bài viết: mô tả, ảnh, video, bình luận,...
@@ -124,6 +125,18 @@ const PostDetailScreen = ({ navigation }) => {
 
   //#endregion
 
+  /**
+   * Like/unlike bài viết
+   * @param {*} postId
+   */
+  const actionLikePost = async (postId) => {
+    const res = await likeService.action(postId);
+
+    if (res.success) {
+      dispatch(updateSelectedPost(res.data.data));
+    }
+  };
+
   return (
     <View style={{ flex: 1, position: 'relative' }}>
       <BHeader
@@ -219,9 +232,23 @@ const PostDetailScreen = ({ navigation }) => {
               paddingVertical: 8,
             }}
             activeOpacity={1}
+            onPress={() => actionLikePost(selectedPost._id)}
           >
-            <AntDesign name='like2' size={24} color={color.text.prim} />
-            <Text style={{ marginLeft: 4, marginTop: 4, fontSize: 16 }}>
+            <AntDesign
+              name={!selectedPost.isLike ? 'like2' : 'like1'}
+              size={24}
+              color={!selectedPost.isLike ? color.text.prim : color.text.second}
+            />
+            <Text
+              style={{
+                marginLeft: 4,
+                marginTop: 4,
+                fontSize: 16,
+                color: !selectedPost.isLike
+                  ? color.text.prim
+                  : color.text.second,
+              }}
+            >
               {postsResource.like}
             </Text>
           </TouchableOpacity>

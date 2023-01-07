@@ -19,11 +19,13 @@ import {
   postsSelector,
   setImageSortOrder,
   setSelectedPost,
+  updateSelectedPost,
 } from '../../store/reducers/posts.reducer';
 import { BPopup, PostMenu, SinglePost } from '../../components';
 import { setEditmode } from '../../store/reducers/app.reducer';
 import { enumEditMode } from '../../core/common/enum';
 import postsService from '../../services/posts.service';
+import likeService from '../../services/like.service';
 
 const HomeScreen = ({ navigation }) => {
   // Lấy dữ liệu từ store
@@ -105,6 +107,18 @@ const HomeScreen = ({ navigation }) => {
     navigation.navigate('PostDetailScreen');
   };
 
+  /**
+   * Like/unlike bài viết
+   * @param {*} postId
+   */
+  const actionLikePost = async (postId) => {
+    const res = await likeService.action(postId);
+
+    if (res.success) {
+      dispatch(updateSelectedPost(res.data.data));
+    }
+  };
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={{ flex: 1 }}>
@@ -160,6 +174,7 @@ const HomeScreen = ({ navigation }) => {
                   imageClick={imageClick}
                   toggleMenu={toggleMenu}
                   showPostDetail={showPostDetail}
+                  actionLikePost={actionLikePost}
                 />
               );
             })}
