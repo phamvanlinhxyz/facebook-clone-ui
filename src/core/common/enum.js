@@ -38,6 +38,7 @@ export const enumMediaStatus = {
 export const enumNotificationType = {
   requestFriend: 1,
   acceptRequest: 2,
+  comment: 3,
 };
 
 /**

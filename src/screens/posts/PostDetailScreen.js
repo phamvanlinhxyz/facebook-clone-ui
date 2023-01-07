@@ -8,7 +8,7 @@ import {
   SingleComment,
   BSkeleton,
 } from '../../components';
-import { convertTimeToAgo } from '../../core/common/commonFunction';
+import { convertTimeToAgo, getSocket } from '../../core/common/commonFunction';
 import { color } from '../../core/common/styleVariables';
 import { postsResource } from '../../resources';
 import {
@@ -18,6 +18,8 @@ import {
 } from '../../store/reducers/posts.reducer';
 import { MaterialIcons, Ionicons, AntDesign } from '@expo/vector-icons';
 import commentService from '../../services/comment.service';
+import { authSelector } from '../../store/reducers/auth.reducer';
+import { enumNotificationType } from '../../core/common/enum';
 
 /**
  * Màn hình chi tiết bài viết: mô tả, ảnh, video, bình luận,...
@@ -26,6 +28,7 @@ import commentService from '../../services/comment.service';
  */
 const PostDetailScreen = ({ navigation }) => {
   const { selectedPost } = useSelector(postsSelector);
+  const { userToken, user } = useSelector(authSelector);
   const [readAll, setReadAll] = useState(selectedPost.described.length < 150);
   const videoRef = useRef(null);
   const dispatch = useDispatch();
@@ -54,7 +57,9 @@ const PostDetailScreen = ({ navigation }) => {
   const [cmtOffset, setCmtOffset] = useState(0); // Vị trí lấy paging cmt
   const [lstComment, setLstComment] = useState([]); // Danh sách cmt
   const [commentContent, setCommentContent] = useState(''); // Nội dung comment
-  const [loadingCmt, setLoadingCmt] = useState(true);
+  const [loadingCmt, setLoadingCmt] = useState(true); // Load comment
+
+  const commentInputRef = useRef(null);
 
   // Lấy comment
   const getComments = async () => {
@@ -79,6 +84,10 @@ const PostDetailScreen = ({ navigation }) => {
     if (res.success) {
       setLstComment((prev) => [res.data.data, ...prev]);
       dispatch(updateSelectedPost(res.data.post));
+      // Bắn sóc két cho chủ bài viết
+      if (user._id !== selectedPost.author._id) {
+        pushNotificationAfterComment();
+      }
     }
   };
 
@@ -91,6 +100,27 @@ const PostDetailScreen = ({ navigation }) => {
   useEffect(() => {
     getComments();
   }, [cmtOffset]);
+
+  //#endregion
+
+  //#region Socket
+
+  const [socket, setSocket] = useState(null);
+
+  useEffect(() => {
+    if (!socket) {
+      setSocket(getSocket());
+    }
+  }, []);
+
+  const pushNotificationAfterComment = () => {
+    socket.emit('pushNotification', {
+      token: userToken,
+      receiverId: selectedPost.author._id,
+      type: enumNotificationType.comment,
+      refId: selectedPost._id,
+    });
+  };
 
   //#endregion
 
@@ -204,7 +234,9 @@ const PostDetailScreen = ({ navigation }) => {
               paddingVertical: 8,
             }}
             activeOpacity={1}
-            onPress={{}}
+            onPress={() => {
+              commentInputRef.current.focus();
+            }}
           >
             <Ionicons
               name='ios-chatbubble-outline'
@@ -278,6 +310,7 @@ const PostDetailScreen = ({ navigation }) => {
             placeholder={postsResource.writeComment}
             value={commentContent}
             onChangeText={setCommentContent}
+            ref={commentInputRef}
           />
           <TouchableOpacity
             activeOpacity={1}

@@ -3,6 +3,26 @@ import axios from 'axios';
 import { handleError } from '../core/common/commonFunction';
 
 /**
+ * Lấy bài viết theo Id
+ * @param {*} postId
+ * @returns
+ */
+const getPost = async (postId) => {
+  try {
+    const res = await axios.get(
+      `${constant.API_URL}/api/${constant.API_VER}/posts/${postId}`
+    );
+
+    return {
+      success: true,
+      data: res.data,
+    };
+  } catch (error) {
+    return handleError(error);
+  }
+};
+
+/**
  * Tạo bài viết mới
  * @param {*} postBody bài viết
  * @returns
@@ -10,7 +30,7 @@ import { handleError } from '../core/common/commonFunction';
 const create = async (postBody) => {
   try {
     const res = await axios.post(
-      `${constant.API_URL}/api/${constant.API_VER}/posts/create`,
+      `${constant.API_URL}/api/${constant.API_VER}/posts`,
       postBody
     );
 
@@ -31,7 +51,7 @@ const create = async (postBody) => {
 const getList = async (userToken) => {
   try {
     const res = await axios.get(
-      `${constant.API_URL}/api/${constant.API_VER}/posts/list`,
+      `${constant.API_URL}/api/${constant.API_VER}/posts`,
       {
         headers: { Authorization: `Bearer ${userToken}` },
       }
@@ -53,8 +73,8 @@ const getList = async (userToken) => {
  */
 const edit = async (body) => {
   try {
-    const res = await axios.post(
-      `${constant.API_URL}/api/${constant.API_VER}/posts/edit/${body.postId}`,
+    const res = await axios.put(
+      `${constant.API_URL}/api/${constant.API_VER}/posts/${body.postId}`,
       body
     );
 
@@ -74,8 +94,8 @@ const edit = async (body) => {
  */
 const deletePost = async (id) => {
   try {
-    const res = await axios.get(
-      `${constant.API_URL}/api/${constant.API_VER}/posts/delete/${id}`
+    const res = await axios.delete(
+      `${constant.API_URL}/api/${constant.API_VER}/posts/${id}`
     );
 
     return {
@@ -92,4 +112,5 @@ export default {
   getList,
   edit,
   deletePost,
+  getPost,
 };

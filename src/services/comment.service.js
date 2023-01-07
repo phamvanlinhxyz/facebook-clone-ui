@@ -44,7 +44,6 @@ const list = async (postId, offset) => {
 
 const create = async (data, postId) => {
   try {
-    console.log(data);
     const res = await axios.post(
       `${constant.API_URL}/api/${constant.API_VER}/postComment/${postId}`,
       data
@@ -55,8 +54,7 @@ const create = async (data, postId) => {
       data: res.data,
     };
   } catch (error) {
-    console.log(error);
-    // return handleError(error);
+    return handleError(error);
   }
 };
 

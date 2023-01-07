@@ -11,7 +11,7 @@ import { handleError } from '../core/common/commonFunction';
 const listNotification = async (limit, offset) => {
   try {
     const res = await axios.get(
-      `${constant.API_URL}/api/${constant.API_VER}/notifications/listNotification?limit=${limit}&offset=${offset}`
+      `${constant.API_URL}/api/${constant.API_VER}/notifications?limit=${limit}&offset=${offset}`
     );
 
     return {
@@ -23,4 +23,26 @@ const listNotification = async (limit, offset) => {
   }
 };
 
-export default { listNotification };
+/**
+ * Cập nhật thông báo
+ * @param {*} data
+ * @param {*} id
+ * @returns
+ */
+const updateNotification = async (data, id) => {
+  try {
+    const res = await axios.put(
+      `${constant.API_URL}/api/${constant.API_VER}/notifications/${id}`,
+      data
+    );
+
+    return {
+      success: true,
+      data: res.data,
+    };
+  } catch (error) {
+    return handleError(error);
+  }
+};
+
+export default { listNotification, updateNotification };
