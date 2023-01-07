@@ -19,7 +19,7 @@ import {
 } from '../../store/reducers/friend.reducer';
 
 const FriendScreen = ({ navigation }) => {
-  const { userToken } = useSelector(authSelector);
+  const { userToken, user } = useSelector(authSelector);
   const { lstRequest, totalRequests, lstSuggest, totalSuggests } =
     useSelector(friendSelector);
   const dispatch = useDispatch();
@@ -57,6 +57,7 @@ const FriendScreen = ({ navigation }) => {
           token: userToken,
           receiverId: sender,
           type: enumNotificationType.acceptRequest,
+          refId: user._id,
         });
       }
     }
@@ -74,6 +75,7 @@ const FriendScreen = ({ navigation }) => {
         token: userToken,
         receiverId: receiverId,
         type: enumNotificationType.requestFriend,
+        refId: user._id,
       });
     }
   };

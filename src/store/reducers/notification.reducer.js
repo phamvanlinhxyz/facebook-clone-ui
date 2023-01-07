@@ -38,6 +38,19 @@ const notificationSlice = createSlice({
   },
   reducers: {
     /**
+     * Cập nhật
+     * @param {*} state
+     * @param {*} action
+     */
+    updateSingleNotification(state, action) {
+      state.lstNotification = state.lstNotification.map((noti) => {
+        if (noti._id === action.payload._id) {
+          return action.payload;
+        }
+        return noti;
+      });
+    },
+    /**
      * Cập nhật số thông báo chưa xem
      * @param {*} state
      * @param {*} action
@@ -88,8 +101,12 @@ const notificationReducer = notificationSlice.reducer;
 export const notificationSelector = (state) => state.notificationReducer;
 
 // Actions
-export const { updateNotification, updateUnseeen, clearNotification } =
-  notificationSlice.actions;
+export const {
+  updateNotification,
+  updateUnseeen,
+  clearNotification,
+  updateSingleNotification,
+} = notificationSlice.actions;
 
 // Reducer
 export default notificationReducer;

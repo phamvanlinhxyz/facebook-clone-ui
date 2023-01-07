@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { FlatList, Image, View } from 'react-native';
+import { FlatList, Image, TouchableOpacity, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   getLstNotification,
   notificationSelector,
+  updateSingleNotification,
 } from '../../store/reducers/notification.reducer';
 import { color } from '../../core/common/styleVariables';
 import { IconButton, Text } from 'react-native-paper';
@@ -15,6 +16,10 @@ import {
 } from '../../core/common/commonFunction';
 import { BSkeleton } from '../../components';
 import constant from '../../core/common/constant';
+import notificationService from '../../services/notification.service';
+import { enumNotificationType } from '../../core/common/enum';
+import postsService from '../../services/posts.service';
+import { setSelectedPost } from '../../store/reducers/posts.reducer';
 
 const NotificationScreen = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -43,13 +48,44 @@ const NotificationScreen = ({ navigation }) => {
   };
 
   /**
+   * Xử lý sự kiện ấn vào bình luận
+   * @param {*} notif
+   */
+  const handleNotificationClick = async (notif) => {
+    if (!notif.read) {
+      const res = await notificationService.updateNotification(
+        { read: true },
+        notif._id
+      );
+      if (res.success) {
+        dispatch(updateSingleNotification(res.data.data));
+      }
+    }
+    switch (notif.type) {
+      case enumNotificationType.requestFriend:
+      case enumNotificationType.acceptRequest:
+        // Điều hướng đến trang cá nhân của bạn bè
+        break;
+      case enumNotificationType.comment:
+        const postRes = await postsService.getPost(notif.refId);
+        if (postRes.success) {
+          dispatch(setSelectedPost(postRes.data.data));
+          navigation.navigate('PostDetailScreen');
+        }
+      default:
+        break;
+    }
+  };
+
+  /**
    * Hiển thị các dòng thông báo
    * @param {*} notif
    * @returns
    */
   const renderNotifData = (notif) => {
     return (
-      <View
+      <TouchableOpacity
+        activeOpacity={1}
         style={{
           flexDirection: 'row',
           paddingHorizontal: 16,
@@ -58,6 +94,7 @@ const NotificationScreen = ({ navigation }) => {
             ? color.transparent
             : color.button.secondBg,
         }}
+        onPress={() => handleNotificationClick(notif)}
       >
         <View style={{ position: 'relative' }}>
           <Image
@@ -89,7 +126,7 @@ const NotificationScreen = ({ navigation }) => {
             {convertTimeToAgo(notif.createdAt)}
           </Text>
         </View>
-      </View>
+      </TouchableOpacity>
     );
   };
 

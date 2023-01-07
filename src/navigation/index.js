@@ -30,12 +30,12 @@ import {
   PostDetailScreen,
 } from '../screens';
 import { authSelector } from '../store/reducers/auth.reducer';
-import { Ionicons, AntDesign } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 import { homeResource } from '../resources';
 import { color } from '../core/common/styleVariables';
 import { connectSocket, getSocket } from '../core/common/commonFunction';
 import { Image, StyleSheet, View } from 'react-native';
-import { Avatar, Text } from 'react-native-paper';
+import { Text } from 'react-native-paper';
 import {
   getCountUnseenNotification,
   notificationSelector,
@@ -100,6 +100,15 @@ const MenuTabScreen = () => {
   );
 };
 
+const NotificationTabScreen = () => {
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name='NotificationScreen' component={NotificationScreen} />
+      <Stack.Screen name='PostDetailScreen' component={PostDetailScreen} />
+    </Stack.Navigator>
+  );
+};
+
 const BottomBar = () => {
   const { unseen } = useSelector(notificationSelector);
   const { user } = useSelector(authSelector);
@@ -114,8 +123,8 @@ const BottomBar = () => {
         name='HomeTabScreen'
         component={HomeTabScreen}
         options={{
-          tabBarShowLabel: false,
-          // tabBarLabel: homeResource.home,
+          // tabBarShowLabel: false,
+          tabBarLabel: homeResource.home,
           tabBarLabelStyle: { fontSize: 12 },
           tabBarActiveTintColor: color.bluePrim,
           tabBarInactiveTintColor: color.textSecond,
@@ -129,8 +138,8 @@ const BottomBar = () => {
         name='FriendTabScreen'
         component={FriendTabScreen}
         options={{
-          // tabBarLabel: homeResource.friend,
-          tabBarShowLabel: false,
+          tabBarLabel: homeResource.friend,
+          // tabBarShowLabel: false,
           tabBarLabelStyle: { fontSize: 12 },
           tabBarActiveTintColor: color.bluePrim,
           tabBarInactiveTintColor: color.textSecond,
@@ -153,11 +162,11 @@ const BottomBar = () => {
         }}
       /> */}
       <Tab.Screen
-        name='NotificationScreen'
-        component={NotificationScreen}
+        name='NotificationTabScreen'
+        component={NotificationTabScreen}
         options={{
-          // tabBarLabel: homeResource.notification,
-          tabBarShowLabel: false,
+          tabBarLabel: homeResource.notification,
+          // tabBarShowLabel: false,
           tabBarLabelStyle: { fontSize: 12 },
           tabBarActiveTintColor: color.bluePrim,
           tabBarInactiveTintColor: color.textSecond,
@@ -186,8 +195,8 @@ const BottomBar = () => {
         name='MenuTabScreen'
         component={MenuTabScreen}
         options={{
-          // tabBarLabel: homeResource.me,
-          tabBarShowLabel: false,
+          tabBarLabel: homeResource.me,
+          // tabBarShowLabel: false,
           tabBarLabelStyle: { fontSize: 12 },
           tabBarActiveTintColor: color.bluePrim,
           tabBarInactiveTintColor: color.textSecond,
