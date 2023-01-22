@@ -27,11 +27,13 @@ const SinglePostScreen = ({ navigation }) => {
 
   // Lấy độ rộng mà hình
   const [width, setWidth] = useState(0);
+  const [height, setHeight] = useState(0);
   // Socket
   const [socket, setSocket] = useState(null);
 
   useEffect(() => {
     setWidth(Dimensions.get('window').width);
+    setHeight(Dimensions.get('window').height);
   }, []);
 
   useEffect(() => {
@@ -62,7 +64,7 @@ const SinglePostScreen = ({ navigation }) => {
   };
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{ height: height }}>
       <View
         style={{
           height: 64,
@@ -165,11 +167,16 @@ const SinglePostScreen = ({ navigation }) => {
               </Text>
             )}
           </View>
-          <Text style={{ color: color.text.gray, fontSize: 16 }}>
-            {selectedPost.countComments > 0
-              ? selectedPost.countComments + postsResource.comments
-              : ''}
-          </Text>
+          <TouchableOpacity
+            activeOpacity={1}
+            onPress={() => navigation.navigate('PostCommentScreen')}
+          >
+            <Text style={{ color: color.text.gray, fontSize: 16 }}>
+              {selectedPost.countComments > 0
+                ? selectedPost.countComments + postsResource.comments
+                : ''}
+            </Text>
+          </TouchableOpacity>
         </View>
         {/* Like, Bình luận */}
         <View
@@ -210,7 +217,7 @@ const SinglePostScreen = ({ navigation }) => {
               {postsResource.like}
             </Text>
           </TouchableOpacity>
-          <View
+          <TouchableOpacity
             style={{
               flexDirection: 'row',
               alignItems: 'center',
@@ -218,6 +225,8 @@ const SinglePostScreen = ({ navigation }) => {
               justifyContent: 'center',
               paddingVertical: 8,
             }}
+            activeOpacity={1}
+            onPress={() => navigation.navigate('PostCommentScreen')}
           >
             <Ionicons
               name='ios-chatbubble-outline'
@@ -227,7 +236,7 @@ const SinglePostScreen = ({ navigation }) => {
             <Text style={{ marginLeft: 4, marginTop: 4, fontSize: 16 }}>
               {postsResource.comment}
             </Text>
-          </View>
+          </TouchableOpacity>
         </View>
         <Divider style={{ height: 2 }} />
         {selectedPost.images.map((image, i) => {

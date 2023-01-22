@@ -28,6 +28,7 @@ import {
   ChangePasswordScreen,
   PostImageDetailScreen,
   PostDetailScreen,
+  PostCommentScreen,
 } from '../screens';
 import { authSelector } from '../store/reducers/auth.reducer';
 import { Ionicons } from '@expo/vector-icons';
@@ -281,6 +282,10 @@ const RootNavigation = () => {
             component={PostImageDetailScreen}
           />
           <Stack.Screen name='EditPostScreen' component={EditPostScreen} />
+          <Stack.Screen
+            name='PostCommentScreen'
+            component={PostCommentScreen}
+          />
           <Stack.Screen name='SearchScreen' component={SearchScreen} />
           <Stack.Screen
             name='SearchResultsScreen'
