@@ -226,12 +226,17 @@ const PostImageDetailScreen = ({ navigation }) => {
                 </Text>
               )}
             </View>
-            <Text style={{ color: color.text.white, fontSize: 16 }}>
-              {selectedPost.countComments > 0
-                ? convertNumber(selectedPost.countComments) +
-                  postsResource.comments
-                : ''}
-            </Text>
+            <TouchableOpacity
+              activeOpacity={1}
+              onPress={() => navigation.navigate('PostCommentScreen')}
+            >
+              <Text style={{ color: color.text.white, fontSize: 16 }}>
+                {selectedPost.countComments > 0
+                  ? convertNumber(selectedPost.countComments) +
+                    postsResource.comments
+                  : ''}
+              </Text>
+            </TouchableOpacity>
           </View>
           {/* Like, Bình luận */}
           <View
@@ -273,7 +278,7 @@ const PostImageDetailScreen = ({ navigation }) => {
                 {postsResource.like}
               </Text>
             </TouchableOpacity>
-            <View
+            <TouchableOpacity
               style={{
                 flexDirection: 'row',
                 alignItems: 'center',
@@ -281,6 +286,8 @@ const PostImageDetailScreen = ({ navigation }) => {
                 justifyContent: 'center',
                 paddingVertical: 8,
               }}
+              activeOpacity={1}
+              onPress={() => navigation.navigate('PostCommentScreen')}
             >
               <Ionicons
                 name='ios-chatbubble-outline'
@@ -297,7 +304,7 @@ const PostImageDetailScreen = ({ navigation }) => {
               >
                 {postsResource.comment}
               </Text>
-            </View>
+            </TouchableOpacity>
           </View>
         </View>
       )}
