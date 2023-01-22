@@ -30,4 +30,5 @@ export default {
   reply1: ' phản hồi',
   seeMore: 'Xem thêm bình luận',
   writeComment: 'Viết bình luận...',
+  done: 'Xong',
 };

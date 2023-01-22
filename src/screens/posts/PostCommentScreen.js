@@ -104,7 +104,9 @@ const PostCommentScreen = ({ navigation }) => {
     <View style={{ height: scrHeigt }}>
       <BHeader
         title={postsResource.comment}
-        rightBtn={[{ text: 'Xong', onPress: () => navigation.goBack() }]}
+        rightBtn={[
+          { text: postsResource.done, onPress: () => navigation.goBack() },
+        ]}
       />
       <ScrollView
         style={{
