@@ -311,8 +311,27 @@ const PostDetailScreen = ({ navigation }) => {
           ) : null}
           {/* Load thêm bình luận */}
           {!loadingCmt && lstComment.length < selectedPost.countComments ? (
-            <TouchableOpacity activeOpacity={1} onPress={handleLoadMore}>
-              <Text style={{ fontSize: 16 }}>{postsResource.seeMore}</Text>
+            <TouchableOpacity
+              activeOpacity={1}
+              onPress={handleLoadMore}
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+              }}
+            >
+              <Text
+                style={{
+                  fontSize: 16,
+                  fontWeight: '600',
+                  color: color.text.gray,
+                }}
+              >
+                {postsResource.seeMore}
+              </Text>
+              <Text style={{ fontSize: 16, color: color.text.gray }}>
+                {lstComment.length}/{selectedPost.countComments}
+              </Text>
             </TouchableOpacity>
           ) : null}
         </View>
