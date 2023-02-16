@@ -4,12 +4,17 @@ import { Button, Text } from 'react-native-paper';
 import { convertTimeToAgo } from '../../core/common/commonFunction';
 import { color } from '../../core/common/styleVariables';
 import { friendResource } from '../../resources';
+import { setUserSelected } from '../../store/reducers/friend.reducer';
 
-const SingleRequest = ({ req, reply }) => {
+const SingleRequest = ({ req, reply, dispatch, navigation }) => {
   return (
     <TouchableOpacity
       style={{ marginTop: 16, flexDirection: 'row' }}
       activeOpacity={1}
+      onPress={() => {
+        dispatch(setUserSelected(req.sender._id));
+        navigation.navigate('PersonalPageScreen');
+      }}
     >
       <Image
         source={{ uri: req.sender.avatar.fileLink }}

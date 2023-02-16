@@ -8,3 +8,4 @@ export { default as SecurityScreen } from './SecurityScreen';
 export { default as NameSettingScreen } from './NameSettingScreen';
 export { default as NamePreviewScreen } from './NamePreviewScreen';
 export { default as ChangePasswordScreen } from './ChangePasswordScreen';
+export { default as PersonalPageScreen } from './PersonalPageScreen';
