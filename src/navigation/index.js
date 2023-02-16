@@ -29,6 +29,7 @@ import {
   PostImageDetailScreen,
   PostDetailScreen,
   PostCommentScreen,
+  PersonalPageScreen,
 } from '../screens';
 import { authSelector } from '../store/reducers/auth.reducer';
 import { Ionicons } from '@expo/vector-icons';
@@ -73,6 +74,8 @@ const FriendTabScreen = () => {
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name='FriendScreen' component={FriendScreen} />
       <Stack.Screen name='ListFriendScreen' component={ListFriendScreen} />
+      <Stack.Screen name='PersonalPageScreen' component={PersonalPageScreen} />
+      <Stack.Screen name='PostDetailScreen' component={PostDetailScreen} />
     </Stack.Navigator>
   );
 };
@@ -85,6 +88,7 @@ const MenuTabScreen = () => {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name='MenuScreen' component={MenuScreen} />
+      <Stack.Screen name='PersonalPageScreen' component={PersonalPageScreen} />
       <Stack.Screen name='PolicyScreen' component={PolicyScreen} />
       <Stack.Screen name='DetailPolicyScreen' component={DetailPolicyScreen} />
       <Stack.Screen name='SettingScreen' component={SettingScreen} />
@@ -97,6 +101,7 @@ const MenuTabScreen = () => {
         name='ChangePasswordScreen'
         component={ChangePasswordScreen}
       />
+      <Stack.Screen name='PostDetailScreen' component={PostDetailScreen} />
     </Stack.Navigator>
   );
 };

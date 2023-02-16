@@ -56,4 +56,5 @@ export default {
   savePass: 'Lưu mật khẩu',
   eNotPassword: 'Bạn chưa nhập mật khẩu.',
   ePasswordNotMatch: 'Xác nhận mật khẩu không trùng khớp.',
+  editPersonalPage: 'Chỉnh sửa trang cá nhân',
 };

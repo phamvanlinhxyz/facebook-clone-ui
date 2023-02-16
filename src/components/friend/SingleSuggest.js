@@ -3,12 +3,17 @@ import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Button, Text } from 'react-native-paper';
 import { color } from '../../core/common/styleVariables';
 import { friendResource } from '../../resources';
+import { setUserSelected } from '../../store/reducers/friend.reducer';
 
-const SingleSuggest = ({ suggest, action }) => {
+const SingleSuggest = ({ suggest, action, dispatch, navigation }) => {
   return (
     <TouchableOpacity
       style={{ marginTop: 16, flexDirection: 'row' }}
       activeOpacity={1}
+      onPress={() => {
+        dispatch(setUserSelected(suggest._id));
+        navigation.navigate('PersonalPageScreen');
+      }}
     >
       <Image
         source={{ uri: suggest.avatar.fileLink }}

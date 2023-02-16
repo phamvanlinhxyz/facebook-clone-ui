@@ -166,7 +166,13 @@ const FriendScreen = ({ navigation }) => {
             </View>
             {lstRequest.slice(0, 10).map((req, i) => {
               return (
-                <SingleRequest req={req} reply={handleReplyRequest} key={i} />
+                <SingleRequest
+                  req={req}
+                  reply={handleReplyRequest}
+                  key={i}
+                  dispatch={dispatch}
+                  navigation={navigation}
+                />
               );
             })}
             {totalRequests > constant.LOAD_LIMIT && (
@@ -208,6 +214,8 @@ const FriendScreen = ({ navigation }) => {
                 <SingleSuggest
                   suggest={suggest}
                   action={{ handleSendRequest }}
+                  dispatch={dispatch}
+                  navigation={navigation}
                   key={i}
                 />
               );

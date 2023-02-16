@@ -101,8 +101,17 @@ const friendSlice = createSlice({
     totalFriends: 0,
     loadingFriend: true,
     listBlock: [],
+    userSelected: null,
   },
   reducers: {
+    /**
+     * Xét user đang chọn
+     * @param {} state
+     * @param {*} action
+     */
+    setUserSelected(state, action) {
+      state.userSelected = action.payload;
+    },
     /**
      * Xét trạng thái load bạn bè
      * @param {*} state
@@ -217,6 +226,7 @@ export const {
   pushNewRequest,
   setLoadingFriend,
   clearFriend,
+  setUserSelected,
 } = friendSlice.actions;
 
 // Reducer

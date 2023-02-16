@@ -15,8 +15,9 @@ import {
   friendSelector,
   getListFriend,
   getListFriendBySearch,
+  setUserSelected,
 } from '../../store/reducers/friend.reducer';
-import { Entypo, MaterialIcons } from '@expo/vector-icons';
+import { Entypo } from '@expo/vector-icons';
 import { BSkeleton } from '../../components';
 
 const ListFriendScreen = ({ navigation }) => {
@@ -80,6 +81,10 @@ const ListFriendScreen = ({ navigation }) => {
           paddingHorizontal: 16,
         }}
         activeOpacity={1}
+        onPress={() => {
+          dispatch(setUserSelected(friend._id));
+          navigation.navigate('PersonalPageScreen');
+        }}
       >
         <Image
           source={{ uri: friend.avatar.fileLink }}

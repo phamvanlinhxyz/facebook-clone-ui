@@ -7,7 +7,10 @@ import menuResource from '../../resources/menuResource';
 import { authSelector, logout } from '../../store/reducers/auth.reducer';
 import { AntDesign, Ionicons, MaterialIcons } from '@expo/vector-icons';
 import { clearPost } from '../../store/reducers/posts.reducer';
-import { clearFriend } from '../../store/reducers/friend.reducer';
+import {
+  clearFriend,
+  setUserSelected,
+} from '../../store/reducers/friend.reducer';
 import { clearNotification } from '../../store/reducers/notification.reducer';
 import { clearSearch } from '../../store/reducers/search.reducer';
 
@@ -56,6 +59,10 @@ const MenuScreen = ({ navigation }) => {
           style={{
             ...styles.touchable,
             marginHorizontal: 16,
+          }}
+          onPress={() => {
+            dispatch(setUserSelected(user._id));
+            navigation.navigate('PersonalPageScreen');
           }}
         >
           <Image
